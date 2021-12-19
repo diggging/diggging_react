@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "svg": "svgr -d public/static/images public/static/images/svg",
-    "deploy": "next build && next export",
+    "deploy": "next build && next export"
   },
   "dependencies": {
     "@svgr/cli": "^6.1.0",
