@@ -187,7 +187,6 @@ export const login = (username, password) => async (dispatch) => {
       },
       body: body,
     })
-    console.log(`res.status ${res.status}`)
 
     if (res.status == 200) {
       dispatch({
@@ -285,7 +284,6 @@ export const reset_password_confirm = (username, temp, new_password, password_co
       body: body,
     });
     
-    console.log(apiRes, 'apiRes')
     if (apiRes.ok || apiRes.status === 200) {
       dispatch({
         type: PASSWORD_RESET_CONFIRM_SUCCESS

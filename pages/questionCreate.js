@@ -27,11 +27,7 @@ function questionCreate() {
     if (user) {
       const userData = user.user;
       const { email, user_nickname, username } = userData;
-      console.log(user.user);
-      console.log(response, "response");
-    } else {
-      console.log("유저없엉");
-    }
+    } 
   };
 
   const getAccessToken = async () => {

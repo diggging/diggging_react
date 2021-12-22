@@ -6,13 +6,11 @@ export default async (req, res) => {
   //요청이 get인 경우 cookie value를 parse한다
   if (req.method === 'GET') {
     //undefined나 null일땐 ''빈문자열로 할당 
-    // console.log(JSON.parse(`${req.headers.cookie} headers.cookie`))
     const cookies = cookie.parse(req.headers.cookie ?? '');
     //header에 cookie가 있을 땐 해당 쿠키를 parse하고 access, refresh token을 갖게됨
     //header에 cookie가 없을 땐 {}빈 object가 반환됨
     const access = cookies.access ?? false; //cookie가 빈 문자열일 땐 => undefined되어서 access가 false가 됨
-    // console.log(JSON.parse(`${req.headers} req.headers입니다`))
-    // console.log(JSON.parse(`${access} access입니다`))
+  
 
     //access가 false일 때 = cookie가 없을 때 unauthorized user 에러를 보내주자
     if (access === false) {

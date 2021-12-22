@@ -33,7 +33,6 @@ export default async (req, res) => {
         });
       }
     } catch (err) {
-      // console.log(err.response.request._response);
       return res.status(500).json({
         error: '회원가입 도중 문제가 발생했습니다.',
       });

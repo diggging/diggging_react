@@ -24,7 +24,6 @@ function ProfileInfoBox ({userData, token}) {
     }
   }, [])
 
-  console.log(userData, 'userData')
   
   const profileImgInput = useRef();
   const [updatedImg, setUpdatedImg] = useState(user_profile_image) //업로드 파일 이미지url
@@ -49,8 +48,6 @@ function ProfileInfoBox ({userData, token}) {
       reader.readAsDataURL(e.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다.
       setImgFile(e.target.files[0]); // 파일 상태 업데이트
     }
-    console.log(imgFile, 'change함수 안 imgFile');
-    console.log(updatedImg, 'change함수 안 updatedImg');
 
     const imgToAddedUrl = URL.createObjectURL(e.target.files[0]);
     setUpdatedImg(imgToAddedUrl);
@@ -59,8 +56,6 @@ function ProfileInfoBox ({userData, token}) {
   const updateProfileImg = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log(imgFile, '함수 안 imgFile');
-    console.log(updatedImg, '함수 안 updatedImg');
     formData.append('user_profile_image', imgFile);
     try {
       await axios.patch(`${API_URL}/users/${id}/change_img/`, formData, {

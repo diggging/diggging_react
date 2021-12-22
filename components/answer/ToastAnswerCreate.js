@@ -13,7 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {API_URL} from '../../config/index';
-
+import { Alert } from "../Alert";
+import { alertService } from "../alert.service";
+import WhiteButton from "../common/WhiteButton";
 function ToastAnswerCreate({title, token, id}) {
     const router = useRouter();
     const dispatch = useDispatch();
@@ -38,40 +40,46 @@ function ToastAnswerCreate({title, token, id}) {
             desc: content,
           })
           .then((response) => {
-            console.log(response);
-            router.push(`/questions/${id}`);
+            dispatch(setDesc(""));
+            alertService.success("답변이 업로드 되었습니다.");
+            setTimeout(() => {
+              router.push(`/questions/${id}`);
+            }, 1500)
           })
           .catch((error) => {
-            console.log(error);
+            if(errorr.response === 400) {
+              alertService.warn("빈 칸 없이 모두 작성해주세요.");
+            }
           });
       } catch (e) {
-        console.log(e);
+        alertService.warn("업로드에 실패했습니다.");
       }
     };
     
 
     return (
       <>
+        <Alert/>
         <Editor
-          initialValue={currentContent}
+          initialValue={content}
           previewStyle="vertical"
           height="702px"
           initialEditType="wysiwyg"
           placeholder="내용을 입력해주세요."
-          plugins={[[codeSyntaxHighlight, { highlighter: Prism }], [colorSyntax]]}
+          // plugins={[[codeSyntaxHighlight, { highlighter: Prism }], [colorSyntax]]}
           autofocus={false}
           ref={editorRef}
           onChange={() => onChange()}
           events={{
             focus: () => {
-              console.log('⭐ focus');
+              
             },
           }}
         />
         <BtnContainer>
-          <Btn onClick={handleAnswerCreate}>작성하기</Btn>
+          <WhiteButton onClick={handleAnswerCreate} paddingTop="0.75rem" paddingRight="2.375rem" fontSize="1rem">작성하기</WhiteButton>
           <Link href="/" passHref>
-            <Btn>나가기</Btn>
+            <WhiteButton paddingTop="0.75rem" paddingRight="2.375rem" fontSize="1rem">나가기</WhiteButton>
           </Link>
         </BtnContainer>
       </>
@@ -86,15 +94,4 @@ const BtnContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-top: 1.5rem;
-`;
-
-const Btn = styled.button`
-  width: 8.75rem;
-  height: 3rem;
-  background-color: #f5f5f7;
-  /* border: 3px solid #FFFFFF; */
-  /* border: none; */
-  box-sizing: border-box;
-  border-radius: 1.5625rem;
-  cursor: pointer;
 `;

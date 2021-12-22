@@ -41,8 +41,6 @@ function SearchInput({setSearchData, setNoData, searchData, setLoading}) {
             setNoData(false);
           }
           return {searchData};
-        } else {
-          console.log(apiRes)
         }
       } catch (err) {
         return {err}

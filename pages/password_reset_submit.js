@@ -33,19 +33,16 @@ function ResetPassword() {
       ...inputs,
       [name]: value,
     })
-    console.log(new_password, password_confirm, username, temp, 'new_password password_confirm, username, temp')
   }
   
   const {new_password, password_confirm, username, temp} = inputs;
   
   const onUpdatePassword = (e) => {
     e.preventDefault();
-    console.log('clicked');
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(reset_password_confirm(username, temp, new_password, password_confirm))
       .then((res) => {
-        console.log(res)
         if (res.status === 200) {
           alertService.warn('비밀번호가 성공적으로 변경되었습니다🔑.')
           setTimeout(() => {

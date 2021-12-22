@@ -107,7 +107,7 @@ function loginPage() {
           })
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => alertService.warn(err))
     }
   }
   

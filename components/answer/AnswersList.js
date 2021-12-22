@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -10,14 +10,16 @@ import Selected from "./Selected";
 import { API_URL } from "../../config";
 import AnswerComment from "../comment/answerComment/AnswerComment";
 import Image from "next/image";
+import Loader from 'react-loader-spinner';
 import WhiteButton from "../common/WhiteButton";
 
-function AnswersList({ answer, user, token, questionId, questionUserId }) {
+function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
+  const ref = useRef();
   const [answerToken, setAnswerToken] = useState(token);
   const [isSelected, setIsSelected] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [commentIsOpen, setCommentIsOpen] = useState(true);
-
+  const [loaderHeight, setLoaderHeight] = useState(null);
   const router = useRouter();
 
   const { created } = answer;
@@ -39,10 +41,13 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
       await axios
         .delete(`${API_URL}/questions/${id}/answer_delete/`)
         .then((response) => {
-          router.reload(`/questions/${questionId}`);
+          alertService.success("답변이 삭제 되었습니다.");
+          setTimeout(() => {
+            router.reload(`/questions/${questionId}`);
+          }, 1000)
         });
     } catch (e) {
-      console.log(e);
+      alertService.warn("답변이 삭제되지 않았습니다");
     }
   };
 
@@ -52,8 +57,12 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
 
   const Viewer = dynamic(() => import("../../components/answer/AnswerView"), {
     ssr: false,
+    loading: () => <Loader type="Oval" color="#FFE59C" width={100} height={loaderHeight}/>
   });
-
+  
+  useEffect(() => {
+    setLoaderHeight(ref.current.clientHeight);
+  }, [])
 
   return (
     <>
@@ -70,7 +79,9 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
             ) : (
               <>
                 <Selection>
-                  채택 완료
+                  <SelectionText>
+                    채택 완료
+                  </SelectionText>
                   <SelectedAnswer />
                 </Selection>
               </>
@@ -96,16 +107,17 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
             )}
           </SecondContainer>
 
-          <DescContainer>
+          <DescContainer ref={ref}>
             <Viewer desc={answer.desc} />
           </DescContainer>
 
           <FlexContainer>
-            {questionUserId === user?.user?.id && answer.selection === false ? (
+            {questionUserId === user?.user?.id && AnswerisSelected === false ? (
               <>
-                {isOpen === true ? (
+                {isOpen === true && answer.selection === false ? (
                   <>
                     <Selected
+                      isOpen={isOpen}
                       setIsOpen={setIsOpen}
                       id={answer.id}
                       token={token}
@@ -113,8 +125,8 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
                     />
                   </>
                 ) : null}
-                <WhiteButton onClick={() => onOpen()}>채택하기</WhiteButton>
-                <WhiteButton onClick={() => handleCommentOpen()}>
+                <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem" onClick={() => onOpen()}>채택하기</WhiteButton>
+                <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem"  onClick={() => handleCommentOpen()}>
                   {commentIsOpen === true ? (
                     <>댓글 접기</>
                   ) : (
@@ -124,7 +136,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
               </>
             ) : (
               <>
-                <WhiteButton onClick={() => handleCommentOpen()}>
+                <WhiteButton paddingTop="10px" paddingRight="18px" fontSize="13px" onClick={() => handleCommentOpen()}>
                   {commentIsOpen === true ? (
                     <>댓글 접기</>
                   ) : (
@@ -138,7 +150,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
           <ProfileContainer>
             <ProfileImg>
               <Image
-                src={`http://3.37.206.59:8000${answer.user.user_profile_image}`}
+                src={`http://localhost:8000${answer.user.user_profile_image}`}
                 width={50}
                 height={50}
                 alt="profileImage"
@@ -148,14 +160,14 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
               />
             </ProfileImg>
             <ProfileInfoContainer>
-              {answer.user?.user_nickname ? (
+              {answer?.user?.user_nickname ? (
                 <>
                   <ProfileName>{answer.user.user_nickname}</ProfileName>
                   <ProfileLevel>LV.{answer.user.user_level}</ProfileLevel>
                 </>
               ) : null}
             </ProfileInfoContainer>
-            {answer.user?.user_profile_content ? (
+            {answer?.user?.user_profile_content ? (
               <>
                 <ProfileContent>
                   {answer.user.user_profile_content.slice(0, 250)}
@@ -189,7 +201,6 @@ const MainContainer = styled.div`
 const Container = styled.div`
   width: 64rem;
   display: flex;
-  height: 100%;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -220,12 +231,20 @@ const Title = styled.div`
 `;
 
 const Selection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Pretendard-Regular';
   font-size: 13px;
   line-height: 19px;
   text-align: center;
   color: #5f5f5f;
 `;
+
+const SelectionText = styled.div`
+  margin-right: 1rem;
+`;
+
 
 const SecondContainer = styled.div`
   width: 58.375rem;
@@ -278,6 +297,7 @@ const DescContainer = styled.div`
 const FlexContainer = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -347,7 +367,7 @@ const ProfileLevel = styled.div`
 const ProfileContent = styled.div`
   width: 672px;
   height: 38px;
-  ffont-family: 'Pretendard-Regular';
+  font-family: 'Pretendard-Regular';
   font-size: 13px;
   line-height: 19px;
   color: #8d8c85;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { check_auth_status, load_user } from "../../redux/actions/auth";
 import styled from "styled-components";
@@ -21,9 +21,12 @@ import { lighten, darken } from 'polished';
 import WhiteButton from "../../components/common/WhiteButton";
 
 const Question = () => {
+  const ref = useRef();
+
   const [item, setItem] = useState([]);
   const [token, setToken] = useState("");
   const [commentIsOpen, setCommentIsOpen] = useState(true);
+  const [loaderHeight, setLoaderHeight] = useState(0);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -63,11 +66,13 @@ const Question = () => {
       await axios
         .delete(`${API_URL}/questions/${id}/delete/`)
         .then((response) => {
-          console.log(response);
-          router.push(`/`);
+          alertService.success("질문이 삭제 되었습니다.");
+          setTimeout(() => {
+            router.push(`/`);
+          }, 1000)
         });
     } catch (e) {
-      console.log(e);
+      alertService.warn("질문이 삭제 되지않았습니다.");
     }
   };
 
@@ -87,7 +92,7 @@ const Question = () => {
     () => import("../../components/questions/QuestionView"),
     {
       ssr: false,
-      loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100}/>
+      loading: () => <Loader type="Oval" color="#FFE59C" width={100} height={100}/>
     }
   );
 
@@ -99,12 +104,11 @@ const Question = () => {
     }
   }, [id]);
 
-  //token 확인(refresh, verify)
-  // useEffect(() => {
-  //   if (dispatch && dispatch !== null && dispatch !== undefined)
-  //     dispatch(check_auth_status());
-  //     dispatch(load_user());
-  // }, [dispatch]);
+  useEffect(() => {
+    if(ref.current) {
+      setLoaderHeight(ref.current.offsetHeight);
+    }
+  }, [])
 
   const handleLinkAlarm = () => {
     alertService.warn('링크가 복사되었습니다.')
@@ -144,7 +148,7 @@ const Question = () => {
                   시 {createdMinutes}분
                 </Data>
 
-                <DescContainer>
+                <DescContainer ref={ref}>
                   <Viewer desc={item.desc} />
                 </DescContainer>
 
@@ -214,6 +218,7 @@ const Question = () => {
                   user={user}
                   token={token}
                   questionUserId={item.user.id}
+                  AnswerisSelected={item.is_selected}
                 />
               </AnswerContainer>
             </MainContainer>
@@ -384,9 +389,7 @@ const ProfileInfoContainer = styled.div`
 `;
 
 const ProfileName = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 16px;
   line-height: 23px;
   color: #343434;
@@ -404,9 +407,7 @@ const ProfileLevel = styled.div`
 const ProfileContent = styled.div`
   width: 672px;
   height: 38px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
+  font-family: "Pretendard-Regular";
   font-size: 13px;
   line-height: 19px;
   color: #8d8c85;

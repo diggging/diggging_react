@@ -6,6 +6,7 @@ import { check_auth_status } from "../../../redux/actions/auth";
 import TextareaAutosize from "react-autosize-textarea";
 import { API_URL } from "../../../config";
 import Image from "next/image";
+import YellowButton from "../../common/YellowButton";
 
 function AnswerSingleComment({
   data,
@@ -50,11 +51,12 @@ function AnswerSingleComment({
       await axios
         .delete(`${API_URL}/comments/${id}/comment_delete/`)
         .then((response) => {
+          alertService.success("댓글이 삭제되었습니다.");
           setComment(comment.filter((comment) => comment.id !== data.id));
           setCommentNum(commentNum - 1);
         });
     } catch (e) {
-      console.log(e);
+      alertService.warn("댓글이 삭제되지 않았습니다.");
     }
   };
 
@@ -77,6 +79,12 @@ function AnswerSingleComment({
       });
     } catch (e) {
       console.log(e);
+    }
+  }
+  
+  const onClickIsAuth = () => {
+    if (!token) {
+      alertService.warn("로그인 후 이용해주세요.")
     }
   }
 
@@ -109,8 +117,8 @@ function AnswerSingleComment({
                 {isUpdated ? (
                   <>
                     <CommentUpdateContainer>
-                      <CommentInput name="text" value={text} onChange={onChange}/>
-                      <CommentSendBtn type="button" onClick={() => upDataAnswerComment(data.id)}>댓글 남기기</CommentSendBtn>
+                      <CommentInput name="text" value={text} onChange={onChange} onClick={onClickIsAuth}/>
+                      <YellowButton paddingTop="0.6rem" paddingRight="1.5rem" type="button" onClick={() => upDataAnswerComment(data.id)}>댓글 남기기</YellowButton>
                     </CommentUpdateContainer>
                   </>
                 ) : (
@@ -290,4 +298,3 @@ const CommentSendBtn = styled.button`
   line-height: 19px;
   color: #343434;
 `;
-

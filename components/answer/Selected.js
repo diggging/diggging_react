@@ -16,10 +16,11 @@ function Selected({setIsOpen, id, token, questionId}) {
         .put(`${API_URL}/questions/${id}/select_answer/`)
         .then((response) => {
           setIsOpen(false);
-          router.reload(`/questions/${questionId}`);
+          alertService.warn('채택되었습니다')
+          setTimeout(() => { router.reload(`/questions/${questionId}`); }, 1000)
         });
     } catch (e) {
-      console.log(e);
+      alertService.warn(e)
     }
   };
 

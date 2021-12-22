@@ -8,7 +8,6 @@ export default async (req, res) => {
     const refresh = cookies.refresh ?? false; //cookie에있는 refresh token을 가져와서 새 토큰을 발급한다.
     //cookie가 없을 때 false.
     if (refresh === false) {
-      console.log('쿠키가없다')
       return res.status(401).json({
         error: 'User unauthorized to make this request'
       });

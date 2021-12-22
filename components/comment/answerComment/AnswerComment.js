@@ -4,6 +4,9 @@ import AnswerCommentList from "./AnswerCommentList";
 import axios from "axios";
 import TextareaAutosize from "react-autosize-textarea";
 import { API_URL } from "../../../config";
+import { alertService } from "../../alert.service";
+import YellowButton from "../../common/YellowButton";
+import { Alert } from "../../Alert";
 
 function AnswerComment({ commentCount, comments, id, token }) {
   const [text, setText] = useState("");
@@ -17,6 +20,9 @@ function AnswerComment({ commentCount, comments, id, token }) {
     [text]
   );
 
+    
+
+
   const CreateAnswerComment = async () => {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -29,23 +35,36 @@ function AnswerComment({ commentCount, comments, id, token }) {
           setNewComment(response.data);
           setText("");
           setCommentNum(commentNum + 1);
+        }).catch((e) => {
+          if(e.response.status === 400) {
+            alertService.warn("댓글을 작성해주세요");      
+          } else if(e.response.status === 401) {
+            alertService.success("로그인 후 이용해주세요.");
+          }
         });
     } catch (e) {
-      console.log(e);
+      alertService.warn("로그인 후 이용해주세요.");
     }
   };
+
+  const onClickIsAuth = () => {
+    if (!token) {
+      alertService.warn("로그인 후 이용해주세요.")
+    }
+  }
 
   return (
     <FormContainer>
       <CommentContainer>
         <CommentInput
+          onClick={onClickIsAuth}
           placeholder="댓글을 입력하세요"
           value={text}
           onChange={onChange}
         />
-        <CommentSendBtn onClick={CreateAnswerComment} type="button">
+        <YellowButton fontSize="0.8125rem" paddingTop="0.6rem" paddingRight="1.5rem" onClick={CreateAnswerComment} type="button">
           댓글 남기기
-        </CommentSendBtn>
+        </YellowButton>
       </CommentContainer>
       <CommentCount>댓글 {commentNum}개</CommentCount>
       <AnswerCommentList
@@ -67,7 +86,7 @@ const FormContainer = styled.form`
 
 const CommentContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
   margin-bottom: 44px;
 `;
@@ -89,17 +108,6 @@ const CommentInput = styled(TextareaAutosize)`
   }
 `;
 
-const CommentSendBtn = styled.button`
-  width: 114px;
-  height: 38px;
-  background: #ffd358;
-  box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  border-radius: 20px;
-  font-family: 'Pretendard-Bold';
-  font-size: 13px;
-  line-height: 19px;
-  color: #343434;
-`;
 
 const CommentCount = styled.div`
   width: 100%;

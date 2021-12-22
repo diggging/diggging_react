@@ -15,7 +15,6 @@ import Alarm from "../public/static/images/Alarm"
 import { logout } from "../redux/actions/auth";
 
 
-//근데 왜 무한루프?
 function AuthMenu({userData, isAuthenticated}) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -61,7 +60,6 @@ function AuthMenu({userData, isAuthenticated}) {
   //     console.log(err)
   //   }
   // }
-  console.log(userData);
   return (
     <>
       {userData?.user.id && (<>
@@ -80,7 +78,7 @@ function AuthMenu({userData, isAuthenticated}) {
         <ToggleContainer >
           <UserImgWrapper>
             <Image 
-              src={imgBase64}
+              src={`http://3.37.206.59:8000/${imgBase64}`}
               width={40} 
               height={40} 
               alt="profileImage" 
@@ -96,11 +94,6 @@ function AuthMenu({userData, isAuthenticated}) {
           <DropList> 
             <DropListItem><Link href="/questionCreate">새 글 작성</Link></DropListItem>
             <DropListItem><Link 
-              // href={{
-              //   pathname: `/accountSetting`,
-              //   query: {user: JSON.stringify(user)},
-              // }}
-              // as={`/accountSetting`}
               href="/accountSetting"
               >계정설정</Link>
             </DropListItem>

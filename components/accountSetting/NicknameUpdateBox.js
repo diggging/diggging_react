@@ -29,7 +29,6 @@ function NicknameUpdateBox({userData, token}) {
   }
 
   const onUpdateNickname = async (e) => {
-    console.log(nickname)
     e.preventDefault();
       await axios.patch(`${API_URL}/users/${id}/change_nickname/`, {
         user_nickname: nickname,

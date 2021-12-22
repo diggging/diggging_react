@@ -15,8 +15,7 @@ function mypage() {
   // const [cookies, setCookie, removeCookie] = useCookies('access');
   const refresh = cookie.parse('refresh');
   const access = cookie.parse('access');
-  console.log(refresh)
-  console.log(access)
+
   if (typeof window !== 'undefined' && !loading && !isAuthenticated) {
     router.push('/login');
   }

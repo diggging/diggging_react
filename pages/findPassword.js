@@ -34,7 +34,6 @@ function findPassword() {
     e.preventDefault();
     dispatch(reset_password(email, username))
     .then((res) => {
-      console.log(res)
       if (res.status === 200) {
         alertService.warn('이메일이 전송되었습니다📧');
         setTimeout(() => {
