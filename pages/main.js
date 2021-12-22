@@ -93,7 +93,7 @@ function main({ children }) {
               setOpen(!open);
             }}
           > {smallCriteria === "all" ? <>답변 전체</> : (smallCriteria === "wait_answer" ? <>답변 대기 중</> : (smallCriteria === "answer_done" ? <>답변 완료</> : null))}
-            <SvgToggleBtn />
+            <ToggleBtn />
            </ToggleContainer>
           {open ? (
             <DropBox>
@@ -316,5 +316,12 @@ const DropListItem = styled.li`
 
   &:hover {
     color: #FFBA42;
+  }
+`;
+
+const ToggleBtn = styled(SvgToggleBtn)`
+  margin-left: 0.5rem;
+  &path {
+    fill: #343434;
   }
 `;
