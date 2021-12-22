@@ -40,7 +40,7 @@ function main({ children }) {
       <NavBar />
       <BannerBackground>
         <Image
-          src="/../public/static/images/main_banner_back.png"
+          src="/static/images/main_banner_back.png"
           quality={100}
           layout="fill"
           objectFit="cover"
