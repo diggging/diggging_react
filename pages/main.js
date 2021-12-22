@@ -263,29 +263,34 @@ const QuestionsContainer = styled.div`
   width: 100%;
   /* height: 100vh; */
 `;
-
 const ToggleContainer = styled.button`
-  font-size: 1rem;
-  font-family: 'Pretendard-Bold';
-  color: #343434;
   background: white;
   width: 8.25rem;
   height: 2.5rem;
-  border-radius: 4px;
+  border-radius: 0.625rem;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-weight: 600;
   color: rgb(73, 80, 87);
+  font-size: 0.875rem;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px;
+  transition: 300ms;
+  font-family: 'Pretendard-Bold';
+  color: #343434;
+  font-size: 1rem;
+  transition: 300ms;
   cursor: pointer;
-      <ImageContainer>
-        <Image src="/../public/static/images/a.png" width={1440} height={511} />
-      </ImageContainer>
 
   & svg {
     margin-left: 10px;
+  }
+  & path {
+    fill: #343434;
   }
 `;
 
@@ -319,12 +324,5 @@ const DropListItem = styled.li`
   &:hover {
     color: #343434;
     font-family: "Pretendard-Medium";
-  }
-`;
-
-const ToggleBtn = styled(SvgToggleBtn)`
-  margin-left: 0.5rem;
-  &path {
-    fill: #343434;
   }
 `;
