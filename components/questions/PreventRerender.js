@@ -10,6 +10,7 @@ import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
 import { useRouter } from "next/router";
 import { setQuestion, setMine } from "../../modules/questions";
 import recent from "../../pages/recent";
+import SvgToggleBtn from "../../public/static/images/ToggleBtn";
 
 function Prevent({ children }) {
   const [open, setOpen] = useState(false);
@@ -85,6 +86,7 @@ function Prevent({ children }) {
             }}
           >
             {smallCriteria === "all" ? <>답변 전체</> : (smallCriteria === "wait_answer" ? <>답변 대기 중</> : (smallCriteria === "answer_done" ? <>답변 완료</> : null))}
+          <ToggleBtn />
           </ToggleContainer>
           {open ? (
             <DropBox>
@@ -312,5 +314,12 @@ const DropListItem = styled.li`
   &:hover {
     color: #343434;
     font-family: "Pretendard-Medium";
+  }
+`;
+
+const ToggleBtn = styled(SvgToggleBtn)`
+  margin-left: 0.5rem;
+  &path {
+    fill: #343434;
   }
 `;
