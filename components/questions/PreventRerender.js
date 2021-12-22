@@ -13,10 +13,23 @@ import recent from "../../pages/recent";
 import SvgToggleBtn from "../../public/static/images/ToggleBtn";
 
 function Prevent({ children }) {
+  const ref = useRef();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const {data, count, page, bigCriteria, smallCriteria, loading, error, mineToken} = useSelector((state) => state.questions);
+  const {
+    data,
+    count,
+    page,
+    bigCriteria,
+    smallCriteria,
+    loading,
+    error,
+    mineToken,
+  } = useSelector((state) => state.questions);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [isRcent, setIsRcent] = useState(false);
+  const [isPopular, setIsPopular] = useState(false);
+  const [isMine, setIsMine] = useState(false);
 
   const ToggleDispatch = (bigCriteria, smallCriteria) => {
     if (bigCriteria !== undefined) {
