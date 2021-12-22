@@ -28,12 +28,50 @@ function Prevent({ children }) {
     }
   };
 
-  return (
+  const styleHandle = () => {
+    if (bigCriteria === "recent") {
+      setIsRcent(true);
+      setIsPopular(false);
+      setIsMine(false);
+    } else if (bigCriteria === "popular") {
+      setIsRcent(false);
+      setIsPopular(true);
+      setIsMine(false);
+    } else {
+      setIsRcent(false);
+      setIsPopular(false);
+      setIsMine(true);
+    }
+  };
+
+  const style = {
+    color: "#343434",
+    fontFamily: "Pretendard-Bold",
+    borderTop: "4px solid #ffd358"
+  };
+
+  useEffect(() => {
+    styleHandle();
+  }, [bigCriteria]);
+
+  useEffect(() => {
+    const checkClickOutSide = (e) => {
+      if(open && ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("click", checkClickOutSide)
+    return () => {
+      document.addEventListener("click", checkClickOutSide)
+    }
+  },[open])
+  console.log(open, smallCriteria)
+ return (
     <Layout>
       <NavBar />
       <BannerBackground>
         <Image
-          src="/static/images/main_banner_back.png"
+          src="/../public/static/images/main_banner_back.png"
           quality={100}
           layout="fill"
           objectFit="cover"
@@ -60,33 +98,90 @@ function Prevent({ children }) {
         <TabItemContainer>
           {isAuthenticated ? (
             <TabContainer>
-              <Link href="/recent">
-                <Tab>최신 질문 순</Tab>
-              </Link>
-              <Link href="/popular">
-                <Tab>인기 순</Tab>
-              </Link>
-              <Link href="/mine">
-                <Tab>내가 남긴 질문</Tab>
-              </Link>
+              {isRcent ? (
+                <>
+                  <Link href="/recent">
+                    <Tab style={style}>최신 질문 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/recent">
+                    <Tab>최신 질문 순</Tab>
+                  </Link>
+                </>
+              )}
+              {isPopular ? (
+                <>
+                  <Link href="/popular">
+                    <Tab style={style}>인기 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/popular">
+                    <Tab>인기 순</Tab>
+                  </Link>
+                </>
+              )}
+              {isMine ? (
+                <>
+                  <Link href="/mine">
+                    <Tab style={style}>내가 남긴 질문</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/mine">
+                    <Tab>내가 남긴 질문</Tab>
+                  </Link>
+                </>
+              )}
             </TabContainer>
           ) : (
             <TabContainer>
-              <Link href="/recent">
-                <Tab>최신 질문 순</Tab>
-              </Link>
-              <Link href="/popular">
-                <Tab>인기 순</Tab>
-              </Link>
+              {isRcent ? (
+                <>
+                  <Link href="/recent">
+                    <Tab style={style}>최신 질문 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/recent">
+                    <Tab>최신 질문 순</Tab>
+                  </Link>
+                </>
+              )}
+              {isPopular ? (
+                <>
+                  <Link href="/popular">
+                    <Tab style={style}>인기 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/popular">
+                    <Tab>인기 순</Tab>
+                  </Link>
+                </>
+              )}
             </TabContainer>
           )}
           <ToggleContainer
             onClick={() => {
               setOpen(!open);
             }}
+            ref={ref}
           >
-            {smallCriteria === "all" ? <>답변 전체</> : (smallCriteria === "wait_answer" ? <>답변 대기 중</> : (smallCriteria === "answer_done" ? <>답변 완료</> : null))}
-          <SvgToggleBtn />
+            {smallCriteria === "all" ? (
+              <>답변 전체</>
+            ) : smallCriteria === "wait_answer" ? (
+              <>답변 대기 중</>
+            ) : smallCriteria === "answer_done" ? (
+              <>답변 완료</>
+            ) : null}
+            <ToggleBtn />
           </ToggleContainer>
           {open ? (
             <DropBox>
@@ -111,7 +206,7 @@ function Prevent({ children }) {
           ) : null}
         </TabItemContainer>
         <QuestionsContainer>
-            <>{children}</>
+          <>{children}</>
         </QuestionsContainer>
       </Container>
     </Layout>
