@@ -304,12 +304,15 @@ const DropList = styled.ul`
   list-style: none;
   line-height: 2rem;
   font-family: "Pretendard-Regular";
+  font-size: 0.875rem;
 `;
 
 const DropListItem = styled.li`
   color: #b6b6b6;
   padding: 5px 10px;
   cursor: pointer;
+  font-size: 0.9375rem;
+  transition: 200ms;
 
   &:hover {
     color: #343434;
