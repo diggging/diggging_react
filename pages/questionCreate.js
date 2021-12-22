@@ -4,6 +4,7 @@ import { check_auth_status, load_user } from "../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import Loader from 'react-loader-spinner';
+import Layout from "../hocs/Layout";
 
 function questionCreate() {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ function questionCreate() {
   }, []);
 
   return (
+    <Layout>
     <div>
       <MainContainer>
         <Container>
@@ -89,6 +91,7 @@ function questionCreate() {
         </Container>
       </MainContainer>
     </div>
+  </Layout>
   );
 }
 
