@@ -32,6 +32,7 @@ function ToastUi({ title, folder, tags, token }) {
 
   const handleCreate = async () => {
     try {
+      dispatch(setDesc(""));
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
@@ -46,7 +47,7 @@ function ToastUi({ title, folder, tags, token }) {
           dispatch(setDesc(""));
           setTimeout(() => {
             router.push(`/`);
-          }, 1500)
+          }, 1000)
         }).catch ((e) => {
           console.log(e.response);
           if(e.response.status === 400) {

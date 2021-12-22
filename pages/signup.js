@@ -112,7 +112,7 @@ function signup() {
           );
           setTimeout(() => {
             router.push("/loginPage");
-          }, 3000);
+          }, 1500);
         } else if (res === 400 || 401) {
           if (password1 !== password2) {
             alertService.warn(

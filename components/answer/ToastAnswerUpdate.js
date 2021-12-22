@@ -42,7 +42,7 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
           alertService.success("답변이 수정 되었습니다.");
           setTimeout(() => {
             router.push(`/questions/${questionId}`);
-          }, 1500)
+          }, 1000)
         })
         .catch((error) => {
           if(e.response === 400) {

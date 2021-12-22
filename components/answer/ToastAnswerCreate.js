@@ -32,6 +32,7 @@ function ToastAnswerCreate({title, token, id}) {
 
     const handleAnswerCreate = async () => {
       try {
+        dispatch(setDesc(""));
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios.defaults.headers.common["Content-Type"] = "application/json";
         await axios
@@ -44,7 +45,7 @@ function ToastAnswerCreate({title, token, id}) {
             alertService.success("답변이 업로드 되었습니다.");
             setTimeout(() => {
               router.push(`/questions/${id}`);
-            }, 1500)
+            }, 1000)
           })
           .catch((error) => {
             if(errorr.response === 400) {

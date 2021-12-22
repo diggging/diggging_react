@@ -38,7 +38,7 @@ function findPassword() {
         alertService.warn('이메일이 전송되었습니다📧');
         setTimeout(() => {
           router.push("/password_reset_submit");
-        }, 3000);
+        }, 1500);
       } else if (res.status === 400) {
         alertService.warn('아이디 또는 이메일이 틀렸습니다. 다시 입력해주세요')
       }

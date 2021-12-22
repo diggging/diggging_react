@@ -46,7 +46,7 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
           alertService.success("질문이 수정 되었습니다.");
           setTimeout(() => {
             router.push(`/questions/${id}`);
-          }, 1500)
+          }, 1000)
         })
         .catch((error) => {
           if(e.response === 400) {

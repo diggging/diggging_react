@@ -47,7 +47,7 @@ function ResetPassword() {
           alertService.warn('비밀번호가 성공적으로 변경되었습니다🔑.')
           setTimeout(() => {
             router.push("/loginPage");
-          }, 3000);
+          }, 1500);
         } else if (res.status === 400) {
           if (new_password !== password_confirm) {
             alertService.warn('비밀번호가 일치하지 않습니다');
