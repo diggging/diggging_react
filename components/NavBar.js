@@ -213,7 +213,7 @@ function navBar() {
                   />
                 </NavItem>
               </Link>
-              {alarmOpen && <AlarmContainer />}
+              {/* {alarmOpen && <AlarmContainer />} */}
               {/* <Link href="/" passHref>
                 <NavItem>
                   <Directory />
