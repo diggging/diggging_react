@@ -226,7 +226,7 @@ function navBar() {
                   }}
                 > 
                   {user?.user.user_profile_image ? (<><Image
-                    src={`http://localhost:8000${user.user.user_profile_image}`}
+                    src={`http://3.37.206.59:8000/${user.user.user_profile_image}`}
                     width={40}
                     height={40}
                     alt="profileImage"
