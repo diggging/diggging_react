@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import Paging from "../Paging";
@@ -39,7 +40,17 @@ function QuestionList({ data, count }) {
                 </TitleHashContainer>
 
                 <ProfileContainer>
-                  <ProfileImg></ProfileImg>
+                  <ProfileImg>
+                    <Image
+                      src={`${list.user.user_profile_image}`}
+                      width={50}
+                      height={50}
+                      alt="profileImage"
+                      quality={100}
+                      // layout="fill"
+                      objectFit="cover"
+                    />
+                  </ProfileImg>
                   <ProfileName>{list.user.user_nickname}</ProfileName>
                 </ProfileContainer>
 
@@ -78,6 +89,11 @@ const ListContainer = styled.ul`
   margin-top: 24px;
   padding: 1.625rem 2.1875rem;
   cursor: pointer;
+  &:hover {
+    transition: ease-out 200ms;
+    transform: translateY(-6px);
+    box-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.05);
+  }
 `;
 
 const TitleHashContainer = styled.div`
@@ -145,15 +161,17 @@ const ProfileContainer = styled.div`
 const ProfileImg = styled.div`
   width: 40px;
   height: 40px;
-  background: linear-gradient(239.19deg, #fabe56 26.85%, #fbd362 73.3%);
   border-radius: 50px;
   margin-bottom: 10px;
+  & img {
+    border-radius: 50%;
+  }
 `;
 
 const ProfileName = styled.div`
   font-family: 'Pretendard-Medium';
   font-size: 0.875rem;
-  color: #8C8D8D;
+  color: #343434;
   text-align: center;
   line-height: 16px;
   

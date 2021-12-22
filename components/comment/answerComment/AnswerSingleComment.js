@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { check_auth_status } from "../../../redux/actions/auth";
 import TextareaAutosize from "react-autosize-textarea";
 import { API_URL } from "../../../config";
+import Image from "next/image";
 
 function AnswerSingleComment({
   data,
@@ -114,7 +115,17 @@ function AnswerSingleComment({
                   </>
                 ) : (
                   <>
-                    <UserImg></UserImg>
+                    <UserImg>
+                      <Image
+                        src={`${data.user.user_profile_image}`}
+                        width={50}
+                        height={50}
+                        alt="profileImage"
+                        quality={100}
+                        // layout="fill"
+                        objectFit="cover"
+                      />
+                    </UserImg>
                     <UserInfoContainer>
                       <NameDateContainer>
                         <FlexContainer>
@@ -173,9 +184,11 @@ const Container = styled.div`
 const UserImg = styled.div`
   width: 44px;
   height: 44px;
-  background: #ffd358;
   border-radius: 50px;
   margin-right: 20px;
+  & img {
+    border-radius: 50%;
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -194,9 +207,7 @@ const NameDateContainer = styled.div`
 `;
 
 const UserNickName = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 14px;
   line-height: 20px;
   color: #343434;
@@ -204,18 +215,14 @@ const UserNickName = styled.div`
 `;
 
 const CommentDate = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
+  font-family: 'Pretendard-Regular';
   font-size: 12px;
   line-height: 17px;
   color: #b8b7b4;
 `;
 
 const CommentText = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
+  font-family: 'Pretendard-Regular';
   font-size: 14px;
   line-height: 22px;
   color: #585858;
@@ -229,9 +236,7 @@ const BtnContainer = styled.div`
 
 const Btn = styled.div`
   width: 100%;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'Pretendard-Bold';
   font-size: 13px;
   line-height: 19px;
   text-align: center;
@@ -264,7 +269,7 @@ const CommentInput = styled(TextareaAutosize)`
   box-sizing: border-box;
   border-radius: 8px;
   padding: 1rem 1rem 1.5rem;
-  font-family: Noto Sans KR;
+  font-family: 'Pretendard-Regular';
   font-size: 1rem;
   color: rgb(33, 37, 41);
   line-height: 1.75;
@@ -280,9 +285,7 @@ const CommentSendBtn = styled.button`
   background: #ffd358;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
   border-radius: 20px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 13px;
   line-height: 19px;
   color: #343434;

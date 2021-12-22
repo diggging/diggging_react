@@ -6,16 +6,29 @@ import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import QuestionList from "../questions/QuestionList";
 import Layout from "../../hocs/Layout";
-import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
 import { useRouter } from "next/router";
 import { setQuestion, setMine } from "../../modules/questions";
 import recent from "../../pages/recent";
-
+import SvgDigggingLogo from "../../public/static/images/digggingLogo";
+import SvgToggleBtn from "../../public/static/images/ToggleBtn";
+import { BannerBackground, SubTitle } from "../../pages/main";
 function Prevent({ children }) {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const {data, count, page, bigCriteria, smallCriteria, loading, error, mineToken} = useSelector((state) => state.questions);
+  const {
+    data,
+    count,
+    page,
+    bigCriteria,
+    smallCriteria,
+    loading,
+    error,
+    mineToken,
+  } = useSelector((state) => state.questions);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [isRcent, setIsRcent] = useState(false);
+  const [isPopular, setIsPopular] = useState(false);
+  const [isMine, setIsMine] = useState(false);
 
   const ToggleDispatch = (bigCriteria, smallCriteria) => {
     if (bigCriteria !== undefined) {
@@ -26,6 +39,32 @@ function Prevent({ children }) {
       setOpen(false);
     }
   };
+
+  const styleHandle = () => {
+    if (bigCriteria === "recent") {
+      setIsRcent(true);
+      setIsPopular(false);
+      setIsMine(false);
+    } else if (bigCriteria === "popular") {
+      setIsRcent(false);
+      setIsPopular(true);
+      setIsMine(false);
+    } else {
+      setIsRcent(false);
+      setIsPopular(false);
+      setIsMine(true);
+    }
+  };
+
+  const style = {
+    color: "#343434",
+    fontFamily: "Pretendard-Bold",
+    borderTop: "4px solid #ffd358"
+  };
+
+  useEffect(() => {
+    styleHandle();
+  }, [bigCriteria]);
 
   return (
     <Layout>
@@ -59,24 +98,74 @@ function Prevent({ children }) {
         <TabItemContainer>
           {isAuthenticated ? (
             <TabContainer>
-              <Link href="/recent">
-                <Tab>최신 질문 순</Tab>
-              </Link>
-              <Link href="/popular">
-                <Tab>인기 순</Tab>
-              </Link>
-              <Link href="/mine">
-                <Tab>내가 남긴 질문</Tab>
-              </Link>
+              {isRcent ? (
+                <>
+                  <Link href="/recent">
+                    <Tab style={style}>최신 질문 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/recent">
+                    <Tab>최신 질문 순</Tab>
+                  </Link>
+                </>
+              )}
+              {isPopular ? (
+                <>
+                  <Link href="/popular">
+                    <Tab style={style}>인기 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/popular">
+                    <Tab>인기 순</Tab>
+                  </Link>
+                </>
+              )}
+              {isMine ? (
+                <>
+                  <Link href="/mine">
+                    <Tab style={style}>내가 남긴 질문</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/mine">
+                    <Tab>내가 남긴 질문</Tab>
+                  </Link>
+                </>
+              )}
             </TabContainer>
           ) : (
             <TabContainer>
-              <Link href="/recent">
-                <Tab>최신 질문 순</Tab>
-              </Link>
-              <Link href="/popular">
-                <Tab>인기 순</Tab>
-              </Link>
+              {isRcent ? (
+                <>
+                  <Link href="/recent">
+                    <Tab style={style}>최신 질문 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/recent">
+                    <Tab>최신 질문 순</Tab>
+                  </Link>
+                </>
+              )}
+              {isPopular ? (
+                <>
+                  <Link href="/popular">
+                    <Tab style={style}>인기 순</Tab>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/popular">
+                    <Tab>인기 순</Tab>
+                  </Link>
+                </>
+              )}
             </TabContainer>
           )}
           <ToggleContainer
@@ -84,7 +173,14 @@ function Prevent({ children }) {
               setOpen(!open);
             }}
           >
-            {smallCriteria === "all" ? <>답변 전체</> : (smallCriteria === "wait_answer" ? <>답변 대기 중</> : (smallCriteria === "answer_done" ? <>답변 완료</> : null))}
+            {smallCriteria === "all" ? (
+              <>답변 전체</>
+            ) : smallCriteria === "wait_answer" ? (
+              <>답변 대기 중</>
+            ) : smallCriteria === "answer_done" ? (
+              <>답변 완료</>
+            ) : null}
+            <ToggleBtn />
           </ToggleContainer>
           {open ? (
             <DropBox>
@@ -109,7 +205,7 @@ function Prevent({ children }) {
           ) : null}
         </TabItemContainer>
         <QuestionsContainer>
-            <>{children}</>
+          <>{children}</>
         </QuestionsContainer>
       </Container>
     </Layout>
@@ -118,44 +214,7 @@ function Prevent({ children }) {
 
 export default Prevent;
 
-const BannerBackground = styled.div`
-  width: 100%;
-  height: 32.5rem;
-  position: relative;
-  padding: 4rem 6rem;
-  & img {
-    z-index: -2;
-  }
 
-  @media ${({ theme: { device } }) => device.laptop} {
-    padding: 4rem 6rem;
-  }
-  @media ${({ theme: { device } }) => device.tablet} {
-    padding: 4rem 5rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    padding: 4rem 3rem;
-  }
-`;
-
-const SubTitle = styled.h2`
-  margin-top: 2.5rem;
-  color: white;
-  font-family: "Pretendard-Bold";
-  font-size: 1.75rem;
-  display: inline-block;
-  background-color: #ffba42;
-  margin-bottom: 1rem;
-  padding: 0.1rem 0.6rem;
-  border-radius: 0.4rem;
-
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.5rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.3rem;
-  }
-`;
 
 const ServiceTitle = styled.h3`
   color: #343434;
@@ -207,9 +266,7 @@ const CreateBtn = styled.button`
   background: #ffffff;
   border-radius: 25px;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 16px;
   line-height: 32px;
   letter-spacing: 0.01em;
@@ -223,21 +280,22 @@ const TabItemContainer = styled.div`
   height: 70px;
   border-top: 2px solid rgba(219, 214, 199, 0.4);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 0 1.25rem;
   margin-top: 98px;
   position: relative;
   margin-bottom: 46px;
 `;
 
 const TabContainer = styled.div`
-  display: flex;
-  align-items: center;
+   display: flex;
+  align-items: baseline;
   justify-content: center;
 `;
 
 const Tab = styled.div`
+  font-family: 'Pretendard-SemiBold';
   width: 130px;
   height: 53px;
   color: #898a90;
@@ -245,12 +303,21 @@ const Tab = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 28.96px;
-  /* margin-right: 30px; */
+  transition: 300ms;
+  padding-top: 0.75rem;
 
   &:hover {
-    color: black;
+    font-family: 'Pretendard-Bold';
+    color: #343434;
+  }
+`;
+
+const ToggleBtn = styled(SvgToggleBtn)`
+  margin-left: 0.5rem;
+  &path {
+    fill: #343434;
   }
 `;
 
@@ -263,7 +330,7 @@ const ToggleContainer = styled.button`
   background: white;
   width: 8.25rem;
   height: 2.5rem;
-  border-radius: 4px;
+  border-radius: 0.625rem;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -275,6 +342,11 @@ const ToggleContainer = styled.button`
   color: rgb(73, 80, 87);
   font-size: 0.875rem;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px;
+  transition: 300ms;
+  font-family: 'Pretendard-Bold';
+  color: #343434;
+  font-size: 1rem;
+  transition: 300ms;
   cursor: pointer;
       <ImageContainer>
         <Image src="/../public/static/images/a.png" width={1440} height={511} />
@@ -282,6 +354,9 @@ const ToggleContainer = styled.button`
 
   & svg {
     margin-left: 10px;
+  }
+  & path {
+    fill: #343434;
   }
 `;
 
@@ -295,6 +370,8 @@ const DropBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+ 
+
 `;
 
 const DropList = styled.ul`
@@ -308,9 +385,9 @@ const DropListItem = styled.li`
   color: #b6b6b6;
   padding: 5px 10px;
   cursor: pointer;
-
+  transition: 200ms;
   &:hover {
     color: #343434;
-    font-family: "Pretendard-Medium";
+    font-family: "Pretendard-SemiBold";
   }
 `;

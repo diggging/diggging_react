@@ -8,64 +8,91 @@ import YellowTitle from '../components/common/YellowTitle';
 import {alertService} from '../components/alert.service';
 import { Alert } from '../components/Alert';
 import { reset_password } from '../redux/actions/auth';
-import { Router, useRouter } from 'next/router';
-import { connect, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+
 
 function findPassword() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [requestSent, setRequestSent] = useState(false)
+  const [inputs, setInputs] = useState({
+    email: '',
+    username: '',
+  });
 
   const onInput = (e) => {
-    setEmail(e.target.value);
+    const {name, value} = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    })
   }
 
-  //API주소 과연맞는가... 404에러뜬다
+  const {email, username} = inputs;
+
   const onSubmitEmail = async (e) => {
     e.preventDefault();
-
-    if (dispatch && dispatch !== null && dispatch !== undefined) {
-      dispatch(reset_password(email))
-      .then((res) => {alertService.warn(res, 'gkdl')
-      router.push('/users/password_reset/done/')}
-      )
-      .catch((err)=>alertService.warn(err))
-    }
-    setRequestSent(true);
+    dispatch(reset_password(email, username))
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        alertService.warn('이메일이 전송되었습니다📧');
+        setTimeout(() => {
+          router.push("/password_reset_submit");
+        }, 3000);
+      } else if (res.status === 400) {
+        alertService.warn('아이디 또는 이메일이 틀렸습니다. 다시 입력해주세요')
+      }
+    })
+    .catch((err) => alertService.warn(err))
   }
+  
   
   return (
     <>
       <Layout/>
       <NavBar />
-      <FormBox onSubmit={(e) => onSubmitEmail(e)}>
+      <PWFormBox onSubmit={(e) => onSubmitEmail(e)}>
       <Alert />
         <PageTitle>비밀번호 찾기</PageTitle>
         <GuideMessage>가입하신 이메일을 입력하시면 해당 주소로 비밀번호 변경 링크를 보내드립니다.</GuideMessage>
-          <YellowTitle fontSize="1.375rem" >이메일</YellowTitle>
-          <GreyInput
-            width="28.75rem"
-            height="3.125rem"
-            marginRight="2.875rem"
-            marginLeft="2.75rem"
-            type="email"
-            placeholder="이메일"
-            onChange={(e) => onInput(e)}
-            value={email}
-            required
-          />
+          <InputRow>
+            <YellowTitle fontSize="1.375rem" >이메일</YellowTitle>
+            <GreyInput
+              name="email"
+              width="28.75rem"
+              height="3.125rem"
+              marginRight="2.875rem"
+              marginLeft="2.75rem"
+              type="email"
+              placeholder="이메일"
+              onChange={(e) => onInput(e)}
+              required
+            />
+          </InputRow>
+          <InputRow>
+            <YellowTitle fontSize="1.375rem" >아이디</YellowTitle>
+            <GreyInput
+              name="username"
+              width="28.75rem"
+              height="3.125rem"
+              marginRight="2.875rem"
+              marginLeft="2.75rem"
+              placeholder="아이디"
+              onChange={(e) => onInput(e)}
+              required
+            />
           <YellowButton type="submit" paddingTop="0.9375rem" paddingRight="2.1875rem">전송</YellowButton>
-      </FormBox>
+          </InputRow>
+      </PWFormBox>
     </>
   )
 }
 
-const FormBox = styled.form`
+const PWFormBox = styled.form`
   width: 49.375rem;
   margin: auto auto;
   margin-top: 11.25rem;
-  position: relative;
 `;
 
 const PageTitle = styled.span`
@@ -87,5 +114,12 @@ const GuideMessage = styled.p`
   margin-bottom: 40px;
 `;
 
-export {FormBox, PageTitle, GuideMessage};
+const InputRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  align-items: center;
+`;
+
+export {PageTitle, GuideMessage, PWFormBox};
 export default findPassword;

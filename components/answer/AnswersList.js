@@ -9,6 +9,8 @@ import NotSelectedAnswer from "../../public/static/images/NotSelectedAnswer";
 import Selected from "./Selected";
 import { API_URL } from "../../config";
 import AnswerComment from "../comment/answerComment/AnswerComment";
+import Image from "next/image";
+import WhiteButton from "../common/WhiteButton";
 
 function AnswersList({ answer, user, token, questionId, questionUserId }) {
   const [answerToken, setAnswerToken] = useState(token);
@@ -46,14 +48,12 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
 
   const onOpen = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
 
   const Viewer = dynamic(() => import("../../components/answer/AnswerView"), {
     ssr: false,
   });
 
-  console.log(answer);
 
   return (
     <>
@@ -101,7 +101,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
           </DescContainer>
 
           <FlexContainer>
-            {questionUserId === user?.user?.id && answer.selection === false? (
+            {questionUserId === user?.user?.id && answer.selection === false ? (
               <>
                 {isOpen === true ? (
                   <>
@@ -113,18 +113,40 @@ function AnswersList({ answer, user, token, questionId, questionUserId }) {
                     />
                   </>
                 ) : null}
-                <AnswerBtn onClick={() => onOpen()}>채택하기</AnswerBtn>
-                <AnswerBtn onClick={() => handleCommentOpen()}>{commentIsOpen === true ? (<>댓글 접기</>) : (<>댓글 {answer.answer_comment_count}</>)}</AnswerBtn>
+                <WhiteButton onClick={() => onOpen()}>채택하기</WhiteButton>
+                <WhiteButton onClick={() => handleCommentOpen()}>
+                  {commentIsOpen === true ? (
+                    <>댓글 접기</>
+                  ) : (
+                    <>댓글 {answer.answer_comment_count}</>
+                  )}
+                </WhiteButton>
               </>
             ) : (
               <>
-                <AnswerBtn onClick={() => handleCommentOpen()}>{commentIsOpen === true ? (<>댓글 접기</>) : (<>댓글 {answer.answer_comment_count}</>)}</AnswerBtn>
+                <WhiteButton onClick={() => handleCommentOpen()}>
+                  {commentIsOpen === true ? (
+                    <>댓글 접기</>
+                  ) : (
+                    <>댓글 {answer.answer_comment_count}</>
+                  )}
+                </WhiteButton>
               </>
             )}
           </FlexContainer>
-          
+
           <ProfileContainer>
-            <ProfileImg></ProfileImg>
+            <ProfileImg>
+              <Image
+                src={`http://localhost:8000${answer.user.user_profile_image}`}
+                width={50}
+                height={50}
+                alt="profileImage"
+                quality={100}
+                // layout="fill"
+                objectFit="cover"
+              />
+            </ProfileImg>
             <ProfileInfoContainer>
               {answer.user?.user_nickname ? (
                 <>
@@ -191,18 +213,14 @@ const HeadContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 1.75rem;
   line-height: 3rem;
   color: #212529;
 `;
 
 const Selection = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'Pretendard-Regular';
   font-size: 13px;
   line-height: 19px;
   text-align: center;
@@ -222,8 +240,7 @@ const SecondContainer = styled.div`
 const Data = styled.div`
   margin-right: auto;
   height: 19px;
-  font-family: Noto Sans KR;
-  font-style: normal;
+  font-family: 'Pretendard-Regular';
   font-weight: 500;
   font-size: 12px;
   line-height: 17px;
@@ -239,9 +256,7 @@ const BtnContainer = styled.div`
 const Btn = styled.div`
   width: 100%;
   height: 1.1875rem;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'Pretendard-Bold';
   font-size: 0.8125rem;
   line-height: 1.1875rem;
   text-align: center;
@@ -274,9 +289,7 @@ const AnswerBtn = styled.div`
   border-radius: 25px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'Pretendard-Bold';
   font-size: 13px;
   line-height: 19px;
   text-align: center;
@@ -302,9 +315,11 @@ const ProfileContainer = styled.div`
 const ProfileImg = styled.div`
   width: 50px;
   height: 50px;
-  background: linear-gradient(239.19deg, #fabe56 26.85%, #fbd362 73.3%);
   border-radius: 50px;
   margin-right: 20px;
+  & img {
+    border-radius: 50%;
+  }
 `;
 
 const ProfileInfoContainer = styled.div`
@@ -316,18 +331,14 @@ const ProfileInfoContainer = styled.div`
 `;
 
 const ProfileName = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 16px;
   line-height: 23px;
   color: #343434;
 `;
 
 const ProfileLevel = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'Pretendard-Bold';
   font-size: 12px;
   line-height: 17px;
   color: #7a7a7a;
@@ -336,9 +347,7 @@ const ProfileLevel = styled.div`
 const ProfileContent = styled.div`
   width: 672px;
   height: 38px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
+  ffont-family: 'Pretendard-Regular';
   font-size: 13px;
   line-height: 19px;
   color: #8d8c85;

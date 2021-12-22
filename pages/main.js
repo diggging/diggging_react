@@ -30,6 +30,11 @@ function main({ children }) {
     setOpen(false);
   };
 
+  const style = {
+    color: "#343434",
+    borderTop: "4px solid #ffd358"
+  }
+
   return (
     <Layout>
       <NavBar />
@@ -63,7 +68,7 @@ function main({ children }) {
           {isAuthenticated ? (
             <TabContainer>
               <Link href="/recent">
-                <Tab>최신 질문 순</Tab>
+                <Tab style={style}>최신 질문 순</Tab>
               </Link>
               <Link href="/popular">
                 <Tab>인기 순</Tab>
@@ -75,7 +80,7 @@ function main({ children }) {
           ) : (
             <TabContainer>
               <Link href="/recent">
-                <Tab>최신 질문 순</Tab>
+                <Tab style={style}>최신 질문 순</Tab>
               </Link>
               <Link href="/popular">
                 <Tab>인기 순</Tab>
@@ -111,9 +116,8 @@ function main({ children }) {
     </Layout>
   );
 }
-
+export {BannerBackground, SubTitle}
 export default main;
-
 const BannerBackground = styled.div`
   width: 100%;
   height: 32.5rem;
@@ -205,9 +209,7 @@ const CreateBtn = styled.button`
   background: #ffffff;
   border-radius: 25px;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 16px;
   line-height: 32px;
   letter-spacing: 0.01em;
@@ -221,9 +223,9 @@ const TabItemContainer = styled.div`
   height: 70px;
   border-top: 2px solid rgba(219, 214, 199, 0.4);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 1rem 1.25rem;
+  padding: 0 1.25rem;
   margin-top: 98px;
   position: relative;
   margin-bottom: 46px;
@@ -231,12 +233,12 @@ const TabItemContainer = styled.div`
 
 const TabContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
 `;
 
 const Tab = styled.div`
-  font-family: 'Pretendard-Medium';
+  font-family: 'Pretendard-SemiBold';
   width: 130px;
   height: 53px;
   color: #898a90;
@@ -244,13 +246,14 @@ const Tab = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 28.96px;
-  /* margin-right: 30px; */
+  padding-top: 0.75rem;
+  transition: 300ms;
 
   &:hover {
     color: #343434;
-    font-family: 'Pretendard-SemiBold';
+    font-family: 'Pretendard-Bold';
   }
 `;
 
