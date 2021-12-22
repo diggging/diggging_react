@@ -8,6 +8,7 @@ import QuestionList from "../components/questions/QuestionList";
 import Layout from "../hocs/Layout";
 import SvgDigggingLogo from "../public/static/images/DigggingLogo.js";
 import { useRouter } from "next/router";
+import SvgToggleBtn from "../../public/static/images/ToggleBtn";
 import {
   setQuestion,
 } from "../modules/questions";
@@ -92,7 +93,8 @@ function main({ children }) {
               setOpen(!open);
             }}
           > {smallCriteria === "all" ? <>답변 전체</> : (smallCriteria === "wait_answer" ? <>답변 대기 중</> : (smallCriteria === "answer_done" ? <>답변 완료</> : null))}
-          </ToggleContainer>
+            <SvgToggleBtn />
+           </ToggleContainer>
           {open ? (
             <DropBox>
               <DropList>
