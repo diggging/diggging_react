@@ -85,7 +85,7 @@ function ProfileInfoBox ({userData, token}) {
       <ImageBox>
         <ProfileImgWrapper>
           <Image 
-          src={`http://3.37.206.59:8000/${imgBase64}`}
+          src={`https://3.37.206.59:8000/${imgBase64}`}
           width={120} 
           height={120} 
           alt="profileImage" 
