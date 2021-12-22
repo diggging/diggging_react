@@ -265,7 +265,7 @@ const ToggleContainer = styled.button`
   background: white;
   width: 8.25rem;
   height: 2.5rem;
-  border-radius: 4px;
+  border-radius: 0.625rem;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -277,13 +277,18 @@ const ToggleContainer = styled.button`
   color: rgb(73, 80, 87);
   font-size: 0.875rem;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px;
+  transition: 300ms;
+  font-family: 'Pretendard-Bold';
+  color: #343434;
+  font-size: 1rem;
+  transition: 300ms;
   cursor: pointer;
-      <ImageContainer>
-        <Image src="/../public/static/images/a.png" width={1440} height={511} />
-      </ImageContainer>
 
   & svg {
     margin-left: 10px;
+  }
+  & path {
+    fill: #343434;
   }
 `;
 
@@ -320,9 +325,3 @@ const DropListItem = styled.li`
   }
 `;
 
-const ToggleBtn = styled(SvgToggleBtn)`
-  margin-left: 0.5rem;
-  &path {
-    fill: #343434;
-  }
-`;
