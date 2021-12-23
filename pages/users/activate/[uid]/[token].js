@@ -11,8 +11,7 @@ function EmailVerify() {
 
   const checkEmailVerify = async() => {
     try{
-      console.log(uid, token)
-      await axios.post(`${API_URL}/users/activate/${uid}/${token}`)
+      await axios.get(`${API_URL}/users/activate/${uid}/${token}`)
       .then((res) => {
         router.push('/userActivated');
       })
