@@ -6,11 +6,12 @@ import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import QuestionList from "../questions/QuestionList";
 import Layout from "../../hocs/Layout";
-import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
 import { useRouter } from "next/router";
 import { setQuestion, setMine } from "../../modules/questions";
 import recent from "../../pages/recent";
+import SvgDigggingLogo from "../../public/static/images/digggingLogo";
 import SvgToggleBtn from "../../public/static/images/ToggleBtn";
+import { BannerBackground, SubTitle } from "../../pages/main";
 
 function Prevent({ children }) {
   const ref = useRef();
@@ -79,7 +80,8 @@ function Prevent({ children }) {
     }
   },[open])
   console.log(open, smallCriteria)
- return (
+
+  return (
     <Layout>
       <NavBar />
       <BannerBackground>
@@ -228,44 +230,7 @@ function Prevent({ children }) {
 
 export default Prevent;
 
-const BannerBackground = styled.div`
-  width: 100%;
-  height: 32.5rem;
-  position: relative;
-  padding: 4rem 6rem;
-  & img {
-    z-index: -2;
-  }
 
-  @media ${({ theme: { device } }) => device.laptop} {
-    padding: 4rem 6rem;
-  }
-  @media ${({ theme: { device } }) => device.tablet} {
-    padding: 4rem 5rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    padding: 4rem 3rem;
-  }
-`;
-
-const SubTitle = styled.h2`
-  margin-top: 2.5rem;
-  color: white;
-  font-family: "Pretendard-Bold";
-  font-size: 1.75rem;
-  display: inline-block;
-  background-color: #ffba42;
-  margin-bottom: 1rem;
-  padding: 0.1rem 0.6rem;
-  border-radius: 0.4rem;
-
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.5rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.3rem;
-  }
-`;
 
 const ServiceTitle = styled.h3`
   color: #343434;
@@ -317,9 +282,7 @@ const CreateBtn = styled.button`
   background: #ffffff;
   border-radius: 25px;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
+  font-family: 'Pretendard-Bold';
   font-size: 16px;
   line-height: 32px;
   letter-spacing: 0.01em;
@@ -333,21 +296,22 @@ const TabItemContainer = styled.div`
   height: 70px;
   border-top: 2px solid rgba(219, 214, 199, 0.4);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 0 1.25rem;
   margin-top: 98px;
   position: relative;
   margin-bottom: 46px;
 `;
 
 const TabContainer = styled.div`
-  display: flex;
-  align-items: center;
+   display: flex;
+  align-items: baseline;
   justify-content: center;
 `;
 
 const Tab = styled.div`
+  font-family: 'Pretendard-SemiBold';
   width: 130px;
   height: 53px;
   color: #898a90;
@@ -355,12 +319,21 @@ const Tab = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 28.96px;
-  /* margin-right: 30px; */
+  transition: 300ms;
+  padding-top: 0.75rem;
 
   &:hover {
-    color: black;
+    font-family: 'Pretendard-Bold';
+    color: #343434;
+  }
+`;
+
+const ToggleBtn = styled(SvgToggleBtn)`
+  margin-left: 0.5rem;
+  &path {
+    fill: #343434;
   }
 `;
 
@@ -410,6 +383,7 @@ const DropBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+
 `;
 
 const DropList = styled.ul`
@@ -424,12 +398,10 @@ const DropListItem = styled.li`
   color: #b6b6b6;
   padding: 5px 10px;
   cursor: pointer;
-  font-size: 0.9375rem;
   transition: 200ms;
-
+  font-size: 0.9375rem;
   &:hover {
     color: #343434;
-    font-family: "Pretendard-Medium";
+    font-family: "Pretendard-SemiBold";
   }
 `;
-
