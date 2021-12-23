@@ -59,6 +59,10 @@ function ToastUi({ title, folder, tags, token }) {
     }
   };
 
+  if (history.state.url !== "/questionCreate?") {
+    dispatch(setDesc(""));
+  }
+
   return (
     <>
       <Alert/>

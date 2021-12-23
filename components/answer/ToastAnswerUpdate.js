@@ -59,13 +59,7 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
       dispatch(setDesc(descState));
     }
   }, [])
-
-  useEffect(() => {
-    return () => {
-      dispatch(setDesc(""));
-    }
-  }, [dispatch])
-
+  
   return (
     <>
       {content ? (
