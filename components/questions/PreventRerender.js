@@ -9,7 +9,7 @@ import Layout from "../../hocs/Layout";
 import { useRouter } from "next/router";
 import { setQuestion, setMine } from "../../modules/questions";
 import recent from "../../pages/recent";
-import SvgDigggingLogo from "/static/images/DigggingLogo";
+import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
 import SvgToggleBtn from "../../public/static/images/ToggleBtn";
 import { BannerBackground, SubTitle } from "../../pages/main";
 
@@ -85,7 +85,7 @@ function Prevent({ children }) {
       <NavBar />
       <BannerBackground>
         <Image
-          src="/../public/static/images/main_banner_back.png"
+          src="/static/images/main_banner_back.png"
           quality={100}
           layout="fill"
           objectFit="cover"
