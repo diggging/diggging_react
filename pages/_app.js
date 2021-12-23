@@ -45,6 +45,18 @@ const GlobalStyles = createGlobalStyle`
     background-color: none;
     cursor: pointer;
   }
+  .toastui-editor-contents {
+    width: 940px;
+  }
+  .toastui-editor-contents p {
+    font-size: 1rem;
+    font-family: 'Pretendard-Regular';
+    color: "#585858";
+  }
+  .toastui-editor-defaultUI-toolbar {
+    width: 940px;
+  }
+  
 `;
 
 function MyApp({ Component, pageProps }) {
