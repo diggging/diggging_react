@@ -46,9 +46,9 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
           alertService.success("질문이 수정 되었습니다.");
           setTimeout(() => {
             router.push(`/questions/${id}`);
-          }, 1000)
+          }, 1500)
         })
-        .catch((error) => {
+        .catch((e) => {
           if(e.response === 400) {
             alertService.warn("빈 칸 없이 모두 작성해주세요.");
           }
@@ -57,6 +57,12 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
       alertService.warn("질문이 수정 되지 않았습니다.");
     }
   };
+  
+  useEffect(() => {
+    if(!content) {
+      dispatch(setDesc(descState));
+    }
+  }, [])
 
   return (
     <>

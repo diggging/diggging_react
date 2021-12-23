@@ -1,4 +1,4 @@
-import React, { useRef,useState } from "react";
+import React, { useRef,useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Prism from 'prismjs';
@@ -42,9 +42,9 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
           alertService.success("답변이 수정 되었습니다.");
           setTimeout(() => {
             router.push(`/questions/${questionId}`);
-          }, 1000)
+          }, 1500)
         })
-        .catch((error) => {
+        .catch((e) => {
           if(e.response === 400) {
             alertService.warn("빈 칸 없이 모두 작성해주세요.");
           }
@@ -53,6 +53,12 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
       alertService.warn("답변이 수정 되지 않았습니다.");
     }
   };
+
+  useEffect(() => {
+    if(!content) {
+      dispatch(setDesc(descState));
+    }
+  }, [])
 
   return (
     <>
