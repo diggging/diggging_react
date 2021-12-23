@@ -78,7 +78,7 @@ function accountSetting() {
               <BioUpdateBox userData={user} token={token} />
               <ProfileBox padding="2.375rem">
                 <YellowTitle>이메일</YellowTitle>
-                {/* <ContentText>{email}</ContentText> */}
+                <ContentText>{user.user.email}</ContentText>
               </ProfileBox>
               <NicknameUpdateBox userData={user} token={token} />
               <PasswordSetBox userData={user} token={token} />
