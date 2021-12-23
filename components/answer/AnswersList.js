@@ -152,7 +152,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
           <ProfileContainer>
             <ProfileImg>
               <Image
-                src={`http://localhost:8000${answer.user.user_profile_image}`}
+                src={`http://3.37.206.59:8000${answer.user.user_profile_image}`}
                 width={50}
                 height={50}
                 alt="profileImage"

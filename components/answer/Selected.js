@@ -9,7 +9,6 @@ function Selected({setIsOpen, id, token, questionId, isOpen}) {
   const router = useRouter();
   const ref = useRef();
 
-
   const selectAnswer = async (id) => {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -43,7 +42,7 @@ function Selected({setIsOpen, id, token, questionId, isOpen}) {
   }
 
     return (
-        <SelectedContainer ref={ref}r>
+        <SelectedContainer ref={ref}>
           <IsSelected>
             채택하시겠습니까?
           </IsSelected>
