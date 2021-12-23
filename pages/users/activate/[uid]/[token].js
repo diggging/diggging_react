@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { API_URL } from '../../../../config';
 import { alertService } from '../../../../components/alert.service';
@@ -11,6 +11,7 @@ function EmailVerify() {
 
   const checkEmailVerify = async() => {
     try{
+      console.log(uid, token)
       await axios.post(`${API_URL}/users/activate/${uid}/${token}`)
       .then((res) => {
         if(res.status === 200) {
@@ -23,11 +24,14 @@ function EmailVerify() {
   }
 
   useEffect(() => {
-    checkEmailVerify();
-  }, [])
+    if(uid && token) {
+      checkEmailVerify();
+    }
+  }, [uid, token])
 
     return (
         <>
+        {uid} {token}
         </>
     );
 }
