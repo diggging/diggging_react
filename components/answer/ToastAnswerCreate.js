@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from 'styled-components';
 import axios from "axios";
 import Prism from 'prismjs';
@@ -47,8 +47,8 @@ function ToastAnswerCreate({title, token, id}) {
               router.push(`/questions/${id}`);
             }, 1000)
           })
-          .catch((error) => {
-            if(errorr.response === 400) {
+          .catch((e) => {
+            if(e.response === 400) {
               alertService.warn("빈 칸 없이 모두 작성해주세요.");
             }
           });
@@ -56,8 +56,13 @@ function ToastAnswerCreate({title, token, id}) {
         alertService.warn("업로드에 실패했습니다.");
       }
     };
-    
 
+    useEffect(() => {
+      return () => {
+        dispatch(setDesc(""));
+      }
+    }, [])
+    
     return (
       <>
         <Alert/>
