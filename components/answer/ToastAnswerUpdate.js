@@ -58,8 +58,19 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
     if(!content) {
       dispatch(setDesc(descState));
     }
+  }, [dispatch])
+
+  const onRouteChangeStart = React.useCallback(() => {
+    dispatch(setDesc(""));
+  }, []);
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', onRouteChangeStart);
+    return () => {
+      router.events.off('routeChangeStart', onRouteChangeStart);
+    }
   }, [])
-  
+
   return (
     <>
       {content ? (

@@ -32,7 +32,6 @@ function ToastAnswerCreate({title, token, id}) {
 
     const handleAnswerCreate = async () => {
       try {
-        dispatch(setDesc(""));
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios.defaults.headers.common["Content-Type"] = "application/json";
         await axios
@@ -57,6 +56,16 @@ function ToastAnswerCreate({title, token, id}) {
       }
     };
     
+    const onRouteChangeStart = React.useCallback(() => {
+      dispatch(setDesc(""));
+    }, []);
+  
+    useEffect(() => {
+      router.events.on('routeChangeStart', onRouteChangeStart);
+      return () => {
+        router.events.off('routeChangeStart', onRouteChangeStart);
+      }
+    }, [])
     return (
       <>
         <Alert/>
