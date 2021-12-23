@@ -12,7 +12,6 @@ import AnswerComment from "../comment/answerComment/AnswerComment";
 import Image from "next/image";
 import Loader from 'react-loader-spinner';
 import WhiteButton from "../common/WhiteButton";
-import { alertService } from "../alert.service";
 
 function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
   const ref = useRef();
@@ -126,7 +125,8 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
                     />
                   </>
                 ) : null}
-                <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem" onClick={() => onOpen()}>채택하기</WhiteButton>
+                <>
+                <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem" onClick={() => onOpen()} marginRight="1rem">채택하기</WhiteButton>
                 <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem"  onClick={() => handleCommentOpen()}>
                   {commentIsOpen === true ? (
                     <>댓글 접기</>
@@ -134,6 +134,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
                     <>댓글 {answer.answer_comment_count}</>
                   )}
                 </WhiteButton>
+                </>
               </>
             ) : (
               <>
@@ -151,7 +152,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
           <ProfileContainer>
             <ProfileImg>
               <Image
-                src={`http://3.37.206.59:8000${answer.user.user_profile_image}`}
+                src={`http://localhost:8000${answer.user.user_profile_image}`}
                 width={50}
                 height={50}
                 alt="profileImage"
