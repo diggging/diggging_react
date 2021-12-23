@@ -47,8 +47,8 @@ function Selected({setIsOpen, id, token, questionId, isOpen}) {
             채택하시겠습니까?
           </IsSelected>
           <FlexContainer>
-            <SeletedBtn onClick={() => selectAnswer(id)}>예</SeletedBtn>
-            <SeletedBtn onClick={() => notSelectAnswer()}>아니오</SeletedBtn>
+            <SelectedBtn onClick={() => selectAnswer(id)}>예</SelectedBtn>
+            <SelectedBtn onClick={() => notSelectAnswer()}>아니오</SelectedBtn>
           </FlexContainer>
         </SelectedContainer>
     );
@@ -72,9 +72,8 @@ const SelectedContainer = styled.div`
 `;
 
 const IsSelected = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
+  height: 100%;
+  font-family: 'Pretendard-Bold';
   font-size: 14px;
   line-height: 20px;
   display: flex;
@@ -86,12 +85,14 @@ const IsSelected = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
+  height: 100%;
 `;
 
-const SeletedBtn = styled.button`
+const SelectedBtn = styled.button`
   width: 100px;
   height: 39px;
   background: #ffffff;
+  font-family: 'Pretendard-Bold';
   
   &:hover {
     background: rgba(196, 196, 196, 0.15);
