@@ -79,7 +79,6 @@ function Prevent({ children }) {
       document.addEventListener("click", checkClickOutSide)
     }
   },[open])
-  console.log(open, smallCriteria)
 
   return (
     <Layout>

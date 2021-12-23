@@ -171,7 +171,7 @@ function navBar() {
       console.log(err);
     }
   }; 
-  console.log(user.user.user_profile_image);
+
   return (
     <div>
       <Nav>

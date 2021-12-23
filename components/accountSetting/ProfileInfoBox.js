@@ -79,7 +79,7 @@ function ProfileInfoBox ({userData, token}) {
       }
     }
   }
-  console.log(imgBase64);
+
   return (
     <ProfileBioBox padding="1.875rem" onSubmit={(e) => updateProfileImg(e)}>
       <ImageBox>
