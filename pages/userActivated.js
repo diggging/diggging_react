@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import YellowButton from '../components/common/YellowButton';
+import Link from "next/link";
+
 
 function userActivated() {
   return (
@@ -9,7 +11,9 @@ function userActivated() {
       <Image src="/static/images/email.png" width={84} height={48} alt="email_icon" quality={100}/>
       <AlarmTitle>메일 인증이 완료되었습니다</AlarmTitle>
       <AlarmDesc>아래 링크를 타고 메인페이지로 이동해주세요</AlarmDesc>
-      <YellowButton paddingTop="0.875rem" paddingRight="1.875rem">메인으로</YellowButton>
+      <Link href="/" passHref>
+        <YellowButton paddingTop="0.875rem" paddingRight="1.875rem">메인으로</YellowButton>
+      </Link>
     </AlarmWrapper>
   )
 }
