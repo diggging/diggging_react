@@ -93,7 +93,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
               {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시{" "}
               {createdMinutes}분
             </Data>
-            {answer.user?.id === user?.user?.id ? (
+            {answer.user?.id === user?.user?.id && token ? (
               <>
                 <BtnContainer>
                   <Link href={`/answer/update/${answer.id}`} passHref>

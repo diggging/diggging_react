@@ -129,7 +129,7 @@ const Question = () => {
                 <DetailLike token={token} id={id} handleLinkAlarm={handleLinkAlarm}/>
                 <HeadContainer>
                   <Title>{item.title}</Title>
-                  {item.user?.id === user?.user?.id ? (
+                  {item.user?.id === user?.user?.id && token ? (
                     <>
                       <BtnContainer>
                         <Link href={`/questions/update/${item.id}`} passHref>
