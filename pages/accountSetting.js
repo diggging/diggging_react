@@ -111,6 +111,7 @@ const FormBox = styled.div`
   margin: auto auto;
   margin-top: 11.25rem;
   position: relative;
+  color: "#8D8C85"
 `;
 
 const NicknameBox = styled.header`

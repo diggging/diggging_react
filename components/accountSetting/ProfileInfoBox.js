@@ -27,7 +27,7 @@ function ProfileInfoBox ({userData, token}) {
   
   const profileImgInput = useRef();
   const [updatedImg, setUpdatedImg] = useState(user_profile_image) //업로드 파일 이미지url
-  const [imgBase64, setImgBase64] = useState(user_profile_image.toString()); // 파일 base64 : 미리보기용
+  const [imgBase64, setImgBase64] = useState(`http://3.37.206.59:8000${user_profile_image.toString()}`); // 파일 base64 : 미리보기용
   const [imgFile, setImgFile] = useState(user_profile_image);	//파일 : axios 보내줄 것
 
   const onClickUploadFile = () => {
@@ -85,7 +85,7 @@ function ProfileInfoBox ({userData, token}) {
       <ImageBox>
         <ProfileImgWrapper>
           <Image 
-          src={`http://3.37.206.59:8000${imgBase64}`}
+          src={imgBase64}
           width={120} 
           height={120} 
           alt="profileImage" 
