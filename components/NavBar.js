@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import NavSearch from "../public/static/images/Search";
@@ -133,6 +133,7 @@ const LogoutButton = styled(DropList)`
 
 function navBar() {
   const dispatch = useDispatch();
+  const ref = useRef();
   const router = useRouter();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
@@ -158,6 +159,18 @@ function navBar() {
       dispatch(load_user());
     }
   }, []);
+
+  useEffect(() => {
+    const checkClickOutSide = (e) => {
+      if(profileOpen === true && ref.current && !ref.current.contains(e.target)) {
+        setOpen({...open, profileOpen : false});
+      }
+    }
+    document.addEventListener("click", checkClickOutSide)
+    return () => {
+      document.addEventListener("click", checkClickOutSide)
+    }
+  },[profileOpen])
 
   const getAlarmList = async () => {
     try {
@@ -225,6 +238,7 @@ function navBar() {
                   onClick={() => {
                     setOpen({ ...open, profileOpen: !profileOpen });
                   }}
+                  ref={ref}
                 > 
                   {user?.user.user_profile_image ? (<><Image
                     src={`http://3.37.206.59:8000${user.user.user_profile_image}`}
