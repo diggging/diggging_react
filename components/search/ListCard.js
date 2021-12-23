@@ -44,7 +44,7 @@ function ListCard({data}) {
             </TagWrapper>
           </FlexColumn>
           <ProfileBox>
-            <ProfileImg src={`https://3.37.206.59:8000${user_profile_image}`}
+            <ProfileImg src={`http://3.37.206.59:8000${user_profile_image}`}
                 width={40}
                 height={40}
                 alt="profileImage"

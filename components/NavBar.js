@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import NavSearch from "../public/static/images/Search";
 import Alarm from "../public/static/images/Alarm";
+import axios from "axios";
 // import Directory from '../public/static/images/Directory';
 import ToggleBtn from "../public/static/images/ToggleBtn";
 import SvgDiggging from "../public/static/images/Diggging";
@@ -204,7 +205,7 @@ function navBar() {
           </Link>
           {isAuthenticated ? (
             <>
-              <Link href="/" passHref>
+              {/* <Link href="/" passHref>
                 <NavItem>
                   <Alarm
                     onClick={() => {
@@ -213,7 +214,7 @@ function navBar() {
                   />
                 </NavItem>
               </Link>
-              {/* {alarmOpen && <AlarmContainer />} */}
+              {alarmOpen && <AlarmContainer />} */}
               {/* <Link href="/" passHref>
                 <NavItem>
                   <Directory />
@@ -226,7 +227,7 @@ function navBar() {
                   }}
                 > 
                   {user?.user.user_profile_image ? (<><Image
-                    src={`https://3.37.206.59:8000${user.user.user_profile_image}`}
+                    src={`http://3.37.206.59:8000${user.user.user_profile_image}`}
                     width={40}
                     height={40}
                     alt="profileImage"

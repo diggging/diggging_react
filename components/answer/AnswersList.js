@@ -12,6 +12,7 @@ import AnswerComment from "../comment/answerComment/AnswerComment";
 import Image from "next/image";
 import Loader from 'react-loader-spinner';
 import WhiteButton from "../common/WhiteButton";
+import { alertService } from "../alert.service";
 
 function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
   const ref = useRef();
@@ -150,7 +151,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
           <ProfileContainer>
             <ProfileImg>
               <Image
-                src={`https://3.37.206.59:8000${answer.user.user_profile_image}`}
+                src={`http://3.37.206.59:8000${answer.user.user_profile_image}`}
                 width={50}
                 height={50}
                 alt="profileImage"
