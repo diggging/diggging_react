@@ -117,7 +117,7 @@ const Question = () => {
     <>
       <Layout>
         <NavBar />
-        {item?.id && id && token? (
+        {item?.id && id ? (
           <>
             <Head>
               <title>{item.title}</title>

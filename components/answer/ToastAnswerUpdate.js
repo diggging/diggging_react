@@ -60,6 +60,12 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
     }
   }, [])
 
+  useEffect(() => {
+    return () => {
+      dispatch(setDesc(""));
+    }
+  }, [dispatch])
+
   return (
     <>
       {content ? (

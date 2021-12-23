@@ -59,12 +59,6 @@ function ToastUi({ title, folder, tags, token }) {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(setDesc(""));
-    }
-  }, [])
-
   return (
     <>
       <Alert/>

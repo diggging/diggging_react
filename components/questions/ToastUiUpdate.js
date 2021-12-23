@@ -64,6 +64,12 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
     }
   }, [])
 
+  useEffect(() => {
+    return () => {
+      dispatch(setDesc(""));
+    }
+  }, [dispatch])
+
   return (
     <>
       {content ? (

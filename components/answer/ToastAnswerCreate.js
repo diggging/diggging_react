@@ -56,12 +56,6 @@ function ToastAnswerCreate({title, token, id}) {
         alertService.warn("업로드에 실패했습니다.");
       }
     };
-
-    useEffect(() => {
-      return () => {
-        dispatch(setDesc(""));
-      }
-    }, [])
     
     return (
       <>
