@@ -14,9 +14,7 @@ function EmailVerify() {
       console.log(uid, token)
       await axios.post(`${API_URL}/users/activate/${uid}/${token}`)
       .then((res) => {
-        if(res.status === 200) {
-          router.push('/userActivated');
-        }
+        router.push('/userActivated');
       })
     } catch(e) {
       alertService.warn("이메일 인증에 실패 했습니다.");
@@ -31,7 +29,6 @@ function EmailVerify() {
 
     return (
         <>
-        {uid} {token}
         </>
     );
 }
