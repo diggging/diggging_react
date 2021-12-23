@@ -65,7 +65,7 @@ function accountSetting() {
         content="개발자들을 위한 커뮤니티 디깅 계정설정 페이지"
       >
         <NavBar />
-        {user?.user.id ? (
+        {user?.user?.id ? (
           <>
             <Alert />
             <FormBox>
