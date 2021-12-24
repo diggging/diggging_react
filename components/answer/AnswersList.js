@@ -12,6 +12,7 @@ import AnswerComment from "../comment/answerComment/AnswerComment";
 import Image from "next/image";
 import Loader from 'react-loader-spinner';
 import WhiteButton from "../common/WhiteButton";
+import { alertService } from "../alert.service";
 
 function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
   const ref = useRef();
