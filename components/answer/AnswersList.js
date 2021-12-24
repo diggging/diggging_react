@@ -20,6 +20,10 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
   const [isOpen, setIsOpen] = useState(false);
   const [commentIsOpen, setCommentIsOpen] = useState(true);
   const [loaderHeight, setLoaderHeight] = useState(null);
+
+  const [updateCount, setUpdateCount] = useState(null);
+  const [updateComment, setUpdateComment] = useState(answer.answer_comments);
+
   const router = useRouter();
 
   const { created } = answer;
@@ -64,6 +68,11 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
     setLoaderHeight(ref.current.clientHeight);
   }, [])
 
+  useEffect(() => {
+    setUpdateCount(answer.answer_comment_count)
+  }, [answer])
+
+
   return (
     <>
       <MainContainer>
@@ -93,7 +102,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
               {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시{" "}
               {createdMinutes}분
             </Data>
-            {answer.user?.id === user?.user?.id && token ? (
+            {answer.user?.id === user?.user?.id ? (
               <>
                 <BtnContainer>
                   <Link href={`/answer/update/${answer.id}`} passHref>
@@ -125,16 +134,14 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
                     />
                   </>
                 ) : null}
-                <>
                 <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem" onClick={() => onOpen()} marginRight="1rem">채택하기</WhiteButton>
                 <WhiteButton paddingTop="0.625rem" paddingRight="1.125rem"  onClick={() => handleCommentOpen()}>
                   {commentIsOpen === true ? (
                     <>댓글 접기</>
                   ) : (
-                    <>댓글 {answer.answer_comment_count}</>
+                    <>댓글 {updateCount}</>
                   )}
                 </WhiteButton>
-                </>
               </>
             ) : (
               <>
@@ -142,7 +149,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
                   {commentIsOpen === true ? (
                     <>댓글 접기</>
                   ) : (
-                    <>댓글 {answer.answer_comment_count}</>
+                    <>댓글 {updateCount}</>
                   )}
                 </WhiteButton>
               </>
@@ -152,7 +159,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
           <ProfileContainer>
             <ProfileImg>
               <Image
-                src={`http://3.37.206.59:8000${answer.user.user_profile_image}`}
+                src={`http://localhost:8000${answer.user.user_profile_image}`}
                 width={50}
                 height={50}
                 alt="profileImage"
@@ -180,8 +187,10 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
           {commentIsOpen === true ? (
             <>
               <AnswerComment
-                commentCount={answer.answer_comment_count}
-                comments={answer.answer_comments}
+                updateCount={updateCount}
+                setUpdateCount={setUpdateCount}
+                comments={updateComment}
+                setUpdateComment={setUpdateComment}
                 id={answer.id}
                 token={token}
               />
