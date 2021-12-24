@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../hocs/Layout";
-import { load_user, check_auth_status } from "../redux/actions/auth";
+import { load_user, check_auth_status, logout } from "../redux/actions/auth";
 import { useRouter } from "next/router";
 import ProfileInfoBox from "../components/accountSetting/ProfileInfoBox";
 import FlexRow from "../components/common/FlexRow";
@@ -85,7 +85,7 @@ function accountSetting() {
               <AccountBtnBox>
                 {/* <WhiteButton paddingTop="0.625rem" paddingRight="2rem" fontSize="0.8125rem">회원탈퇴 😥</WhiteButton> */}
                 <WhiteButton
-                  onSubmit={(e) => onClickLogout(e)}
+                  onClick={(e) => onClickLogout(e)}
                   type="submit"
                   paddingTop="0.625rem"
                   paddingRight="2rem"
