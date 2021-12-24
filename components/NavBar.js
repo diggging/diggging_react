@@ -241,7 +241,7 @@ function navBar() {
                   ref={ref}
                 > 
                   {user?.user.user_profile_image ? (<><Image
-                    src={`http://3.37.206.59:8000${user.user.user_profile_image}`}
+                    src={`https://api-diggging.shop${user.user.user_profile_image}`}
                     width={40}
                     height={40}
                     alt="profileImage"

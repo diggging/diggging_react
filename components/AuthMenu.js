@@ -78,7 +78,7 @@ function AuthMenu({userData, isAuthenticated}) {
         <ToggleContainer >
           <UserImgWrapper>
             <Image 
-              src={`http://3.37.206.59:8000/${imgBase64}`}
+              src={`https://api-diggging.shop/${imgBase64}`}
               width={40} 
               height={40} 
               alt="profileImage" 
