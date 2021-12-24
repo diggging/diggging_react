@@ -40,7 +40,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
 
   const deleteAnswer = async (id) => {
     try {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${answerToken}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
         .delete(`${API_URL}/questions/${id}/answer_delete/`)
