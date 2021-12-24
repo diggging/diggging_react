@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true, 
   images: {
-    domains: [ 'api-diggging' ],
+    domains: [ 'api-diggging.shop' ],
   },
 }
