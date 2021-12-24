@@ -66,7 +66,13 @@ function QuestionList({ data, count }) {
                   답변
                 </BottomText>
                 <BottomText>
-                  {list.comment_count}
+                  {list.answer_count}
+                </BottomText>
+                <BottomText>
+                  조회수
+                </BottomText>
+                <BottomText>
+                  {list.hits}
                 </BottomText>
               </BottomContainer>
             </ListContainer>
