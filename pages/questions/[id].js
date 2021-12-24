@@ -27,6 +27,10 @@ const Question = () => {
   const [token, setToken] = useState("");
   const [commentIsOpen, setCommentIsOpen] = useState(true);
   const [loaderHeight, setLoaderHeight] = useState(0);
+  
+  const [updateCount, setUpdateCount] = useState(null);
+  const [updateComment, setUpdateComment] = useState([]);
+
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -52,6 +56,7 @@ const Question = () => {
     try {
       await axios.get(`${API_URL}/questions/${id}/detail/`).then((res) => {
         setItem(res.data);
+        setUpdateComment(res.data.question_comments);
       });
     } catch (e) {
       console.log(e);
@@ -105,19 +110,24 @@ const Question = () => {
   }, [id]);
 
   useEffect(() => {
+    setUpdateCount(item.comment_count)
+  }, [item])
+
+  useEffect(() => {
     if(ref.current) {
       setLoaderHeight(ref.current.offsetHeight);
     }
   }, [])
-
+  
   const handleLinkAlarm = () => {
     alertService.warn('링크가 복사되었습니다.')
   }
+
   return (
     <>
       <Layout>
         <NavBar />
-        {item?.id && id ? (
+        {item?.id ? (
           <>
             <Head>
               <title>{item.title}</title>
@@ -129,7 +139,7 @@ const Question = () => {
                 <DetailLike token={token} id={id} handleLinkAlarm={handleLinkAlarm}/>
                 <HeadContainer>
                   <Title>{item.title}</Title>
-                  {item.user?.id === user?.user?.id && token ? (
+                  {item.user?.id === user?.user?.id ? (
                     <>
                       <BtnContainer>
                         <Link href={`/questions/update/${item.id}`} passHref>
@@ -158,7 +168,8 @@ const Question = () => {
                     ))}
                   </HashContainer>
                   <WhiteButton paddingTop="10px" paddingRight="18px" fontSize="13px" onClick={() => handleCommentOpen()}>
-                  {commentIsOpen === true ? (<>댓글 접기</>) : (<>댓글 {item.comment_count}</>)}
+                  {/* {commentIsOpen === true ? (<>댓글 접기</>) : (updateCount !== undefined ? (<>댓글 {updateCount}</>): (<>댓글 {item.comment_count}</>)) } */}
+                  {commentIsOpen === true ? (<>댓글 접기</>) : <>댓글 {updateCount}</> }
                   </WhiteButton>
                 </FlexContainer>
 
@@ -194,10 +205,12 @@ const Question = () => {
                 {commentIsOpen === true ? (
                   <>
                     <Comment
-                      commentCount={item.comment_count}
-                      comments={item.question_comments}
+                      comments={updateComment}
+                      setUpdateComment={setUpdateComment}
                       id={id}
                       token={token}
+                      updateCount={updateCount}
+                      setUpdateCount={setUpdateCount}
                     />
                   </>
                 ) : null}
