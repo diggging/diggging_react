@@ -32,15 +32,13 @@ function ListCard({data}) {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    console.log(token, '함수밖token');
-
   return (
     <CardBox>
       <CardHead>
           <FlexColumn>
             <PostTitle>{title}</PostTitle>
             <TagWrapper>
-              {question_tags.map((tag) => (<HashTag key={tag}>{tag}</HashTag>))}
+              {question_tags && question_tags.map((tag) => (<HashTag key={tag}>{tag}</HashTag>))}
             </TagWrapper>
           </FlexColumn>
           <ProfileBox>
@@ -55,7 +53,7 @@ function ListCard({data}) {
           </ProfileBox>
       </CardHead>
       <ContentWrapper>
-        <PostContent>{desc}</PostContent>
+        <PostContent>{desc.replace(/(<([^>]+)>)/ig,"").slice(0, 315)}</PostContent>
       </ContentWrapper>
       <CardFooter>
         <PostDateInfo>{createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시 {createdMinutes}분</PostDateInfo>
@@ -145,6 +143,7 @@ const ProfileBox = styled.div`
   justify-content: center;
   text-align: center;
   margin-left: 1rem;
+  align-items: center;
 `;
 
 const ProfileImg = styled(Image)`
