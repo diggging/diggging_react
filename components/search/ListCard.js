@@ -88,9 +88,10 @@ const CardBox = styled.button`
   margin: auto;
   margin-bottom: 2rem;
 
+  border-radius: 0.125rem;
   text-align: left;
   background-color: white;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 0.25rem 1.25rem 0px rgba(0, 0, 0, 0.04);
 `;
 
 //title 글자수 표시제한 필요:54글자로.
@@ -113,7 +114,6 @@ const PostTitle = styled.h2`
 const TagWrapper = styled.div`
   display: flex;
   flex-direction: row;
-
   min-width: 36.125rem;
 
   white-space: normal;

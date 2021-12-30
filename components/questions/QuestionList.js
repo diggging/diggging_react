@@ -6,6 +6,7 @@ import Link from "next/link";
 import Paging from "../Paging";
 import { setQuestion, setPage, setMine } from "../../modules/questions";
 import HeartIcon from '../../public/static/images/HeartIcon.js';
+import FlexColumn from "../common/FlexColumn";
 
 function QuestionList({ data, count }) {
   
@@ -31,31 +32,28 @@ function QuestionList({ data, count }) {
             <ListContainer key={list.id}>
               <FlexContainer>
                 <TitleHashContainer>
-                  <ListTitle>{list.title}</ListTitle>
-                  <ListHashContainer>
-                    {list.question_tags.map((hash) => (
-                      <ListHash>{hash}</ListHash>
-                    ))}
-                  </ListHashContainer>
+                  <FlexColumn>
+                    <ListTitle>{list.title}</ListTitle>
+                    <ListHashContainer>
+                      {list.question_tags.map((hash) => (
+                        <ListHash>{hash}</ListHash>
+                      ))}
+                    </ListHashContainer>
+                  </FlexColumn>
+                  <ProfileContainer>
+                    <ProfileImg
+                        src={`${list.user.user_profile_image}`}
+                        width={40}
+                        height={40}
+                        alt="profileImage"
+                        quality={100}
+                        // layout="fill"
+                        objectFit="cover"
+                      />
+                    <ProfileName>{list.user.user_nickname}</ProfileName>
+                  </ProfileContainer>
                 </TitleHashContainer>
-
-                <ProfileContainer>
-                  <ProfileImg>
-                    <Image
-                      src={`${list.user.user_profile_image}`}
-                      width={50}
-                      height={50}
-                      alt="profileImage"
-                      quality={100}
-                      // layout="fill"
-                      objectFit="cover"
-                    />
-                  </ProfileImg>
-                  <ProfileName>{list.user.user_nickname}</ProfileName>
-                </ProfileContainer>
-
               </FlexContainer>
-
               <DescContainer>{list.desc.replace(/(<([^>]+)>)/ig,"").slice(0, 315)}</DescContainer>
               <BottomContainer>
                 <HeartBtn></HeartBtn>
@@ -87,38 +85,42 @@ function QuestionList({ data, count }) {
 export default React.memo(QuestionList);
 
 const ListContainer = styled.ul`
+  min-width: 42.5rem;
   max-width: 67rem;
-  height: 100%;
-  background: #ffffff;
+  width: 100%;
+  height: 16rem;
+  padding: 1.75rem 1.865rem 1.125rem 1.875rem;
+  margin: auto;
+  text-align: left;
+  background-color: white;
   box-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.04);
   border-radius: 0.125rem;
-  margin-top: 24px;
-  padding: 1.625rem 2.1875rem;
+  
+  margin-bottom: 2rem;
+
   cursor: pointer;
   &:hover {
-    transition: ease-out 200ms;
+    transition: ease-in-out 300ms;
     transform: translateY(-6px);
     box-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.05);
   }
 `;
 
 const TitleHashContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
   width: 100%;
 `;
 
 const ListTitle = styled.div`
-  width: 100%;
-  /* height: 1.5rem; */
   font-family: 'Pretendard-SemiBold';
-  font-size: 1.25rem;
-  line-height: 1.8125rem;
   color: #343434;
-  display: flex;
-  align-items: center;
-  margin-right: 0;
+  font-size: 1.25rem;
   margin-bottom: 0.6rem;
-
   min-width: 36.125rem;
+  line-height: 1.8125rem;
 
   white-space: normal;
   display: -webkit-box;
@@ -129,59 +131,10 @@ const ListTitle = styled.div`
 `;
 
 const ListHashContainer = styled.div`
-  width: 100%;
-  height: 1.5rem;
-  margin-top: 0.625rem;
-  display: flex;
-  align-items: center;
-`;
-
-const ListHash = styled.div`
-  padding: 0.625rem;
-  height: 1.125rem;
-  background: rgba(219, 214, 199, 0.4);
-  border-radius: 1.25rem;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-right: 0.9375rem;
-  margin-top: 0.625rem;
-  font-size: 0.625rem;
-  line-height: 1rem;
-  text-align: right;
-  color: #7A7A7A;
-  border-radius: 1.25rem;
-  background-color: #F1EFE9;
-  font-family: 'Pretendard-SemiBold';
-  font-size: 0.625rem;
-  line-height: 1;
-`;
+  min-width: 36.125rem;
 
-const ProfileContainer = styled.div`
-  width: 40px;
-  height: 100%;
-  float: right;
-`;
-
-const ProfileImg = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  margin-bottom: 10px;
-  & img {
-    border-radius: 50%;
-  }
-`;
-
-const ProfileName = styled.div`
-  font-family: 'Pretendard-Medium';
-  font-size: 0.875rem;
-  color: #343434;
-  text-align: center;
-  line-height: 16px;
-  
-  min-width: 
   white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -190,18 +143,65 @@ const ProfileName = styled.div`
   overflow: hidden;
 `;
 
+const ListHash = styled.span`
+  height: 1.125rem;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  
+  border-radius: 1.25rem;
+  background-color: #F1EFE9;
+  color: #7a7a7a;
+  font-family: 'Pretendard-SemiBold';
+  font-size: 0.625rem;
+  line-height: 1;
+`;
+
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-left: 1rem;
+  align-items: center;
+`;
+
+const ProfileImg = styled(Image)`
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: auto auto;
+  margin-bottom: 4px;
+
+  & > img {
+    margin-bottom: 0.25rem;
+  }
+`;
+
+const ProfileName = styled.span`
+  font-family: 'Pretendard-Medium';
+  color: #343434;
+  font-size: 0.875rem;
+  text-align: center;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 7px;
+`;
+
 const DescContainer = styled.div`
   width: 100%;
-  height: 117px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 26px;
+  height: 6.75rem;
+  font-family: 'Pretendard-Regular';
+  font-size: 0.875rem;
+  line-height: 1.625rem;
   color: #8d8c85;
   overflow: hidden;
   margin-top: 19px;
-  height: 6.75rem;
+  height: 5.875rem;
   
   white-space: normal;
   display: -webkit-box;
