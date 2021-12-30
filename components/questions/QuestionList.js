@@ -200,7 +200,6 @@ const DescContainer = styled.div`
   line-height: 1.625rem;
   color: #8d8c85;
   overflow: hidden;
-  margin-top: 19px;
   height: 5.875rem;
   
   white-space: normal;
