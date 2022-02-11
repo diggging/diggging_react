@@ -8,21 +8,17 @@ const colors = {
   black: "#343434",
 };
 
-
-
 //반응형 사이즈 정리
 const deviceSizes = {
   mobile: "414px",
   tablet: "768px",
-  laptop: "1152px"
+  laptop: "1152px",
 };
 
 const device = {
   mobile: `only screen and (max-width: ${deviceSizes.mobile})`,
   tablet: `only screen and (max-width: ${deviceSizes.tablet})`,
 };
-
-
 //export를 위한 정의
 const theme = {
   colors,

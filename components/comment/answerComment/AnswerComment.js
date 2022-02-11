@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from "react";
-import styled from "styled-components";
-import AnswerCommentList from "./AnswerCommentList";
 import axios from "axios";
+import React, { useCallback, useState } from "react";
 import TextareaAutosize from "react-autosize-textarea";
+import styled from "styled-components";
+
 import { API_URL } from "../../../config";
+import { Alert } from "../../Alert";
 import { alertService } from "../../alert.service";
 import YellowButton from "../../common/YellowButton";
-import { Alert } from "../../Alert";
+import AnswerCommentList from "./AnswerCommentList";
 
 function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUpdateComment }) {
   const [text, setText] = useState("");
@@ -16,7 +17,7 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
     (e) => {
       setText(e.target.value);
     },
-    [text]
+    [text],
   );
 
   const CreateAnswerComment = async () => {
@@ -25,17 +26,18 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
         .post(`${API_URL}/comments/answer_comment_create/?answer_id=${id}`, {
-          text: text,
+          text,
         })
         .then((response) => {
           setNewComment(response.data);
-          setUpdateComment([...comments, response.data])
+          setUpdateComment([...comments, response.data]);
           setText("");
           setUpdateCount(updateCount + 1);
-        }).catch((e) => {
-          if(e.response.status === 400) {
-            alertService.warn("댓글을 작성해주세요");      
-          } else if(e.response.status === 401) {
+        })
+        .catch((e) => {
+          if (e.response.status === 400) {
+            alertService.warn("댓글을 작성해주세요");
+          } else if (e.response.status === 401) {
             alertService.success("로그인 후 이용해주세요.");
           }
         });
@@ -46,9 +48,9 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
 
   const onClickIsAuth = () => {
     if (!token) {
-      alertService.warn("로그인 후 이용해주세요.")
+      alertService.warn("로그인 후 이용해주세요.");
     }
-  }
+  };
 
   return (
     <FormContainer>
@@ -59,13 +61,24 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
           value={text}
           onChange={onChange}
         />
-        <YellowButton fontSize="0.8125rem" paddingTop="0.6rem" paddingRight="1.5rem" onClick={CreateAnswerComment} type="button">
+        <YellowButton
+          fontSize="0.8125rem"
+          paddingTop="0.6rem"
+          paddingRight="1.5rem"
+          onClick={CreateAnswerComment}
+          type="button"
+        >
           댓글 남기기
         </YellowButton>
       </CommentContainer>
       <CommentCount>댓글 {updateCount}개</CommentCount>
       <AnswerCommentList
-        id={id} comments={comments} newComment={newComment} setUpdateCount={setUpdateCount} setUpdateComment={setUpdateComment} updateCount={updateCount}
+        id={id}
+        comments={comments}
+        newComment={newComment}
+        setUpdateCount={setUpdateCount}
+        setUpdateComment={setUpdateComment}
+        updateCount={updateCount}
       />
     </FormContainer>
   );
@@ -92,7 +105,7 @@ const CommentInput = styled(TextareaAutosize)`
   box-sizing: border-box;
   border-radius: 8px;
   padding: 1rem 1rem 1.5rem;
-  font-family: 'Pretendard-Regular';
+  font-family: "Pretendard-Regular";
   font-size: 1rem;
   color: rgb(33, 37, 41);
   line-height: 1.75;
@@ -107,7 +120,7 @@ const CommentSendBtn = styled.button`
   background: #ffd358;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
   border-radius: 20px;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 13px;
   line-height: 19px;
   color: #343434;
@@ -115,7 +128,7 @@ const CommentSendBtn = styled.button`
 
 const CommentCount = styled.div`
   width: 100%;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 18px;
   line-height: 21px;
   color: #343434;

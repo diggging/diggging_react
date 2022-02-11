@@ -1,18 +1,20 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import Prism from "prismjs";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "prismjs/themes/prism.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Editor } from "@toast-ui/react-editor";
-import { setDesc } from "../../modules/editor";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import Prism from "prismjs";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import { API_URL } from "../../config";
+import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
 import WhiteButton from "../common/WhiteButton";
@@ -27,6 +29,7 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
 
   const onChange = () => {
     const editorData = editorRef.current.getInstance().getHTML();
+
     dispatch(setDesc(editorData));
   };
 
@@ -36,7 +39,7 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
         .put(`${API_URL}/questions/${id}/update/`, {
-          title: title,
+          title,
           desc: content,
           question_folder: [],
           question_tags: tags,
@@ -46,10 +49,10 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
           alertService.success("질문이 수정 되었습니다.");
           setTimeout(() => {
             router.push(`/questions/${id}`);
-          }, 1500)
+          }, 1500);
         })
         .catch((e) => {
-          if(e.response === 400) {
+          if (e.response === 400) {
             alertService.warn("빈 칸 없이 모두 작성해주세요.");
           }
         });
@@ -57,29 +60,30 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
       alertService.warn("질문이 수정 되지 않았습니다.");
     }
   };
-  
+
   useEffect(() => {
-    if(!content) {
+    if (!content) {
       dispatch(setDesc(descState));
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   const onRouteChangeStart = React.useCallback(() => {
     dispatch(setDesc(""));
   }, []);
 
   useEffect(() => {
-    router.events.on('routeChangeStart', onRouteChangeStart);
+    router.events.on("routeChangeStart", onRouteChangeStart);
+
     return () => {
-      router.events.off('routeChangeStart', onRouteChangeStart);
-    }
-  }, [])
+      router.events.off("routeChangeStart", onRouteChangeStart);
+    };
+  }, []);
 
   return (
     <>
       {content ? (
         <>
-          <Alert/>
+          <Alert />
           <Editor
             initialValue={content}
             previewStyle="vertical"
@@ -97,7 +101,7 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
         </>
       ) : (
         <>
-          <Alert/>
+          <Alert />
           <Editor
             initialValue={descState}
             previewStyle="vertical"
@@ -115,10 +119,18 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
         </>
       )}
       <BtnContainer>
-        <WhiteButton onClick={handleUpdate}
-          paddingTop="0.75rem" paddingRight="2.375rem" fontSize="1rem">수정하기</WhiteButton>
+        <WhiteButton
+          onClick={handleUpdate}
+          paddingTop="0.75rem"
+          paddingRight="2.375rem"
+          fontSize="1rem"
+        >
+          수정하기
+        </WhiteButton>
         <Link href={`/questions/${id}`} passHref>
-          <WhiteButton paddingTop="0.75rem" paddingRight="2.375rem" fontSize="1rem">나가기</WhiteButton>
+          <WhiteButton paddingTop="0.75rem" paddingRight="2.375rem" fontSize="1rem">
+            나가기
+          </WhiteButton>
         </Link>
       </BtnContainer>
     </>

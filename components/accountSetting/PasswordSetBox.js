@@ -1,38 +1,39 @@
+import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
+import { API_URL } from '../../config';
+import { load_user } from '../../redux/actions/auth';
+import { alertService } from '../alert.service';
+import ContentText from '../common/ContentText';
+import FlexColumn from '../common/FlexColumn';
+import FlexRow from '../common/FlexRow';
 import GreyInput from '../common/GreyInput'
 import YellowButton from '../common/YellowButton'
 import YellowTitle from '../common/YellowTitle'
-import styled from 'styled-components';
-import ContentText from '../common/ContentText';
-import axios from 'axios';
-import { API_URL } from '../../config';
-import { alertService } from '../alert.service';
-import FlexColumn from '../common/FlexColumn';
-import FlexRow from '../common/FlexRow';
-import { useDispatch } from 'react-redux';
-import { load_user } from '../../redux/actions/auth';
 
-
-function PasswordSetBox({userData, token}) {
-  const {id} = userData.user
+function PasswordSetBox({  userData, token  }) {
+  const {  id } = userData.user;;
   const dispatch = useDispatch();
   const [pwInput, setPwInput] = useState({
-    oldPW: '',
-    newPW1: '',
-    newPW2: '',
-  })
-  const {oldPW, newPW1, newPW2} = pwInput;
+    oldPW: "",
+    newPW1: "",
+    newPW2: "",
+  });
+  const {  oldPW, newPW1, newPW2  } = pwInput;
 
   const [errorMessage, setErrorMessage] = useState({
-    pw1Error: '',
-    pw2Error: '',
-  })
-  const {pw1Error, pw2Error} = errorMessage;
+    pw1Error: "",
+    pw2Error: "",
+  });
+  const {  pw1Error, pw2Error  } = errorMessage;
   const onChangePW = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
-    } 
-    const {value, name} = e.target;
+    }
+    const {  value, name  } = e.target;
+
     setPwInput({
       ...pwInput,
       [name]: value,
@@ -42,58 +43,65 @@ function PasswordSetBox({userData, token}) {
         if (e.target.value.length < 8) {
           setErrorMessage({
             ...errorMessage,
-            pw1Error: '8자 이상 입력해주세요'
-          })
+            pw1Error: "8자 이상 입력해주세요",,
+          });
         } else {
           setErrorMessage({
             ...errorMessage,
-            pw1Error: ''
-          })
+            pw1Error: "",,
+          });
         }
         break;
       case "newPW2":
         if (e.target.value == newPW1) {
           setErrorMessage({
             ...errorMessage,
-            pw2Error: ' '
-          }) 
+            pw2Error: " ",,
+          });;
         } else {
           setErrorMessage({
             ...errorMessage,
-            pw2Error: '비밀번호가 일치하지 않습니다'
-          })
-        } 
+            pw2Error: "비밀번호가 일치하지 않습니다",,
+          });
+        }
         break;
     }
-  }
+  };
   const onUpdatePassword = async (e) => {
     e.preventDefault();
-    await axios.patch(`${API_URL}/users/${id}/change_pw/`, {
-      old_password: oldPW,
-      password: newPW1,
-      password2: newPW2,
-    }, {
-      headers: {
-        "Accept": "application/json",
-        Authorization: `Bearer ${token}`,
+    await axios
+      .patch(
+        `${API_URL}/users/${id}/change_pw/`,
+        {
+          old_password: oldPW,
+          password: newPW1,
+          password2: newPW2,
         },
-    }).then((res) => {
-      if (res.status === 200) {
-        alertService.warn('성공적으로 변경되었습니다.')
-        dispatch(load_user());
-      }
-    }).catch((err) => {
-      if (err.response.status === 400) {
-        if (newPW1 !== newPW2) {
-          alertService.warn('두 비밀번호가 일치하지 않습니다.')
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          alertService.warn("성공적으로 변경되었습니다.");;
+          dispatch(load_user());
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          if (newPW1 !== newPW2) {
+            alertService.warn("두 비밀번호가 일치하지 않습니다.");;
+          } else {
+            alertService.warn("이전 비밀번호를 확인해주세요");;
+          }
         } else {
-          alertService.warn('이전 비밀번호를 확인해주세요')
-        } 
-      } else {
-        alertService.warn(err)
-      }
-    })
-  }
+          alertService.warn(err);;
+        }
+      });;
+  };
   return (
     <PasswordResetBox onSubmit={(e) => onUpdatePassword(e)}>
       <YellowTitle marginBottom="0.75rem">비밀번호 변경</YellowTitle>
@@ -107,39 +115,47 @@ function PasswordSetBox({userData, token}) {
             value={oldPW}
             onChange={onChangePW}
             placeholder="이전 비밀번호"
-            width="12rem" height="3.125rem" marginRight="0.75rem" 
+            width="12rem"
+            height="3.125rem"
+            marginRight="0.75rem"
+          />
+          <FlexColumn>
+            <GreyInput
+              type="password"
+              required
+              name="newPW1"
+              value={newPW1}
+              onChange={onChangePW}
+              placeholder="새 비밀번호"
+              width="12rem"
+              height="3.125rem"
+              marginRight="0.75rem"
             />
-            <FlexColumn>
-              <GreyInput 
-                type="password"
-                required
-                name="newPW1"
-                value={newPW1}
-                onChange={onChangePW}
-                placeholder="새 비밀번호"
-                width="12rem" height="3.125rem" marginRight="0.75rem" 
-                />
-                <ErrorMsg>{pw1Error}</ErrorMsg>
-            </FlexColumn>
-            <FlexColumn>
-              <GreyInput 
-                type="password"
-                required
-                name="newPW2"
-                value={newPW2}
-                onChange={onChangePW} 
-                placeholder="비밀번호 확인"
-                width="12rem" height="3.125rem" marginRight="3.75rem" 
-                ></GreyInput>
-                <ErrorMsg>{pw2Error}</ErrorMsg>
-            </FlexColumn>
-          <YellowButton type="submit" paddingRight="2.125rem" paddingTop="0.75rem">변경</YellowButton>
+            <ErrorMsg>{pw1Error}</ErrorMsg>
+          </FlexColumn>
+          <FlexColumn>
+            <GreyInput
+              type="password"
+              required
+              name="newPW2"
+              value={newPW2}
+              onChange={onChangePW}
+              placeholder="비밀번호 확인"
+              width="12rem"
+              height="3.125rem"
+              marginRight="3.75rem"
+            ></GreyInput>
+            <ErrorMsg>{pw2Error}</ErrorMsg>
+          </FlexColumn>
+          <YellowButton type="submit" paddingRight="2.125rem" paddingTop="0.75rem">
+            변경
+          </YellowButton>
         </RowBox>
       </PasswordInputBox>
     </PasswordResetBox>
-  )
+  );
 }
-export default PasswordSetBox
+export default PasswordSetBox;
 
 const PasswordResetBox = styled.form`
   display: flex;
@@ -166,9 +182,10 @@ const PasswordMessage = styled(ContentText)`
 `;
 
 const ErrorMsg = styled.span`
-  font-family: 'Pretendard-Medium';
+  font-family: "Pretendard-Medium";
   font-size: 0.75rem;
-  color: #B6B6B6;
+  color: #b6b6b6;
   margin-top: 0.2rem;
   margin-left: 0.2rem;
-`; 
+`;
+

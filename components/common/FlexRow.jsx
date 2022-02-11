@@ -1,12 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 function FlexRow({ children }) {
-  return (
-    <StyledFlexRow>
-      {children}
-    </StyledFlexRow>
-  )
+  return <StyledFlexRow>{children}</StyledFlexRow>;
 }
 
 export default FlexRow;

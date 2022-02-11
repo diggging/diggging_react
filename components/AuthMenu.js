@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { NavItem } from "./NavBar";
+import { NavItem } from "./common/NavBar";
 import Link from "next/link";
 import AlarmContainer from "./AlarmContainer";
 import Directory from "../public/static/images/Directory";

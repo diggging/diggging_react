@@ -1,13 +1,18 @@
-import React from 'react'
-import styled from 'styled-components';
-import { lighten, darken } from 'polished';
+import { darken, lighten } from "polished";
+import React from "react";
+import styled from "styled-components";
 
 function YellowButton({ children, paddingTop, paddingRight, type, onClick }) {
   return (
-    <StyledYellowButton type={type} paddingTop={paddingTop} paddingRight={paddingRight} onClick={onClick}>
+    <StyledYellowButton
+      type={type}
+      paddingTop={paddingTop}
+      paddingRight={paddingRight}
+      onClick={onClick}
+    >
       {children}
     </StyledYellowButton>
-  )
+  );
 }
 export default YellowButton;
 
@@ -25,9 +30,9 @@ const StyledYellowButton = styled.button`
   cursor: pointer;
   transition: 300ms;
   &:hover {
-    background-color: ${lighten(0.02, '#FFD358')};
+    background-color: ${lighten(0.02, "#FFD358")};
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.15);
   }
   &:active {
-    background-color: ${darken(0.02, '#FFD358')};
+    background-color: ${darken(0.02, "#FFD358")};
 `;

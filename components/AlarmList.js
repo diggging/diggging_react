@@ -1,15 +1,14 @@
-import React from 'react'
-import styled from 'styled-components';
-import BookMarkIcon from '../public/static/images/BookMarkIcon';
-import HeartIcon from '../public/static/images/HeartIcon';
-import AnswerIcon from '../public/static/images/AnswerIcon';
-import AnswerSelectedIcon from '../public/static/images/AnswerSelectedIcon';
-import CommentIcon from '../public/static/images/CommentIcon';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import styled from "styled-components";
 
-
+import AnswerIcon from "../public/static/images/AnswerIcon";
+import AnswerSelectedIcon from "../public/static/images/AnswerSelectedIcon";
+import BookMarkIcon from "../public/static/images/BookMarkIcon";
+import CommentIcon from "../public/static/images/CommentIcon";
+import HeartIcon from "../public/static/images/HeartIcon";
 function AlarmList() {
   //안 읽었을 때 아이콘 #FFE59C, 읽었을 때 #E4E1D6
   //alarm get해서 isChecked state로 정의해서 관리하기
@@ -21,29 +20,37 @@ function AlarmList() {
 
   const onClickMoveDetail = () => {
     // router.push(`/questions/${id}`);
-    router.push(`/questions/1`);
-  }
+    router.push("/questions/1");
+  };
+
   return (
     <ListBox onClick={onClickMoveDetail}>
       <AlarmIconBox>
         {/* {isChecked ? (<AlarmIcon className="Yellow"/>):(<AlarmIcon className="Grey"/>)} */}
-        <BookMarkIcon /> 
+        <BookMarkIcon />
       </AlarmIconBox>
       <AlarmContentBox>
         <AlarmPostTitle>Next.js SSR관련 질문있습니다...도와주세요 아무나 제발요</AlarmPostTitle>
-        <AlarmPostContent>음 Next.js는 우선 기본적으로 SSR과 SSG 둘다 지원하기 때문에 괜찮습니다</AlarmPostContent>
+        <AlarmPostContent>
+          음 Next.js는 우선 기본적으로 SSR과 SSG 둘다 지원하기 때문에 괜찮습니다
+        </AlarmPostContent>
         <AlarmTime>2시간 전</AlarmTime>
       </AlarmContentBox>
       <AlarmIconBox>
-        <ProfileImg src="/static/images/profile.jpg" alt="profileImage" quality={65} width={35} height={35} layout="fixed"/>
+        <ProfileImg
+          src="/static/images/profile.jpg"
+          alt="profileImage"
+          quality={65}
+          width={35}
+          height={35}
+          layout="fixed"
+        />
       </AlarmIconBox>
     </ListBox>
-  )
+  );
 }
 
-export default AlarmList
-
-
+export default AlarmList;
 const ListBox = styled.button`
   width: 100%;
   max-height: 4.875rem;
@@ -68,7 +75,7 @@ const AlarmContentBox = styled.div`
 `;
 
 const AlarmPostTitle = styled.h5`
-  font-family: 'Pretendard-Medium';
+  font-family: "Pretendard-Medium";
   color: #343434;
   font-size: 0.75rem;
   margin-bottom: 0.125rem;
@@ -82,7 +89,7 @@ const AlarmPostTitle = styled.h5`
 `;
 
 const AlarmPostContent = styled.p`
-  font-family: 'Pretendard-Regular';
+  font-family: "Pretendard-Regular";
   color: #8d8c85;
   font-size: 0.6875rem;
 
@@ -95,8 +102,8 @@ const AlarmPostContent = styled.p`
 `;
 
 const AlarmTime = styled.p`
-  font-family: 'Pretendard-Regular';
-  color: #B6B6B6;
+  font-family: "Pretendard-Regular";
+  color: #b6b6b6;
   font-size: 0.6875rem;
   margin-top: 0.2rem;
 `;
@@ -106,6 +113,5 @@ const ProfileImg = styled(Image)`
   height: 1.875rem;
   object-fit: cover;
   border-radius: 50%;
-  border: 0px
+  border: 0px;
 `;
-

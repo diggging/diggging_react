@@ -1,11 +1,8 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 function SearchTab() {
-  return (
-    <TabBox>
-    </TabBox>
-  )
+  return <TabBox></TabBox>;
 }
 
 export default SearchTab;

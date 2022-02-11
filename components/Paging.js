@@ -1,7 +1,7 @@
 import React from "react";
 import Pagination from "react-js-pagination";
 
-function Paging({handlePageChange, page, count}) {
+function Paging({ handlePageChange, page, count }) {
   return (
     <div>
       <Pagination

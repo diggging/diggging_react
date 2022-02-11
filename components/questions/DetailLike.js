@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import styled from "styled-components";
+
+import { API_URL } from "../../config/index";
 import LikeDetail from "../../public/static/images/LikeDetail";
 import LinkDetail from "../../public/static/images/LinkDetail";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useRouter } from "next/router";
-import { API_URL } from "../../config/index";
 import { alertService } from "../alert.service";
 
 function DetailLike({ token, id, handleLinkAlarm }) {
@@ -13,10 +14,7 @@ function DetailLike({ token, id, handleLinkAlarm }) {
   const [like, setLike] = useState([]);
   const [isClick, setIsClick] = useState(false);
 
-  const url =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.href
-      : "";
+  const url = typeof window !== "undefined" && window.location.origin ? window.location.href : "";
 
   const handleLike = async (id) => {
     try {
@@ -30,7 +28,7 @@ function DetailLike({ token, id, handleLinkAlarm }) {
         .catch((e) => {
           if (e.response.status === 403) {
             alertService.warn("다른 유저의 글에 눌러주세요💛");
-          } else if(e.response.status === 401) {
+          } else if (e.response.status === 401) {
             alertService.warn("로그인 후 이용해주세요.");
           }
         });
@@ -104,7 +102,7 @@ const FlexContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 13px;
   line-height: 19px;
   text-align: center;
@@ -116,7 +114,7 @@ const LinkClickAlarm = styled.div`
   height: 50px;
   background: #f5f5f5;
   border-radius: 20px;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 13px;
   line-height: 19px;
   text-align: center;

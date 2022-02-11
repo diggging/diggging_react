@@ -1,91 +1,95 @@
-import React, {useState} from 'react'
-import Layout from '../hocs/Layout';
-import styled from 'styled-components';
-import NavBar from '../components/NavBar';
-import GreyInput from '../components/common/GreyInput';
-import YellowButton from "../components/common/YellowButton";
-import YellowTitle from '../components/common/YellowTitle';
-import {alertService} from '../components/alert.service';
-import { Alert } from '../components/Alert';
-import { reset_password } from '../redux/actions/auth';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
+import { Alert } from "../components/Alert";
+import { alertService } from "../components/alert.service";
+import GreyInput from "../components/common/GreyInput";
+import NavBar from "../components/common/NavBar";
+import YellowButton from "../components/common/YellowButton";
+import YellowTitle from "../components/common/YellowTitle";
+import Layout from "../hocs/Layout";
+import { reset_password } from "../redux/actions/auth";
 
 function findPassword() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
-    email: '',
-    username: '',
+    email: "",
+    username: "",
   });
 
   const onInput = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
+
     setInputs({
       ...inputs,
       [name]: value,
-    })
-  }
+    });
+  };
 
-  const {email, username} = inputs;
+  const { email, username } = inputs;
 
   const onSubmitEmail = async (e) => {
     e.preventDefault();
     dispatch(reset_password(email, username))
-    .then((res) => {
-      if (res.status === 200) {
-        alertService.warn('이메일이 전송되었습니다📧');
-        setTimeout(() => {
-          router.push("/password_reset_submit");
-        }, 1500);
-      } else if (res.status === 400) {
-        alertService.warn('아이디 또는 이메일이 틀렸습니다. 다시 입력해주세요')
-      }
-    })
-    .catch((err) => alertService.warn(err))
-  }
-  
-  
+      .then((res) => {
+        if (res.status === 200) {
+          alertService.warn("이메일이 전송되었습니다📧");
+          setTimeout(() => {
+            router.push("/password_reset_submit");
+          }, 1500);
+        } else if (res.status === 400) {
+          alertService.warn("아이디 또는 이메일이 틀렸습니다. 다시 입력해주세요");
+        }
+      })
+      .catch((err) => alertService.warn(err));
+  };
+
   return (
     <>
-      <Layout/>
+      <Layout />
       <NavBar />
       <PWFormBox onSubmit={(e) => onSubmitEmail(e)}>
-      <Alert />
+        <Alert />
         <PageTitle>비밀번호 찾기</PageTitle>
-        <GuideMessage>가입하신 이메일을 입력하시면 해당 주소로 비밀번호 변경 링크를 보내드립니다.</GuideMessage>
-          <InputRow>
-            <YellowTitle fontSize="1.375rem" >이메일</YellowTitle>
-            <GreyInput
-              name="email"
-              width="28.75rem"
-              height="3.125rem"
-              marginRight="2.875rem"
-              marginLeft="2.75rem"
-              type="email"
-              placeholder="이메일"
-              onChange={(e) => onInput(e)}
-              required
-            />
-          </InputRow>
-          <InputRow>
-            <YellowTitle fontSize="1.375rem" >아이디</YellowTitle>
-            <GreyInput
-              name="username"
-              width="28.75rem"
-              height="3.125rem"
-              marginRight="2.875rem"
-              marginLeft="2.75rem"
-              placeholder="아이디"
-              onChange={(e) => onInput(e)}
-              required
-            />
-          <YellowButton type="submit" paddingTop="0.9375rem" paddingRight="2.1875rem">전송</YellowButton>
-          </InputRow>
+        <GuideMessage>
+          가입하신 이메일을 입력하시면 해당 주소로 비밀번호 변경 링크를 보내드립니다.
+        </GuideMessage>
+        <InputRow>
+          <YellowTitle fontSize="1.375rem">이메일</YellowTitle>
+          <GreyInput
+            name="email"
+            width="28.75rem"
+            height="3.125rem"
+            marginRight="2.875rem"
+            marginLeft="2.75rem"
+            type="email"
+            placeholder="이메일"
+            onChange={(e) => onInput(e)}
+            required
+          />
+        </InputRow>
+        <InputRow>
+          <YellowTitle fontSize="1.375rem">아이디</YellowTitle>
+          <GreyInput
+            name="username"
+            width="28.75rem"
+            height="3.125rem"
+            marginRight="2.875rem"
+            marginLeft="2.75rem"
+            placeholder="아이디"
+            onChange={(e) => onInput(e)}
+            required
+          />
+          <YellowButton type="submit" paddingTop="0.9375rem" paddingRight="2.1875rem">
+            전송
+          </YellowButton>
+        </InputRow>
       </PWFormBox>
     </>
-  )
+  );
 }
 
 const PWFormBox = styled.form`
@@ -95,7 +99,7 @@ const PWFormBox = styled.form`
 `;
 
 const PageTitle = styled.span`
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 1.625rem;
   color: #343434;
   padding-bottom: 0.375rem;
@@ -104,10 +108,10 @@ const PageTitle = styled.span`
 
 const GuideMessage = styled.p`
   display: block;
-  color: #8D8C85;
+  color: #8d8c85;
   font-size: 1.125rem;
   font-family: "Pretendard-Medium";
-  border-top: solid 2px #E5E5E5;
+  border-top: solid 2px #e5e5e5;
   margin-top: 95px;
   padding-top: 20px;
   margin-bottom: 40px;
@@ -120,5 +124,5 @@ const InputRow = styled.div`
   align-items: center;
 `;
 
-export {PageTitle, GuideMessage, PWFormBox};
+export { GuideMessage, PageTitle, PWFormBox };
 export default findPassword;

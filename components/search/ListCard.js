@@ -1,76 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import FlexColumn from '../common/FlexColumn';
-import FlexRow from '../common/FlexRow';
-import Image from 'next/image'
-import BookmarkIcon from '../../public/static/images/BookMarkIcon.js';
-import HeartIcon from '../../public/static/images/HeartIcon.js';
-import axios from 'axios';
-import { API_URL } from '../../config';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import { Alert } from '../Alert';
-import { alertService } from '../alert.service';
-import { check_auth_status } from '../../redux/actions/auth';
+import axios from "axios";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
-function ListCard({data}) {
-    const {created, id, answer_exist, desc, helped_num, hits, scrap_num, title, question_tags} = data;
-    const {user_nickname, user_profile_image} = data.user;
+import { API_URL } from "../../config";
+import BookmarkIcon from "../../public/static/images/BookMarkIcon.js";
+import HeartIcon from "../../public/static/images/HeartIcon.js";
+import { check_auth_status } from "../../redux/actions/auth";
+import { Alert } from "../Alert";
+import { alertService } from "../alert.service";
+import FlexColumn from "../common/FlexColumn";
+import FlexRow from "../common/FlexRow";
 
-    const createdAtDate = new Date(created);
-    const createdYear = createdAtDate.getFullYear();
-    const createdMonth = createdAtDate.getMonth() + 1;
-    const createdDate = createdAtDate.getDate();
-    const createdHour = createdAtDate.getHours();
-    const createdMinutes = createdAtDate.getMinutes();
+function ListCard({ data }) {
+  const { created, id, answer_exist, desc, helped_num, hits, scrap_num, title, question_tags } =
+    data;
+  const { user_nickname, user_profile_image } = data.user;
 
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const createdAtDate = new Date(created);
+  const createdYear = createdAtDate.getFullYear();
+  const createdMonth = createdAtDate.getMonth() + 1;
+  const createdDate = createdAtDate.getDate();
+  const createdHour = createdAtDate.getHours();
+  const createdMinutes = createdAtDate.getMinutes();
 
-    const [Like, setLike] = useState(helped_num);
-    const [token, setToken] = useState("");
-    
-    const router = useRouter();
-    const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const [Like, setLike] = useState(helped_num);
+  const [token, setToken] = useState("");
+
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <CardBox>
       <CardHead>
-          <FlexColumn>
-            <PostTitle>{title}</PostTitle>
-            <TagWrapper>
-              {question_tags && question_tags.map((tag) => (<HashTag key={tag}>{tag}</HashTag>))}
-            </TagWrapper>
-          </FlexColumn>
-          <ProfileBox>
-            <ProfileImg src={`https://api-diggging.shop${user_profile_image}`}
-                width={40}
-                height={40}
-                alt="profileImage"
-                quality={100}
-                // layout="fill"
-                objectFit="cover"/>
-            <Username>{user_nickname}</Username>
-          </ProfileBox>
+        <FlexColumn>
+          <PostTitle>{title}</PostTitle>
+          <TagWrapper>
+            {question_tags && question_tags.map((tag) => <HashTag key={tag}>{tag}</HashTag>)}
+          </TagWrapper>
+        </FlexColumn>
+        <ProfileBox>
+          <ProfileImg
+            src={`https://api-diggging.shop${user_profile_image}`}
+            width={40}
+            height={40}
+            alt="profileImage"
+            quality={100}
+            // layout="fill"
+            objectFit="cover"
+          />
+          <Username>{user_nickname}</Username>
+        </ProfileBox>
       </CardHead>
       <ContentWrapper>
-        <PostContent>{desc.replace(/(<([^>]+)>)/ig,"").slice(0, 315)}</PostContent>
+        <PostContent>{desc.replace(/(<([^>]+)>)/gi, "").slice(0, 315)}</PostContent>
       </ContentWrapper>
       <CardFooter>
-        <PostDateInfo>{createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시 {createdMinutes}분</PostDateInfo>
+        <PostDateInfo>
+          {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시 {createdMinutes}분
+        </PostDateInfo>
         <div>
-          {/* <BookMarkBtn /><NumberData>{scrap_num}</NumberData> */} 
-          <HeartBtn /><NumberData>{helped_num}</NumberData>
-          <Hit>조회</Hit><NumberData>{hits}</NumberData>
+          {/* <BookMarkBtn /><NumberData>{scrap_num}</NumberData> */}
+          <HeartBtn />
+          <NumberData>{helped_num}</NumberData>
+          <Hit>조회</Hit>
+          <NumberData>{hits}</NumberData>
         </div>
       </CardFooter>
       <Alert />
     </CardBox>
-  )
+  );
 }
 
 export default ListCard;
-
-
 const CardHead = styled.div`
   display: flex;
   flex-direction: row;
@@ -96,7 +102,7 @@ const CardBox = styled.button`
 
 //title 글자수 표시제한 필요:54글자로.
 const PostTitle = styled.h2`
-  font-family: 'Pretendard-SemiBold';
+  font-family: "Pretendard-SemiBold";
   color: #343434;
   font-size: 1.25rem;
   margin-bottom: 0.6rem;
@@ -128,14 +134,14 @@ const HashTag = styled.span`
   height: 1.125rem;
   padding: 0.25rem 0.5rem;
   margin-right: 0.5rem;
-  
+
   border-radius: 1.25rem;
-  background-color: #F1EFE9;
+  background-color: #f1efe9;
   color: #7a7a7a;
-  font-family: 'Pretendard-SemiBold';
+  font-family: "Pretendard-SemiBold";
   font-size: 0.625rem;
   line-height: 1;
-`; 
+`;
 
 const ProfileBox = styled.div`
   display: flex;
@@ -160,7 +166,7 @@ const ProfileImg = styled(Image)`
 `;
 
 const Username = styled.span`
-  font-family: 'Pretendard-Medium';
+  font-family: "Pretendard-Medium";
   color: #343434;
   font-size: 0.875rem;
   text-align: center;
@@ -173,12 +179,10 @@ const Username = styled.span`
   margin-top: 7px;
 `;
 
-
-
 const ContentWrapper = styled.div`
-  width:100%;
+  width: 100%;
   height: 6.75rem;
-  
+
   white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 4; //4줄이면 자르기
@@ -188,8 +192,8 @@ const ContentWrapper = styled.div`
 `;
 
 const PostContent = styled.p`
-  font-family: 'Pretendard-Regular';
-  color: #8D8C85;
+  font-family: "Pretendard-Regular";
+  color: #8d8c85;
   font-size: 0.875rem;
   line-height: 1.625rem;
   height: 5.875rem;
@@ -210,9 +214,9 @@ const CardFooter = styled.div`
 `;
 
 const PostDateInfo = styled.span`
-  font-family: 'Pretendard-Regular';
+  font-family: "Pretendard-Regular";
   font-size: 0.6rem;
-  color: #8C8D8D;
+  color: #8c8d8d;
 `;
 
 const BookMarkBtn = styled(BookmarkIcon)`
@@ -220,8 +224,8 @@ const BookMarkBtn = styled(BookmarkIcon)`
   margin-right: 0.625rem;
   vertical-align: middle;
 
-  &:hover path{
-    fill: #FFD358;
+  &:hover path {
+    fill: #ffd358;
   }
 `;
 const HeartBtn = styled(HeartIcon)`
@@ -229,7 +233,7 @@ const HeartBtn = styled(HeartIcon)`
   vertical-align: middle;
 
   path {
-    fill: #FFD358;
+    fill: #ffd358;
   }
   /* & :hover path{
     fill: #FFD358;
@@ -237,14 +241,14 @@ const HeartBtn = styled(HeartIcon)`
 `;
 
 const NumberData = styled.span`
-  font-family: 'Pretendard-Medium';
+  font-family: "Pretendard-Medium";
   font-size: 0.75rem;
-  color: #8C8D8D;
+  color: #8c8d8d;
   margin-left: 0.625rem;
 `;
 
 const Hit = styled.span`
-  font-family: 'Pretendard-Semibold';
+  font-family: "Pretendard-Semibold";
   font-size: 0.75rem;
   color: #8c8d8d;
   margin-left: 1rem;

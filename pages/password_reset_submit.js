@@ -1,64 +1,64 @@
-import React, {useEffect, useState} from 'react'
-import { useRouter } from 'next/router';
-import Layout from '../hocs/Layout';
-import styled from 'styled-components';
-import NavBar from '../components/NavBar';
-import GreyInput from '../components/common/GreyInput';
+import { useRouter } from "next/router";
+import { darken, lighten } from "polished";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
+import { Alert } from "../components/Alert";
+import { alertService } from "../components/alert.service";
+import FlexColumn from "../components/common/FlexColumn";
+import GreyInput from "../components/common/GreyInput";
+import NavBar from "../components/common/NavBar";
 import YellowButton from "../components/common/YellowButton";
-import YellowTitle from '../components/common/YellowTitle';
-import { GuideMessage, PageTitle } from './findPassword';
-import FlexColumn from '../components/common/FlexColumn';
-import { useDispatch } from 'react-redux';
-import { alertService } from '../components/alert.service';
-import { Alert } from '../components/Alert';
-import { reset_password_confirm } from '../redux/actions/auth';
-import { PWFormBox } from './findPassword';
-import { lighten, darken } from 'polished';
+import YellowTitle from "../components/common/YellowTitle";
+import Layout from "../hocs/Layout";
+import { reset_password_confirm } from "../redux/actions/auth";
+import { GuideMessage, PageTitle, PWFormBox } from "./findPassword";
 
 function ResetPassword() {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const [inputs, setInputs] = useState({
-    new_password: '',
-    password_confirm: '',
-    username: '',
-    temp: '',
+    new_password: "",
+    password_confirm: "",
+    username: "",
+    temp: "",
   });
-  
-  
+
   const onInput = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
+
     setInputs({
       ...inputs,
       [name]: value,
-    })
-  }
-  
-  const {new_password, password_confirm, username, temp} = inputs;
-  
+    });
+  };
+
+  const { new_password, password_confirm, username, temp } = inputs;
+
   const onUpdatePassword = (e) => {
     e.preventDefault();
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(reset_password_confirm(username, temp, new_password, password_confirm))
-      .then((res) => {
-        if (res.status === 200) {
-          alertService.warn('비밀번호가 성공적으로 변경되었습니다🔑.')
-          setTimeout(() => {
-            router.push("/loginPage");
-          }, 1500);
-        } else if (res.status === 400) {
-          if (new_password !== password_confirm) {
-            alertService.warn('비밀번호가 일치하지 않습니다');
-          } else {
-            alertService.warn('아이디 또는 인증번호를 다시 확인해주세요')
+        .then((res) => {
+          if (res.status === 200) {
+            alertService.warn("비밀번호가 성공적으로 변경되었습니다🔑.");
+            setTimeout(() => {
+              router.push("/loginPage");
+            }, 1500);
+          } else if (res.status === 400) {
+            if (new_password !== password_confirm) {
+              alertService.warn("비밀번호가 일치하지 않습니다");
+            } else {
+              alertService.warn("아이디 또는 인증번호를 다시 확인해주세요");
+            }
           }
-        }
-      })
-      .catch((err) => alertService.warn(err))
+        })
+        .catch((err) => alertService.warn(err));
     }
-  }
+  };
 
   return (
     <>
@@ -113,7 +113,7 @@ function ResetPassword() {
             />
           </StyledFlexRow>
           <StyledFlexRow>
-            <YellowTitle fontSize="1.375rem" >비밀번호 확인</YellowTitle>
+            <YellowTitle fontSize="1.375rem">비밀번호 확인</YellowTitle>
             <GreyInput
               width="21.5625rem"
               height="3.125rem"
@@ -126,12 +126,12 @@ function ResetPassword() {
               onChange={(e) => onInput(e)}
               required
             />
-        </StyledFlexRow>
+          </StyledFlexRow>
         </FlexColumn>
-        <SubmitButton type="submit" >전송</SubmitButton>
+        <SubmitButton type="submit">전송</SubmitButton>
       </PWFormBox>
     </>
-  )
+  );
 }
 
 const StyledFlexRow = styled.div`
@@ -141,8 +141,6 @@ const StyledFlexRow = styled.div`
   margin-top: 1.5rem;
   align-items: center;
 `;
-
-
 const SubmitButton = styled.button`
   margin-top: 1.5rem;
   margin-left: 82%;
@@ -158,12 +156,11 @@ const SubmitButton = styled.button`
   cursor: pointer;
   transition: 300ms;
   &:hover {
-    background-color: ${lighten(0.02, '#FFD358')};
+    background-color: ${lighten(0.02, "#FFD358")};
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.15);
   }
   &:active {
-    background-color: ${darken(0.02, '#FFD358')};
-`
-;
+    background-color: ${darken(0.02, "#FFD358")};
+`;
 
 export default ResetPassword;

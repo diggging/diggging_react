@@ -1,22 +1,24 @@
-import React, { useRef,useState, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import Prism from 'prismjs';
 import "@toast-ui/editor/dist/toastui-editor.css";
-import 'prismjs/themes/prism.css';
-import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
-import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
-import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import "prismjs/themes/prism.css";
+import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Editor } from "@toast-ui/react-editor";
-import { setDesc } from "../../modules/editor";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import Prism from "prismjs";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import { API_URL } from "../../config";
+import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
 
-function ToastAnswerUpdate({id, title, desc, token, questionId }) {
+function ToastAnswerUpdate({ id, title, desc, token, questionId }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const editorRef = useRef();
@@ -25,6 +27,7 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
 
   const onChange = () => {
     const editorData = editorRef.current.getInstance().getHTML();
+
     dispatch(setDesc(editorData));
   };
 
@@ -34,7 +37,7 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
         .put(`${API_URL}/questions/${id}/answer_update/`, {
-          title: title,
+          title,
           desc: content,
         })
         .then((response) => {
@@ -42,10 +45,10 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
           alertService.success("답변이 수정 되었습니다.");
           setTimeout(() => {
             router.push(`/questions/${questionId}`);
-          }, 1500)
+          }, 1500);
         })
         .catch((e) => {
-          if(e.response === 400) {
+          if (e.response === 400) {
             alertService.warn("빈 칸 없이 모두 작성해주세요.");
           }
         });
@@ -55,27 +58,28 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
   };
 
   useEffect(() => {
-    if(!content) {
+    if (!content) {
       dispatch(setDesc(descState));
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   const onRouteChangeStart = React.useCallback(() => {
     dispatch(setDesc(""));
   }, []);
 
   useEffect(() => {
-    router.events.on('routeChangeStart', onRouteChangeStart);
+    router.events.on("routeChangeStart", onRouteChangeStart);
+
     return () => {
-      router.events.off('routeChangeStart', onRouteChangeStart);
-    }
-  }, [])
+      router.events.off("routeChangeStart", onRouteChangeStart);
+    };
+  }, []);
 
   return (
     <>
       {content ? (
         <>
-          <Alert/>
+          <Alert />
           <Editor
             initialValue={content}
             previewStyle="vertical"
@@ -93,7 +97,7 @@ function ToastAnswerUpdate({id, title, desc, token, questionId }) {
         </>
       ) : (
         <>
-          <Alert/>
+          <Alert />
           <Editor
             initialValue={descState}
             previewStyle="vertical"

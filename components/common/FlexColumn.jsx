@@ -1,10 +1,8 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 function FlexColumn({ children }) {
-  return (
-    <StyledFlexColumn>{children}</StyledFlexColumn>
-  )
+  return <StyledFlexColumn>{children}</StyledFlexColumn>;
 }
 
 export default FlexColumn;

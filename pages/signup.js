@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { register } from "../redux/actions/auth";
-import { alertService } from "../components/alert.service";
+import { darken, lighten } from "polished";
+import React, { useState } from "react";
+import Loader from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
 import { Alert } from "../components/Alert";
-import Loader from "react-loader-spinner";
-import { lighten, darken } from "polished";
-import Link from "next/link";
-import styled from "styled-components";
+import { alertService } from "../components/alert.service";
 import Layout from "../hocs/Layout";
+import { register } from "../redux/actions/auth";
 
 function signup() {
   const dispatch = useDispatch();
@@ -46,11 +46,11 @@ function signup() {
   //비구조화할당으로 inputs에서 값 가져오기
 
   const { username, user_nickname, email, password1, password2 } = inputs;
-  let emailCheck =
-    /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+  let emailCheck = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 
   const onInput = (e) => {
     const { value, name } = e.target; //e.target에서 value와 name추출
+
     setInputs({
       ...inputs, //기존의 inputs 복사한 뒤
       [name]: value, //name에 해당하는 값을 key로하고 가져온 value를 설정
@@ -60,7 +60,7 @@ function signup() {
         if (e.target.value.length < 4) {
           setUsernameMessage("아이디를 4자 이상 입력해주세요.");
         } else if (e.target.value.length > 10) {
-          setUsernameMessage("아이디는 10자 이하로 입력해주세요.")
+          setUsernameMessage("아이디는 10자 이하로 입력해주세요.");
         } else {
           setUsernameMessage("올바른 아이디 형식입니다 😏");
         }
@@ -69,7 +69,7 @@ function signup() {
         if (e.target.value.length < 2) {
           setUserNicknameMessage("닉네임을 4자 이상 입력해주세요.");
         } else if (e.target.value.length > 7) {
-          setUserNicknameMessage("닉네임을 7자 이하로 입력해주세요")
+          setUserNicknameMessage("닉네임을 7자 이하로 입력해주세요");
         } else {
           setUserNicknameMessage("올바른 닉네임 형식입니다. 😏");
         }
@@ -107,23 +107,17 @@ function signup() {
     dispatch(register(username, user_nickname, email, password1, password2))
       .then((res) => {
         if (res === 201 || res === 200) {
-          alertService.success(
-            `회원가입 되었습니다. 전송된 메일로 인증을 완료해주세요 📧`
-          );
+          alertService.success("회원가입 되었습니다. 전송된 메일로 인증을 완료해주세요 📧");
           setTimeout(() => {
             router.push("/loginPage");
           }, 1500);
         } else if (res === 400 || 401) {
           if (password1 !== password2) {
-            alertService.warn(
-              `비밀번호가 일치하지 않습니다. 다시 입력해주세요😅`
-            );
+            alertService.warn("비밀번호가 일치하지 않습니다. 다시 입력해주세요😅");
           } else if (username.length < 4 || username.length > 10) {
-            alertService.warn(
-              `아이디는 4자 이상 10자 이하로 설정해주세요`
-            );
+            alertService.warn("아이디는 4자 이상 10자 이하로 설정해주세요");
           } else if (user_nickname.length > 7 || user_nickname.length < 4) {
-            alertService.warn('닉네임은 4자 이상 7자 이하로 설정해주세요')
+            alertService.warn("닉네임은 4자 이상 7자 이하로 설정해주세요");
           } else {
             alertService.warn("이미 사용중인 아이디 혹은 이메일입니다😅");
           }
@@ -146,10 +140,7 @@ function signup() {
 
   return (
     <>
-      <Layout
-        title="Diggging | 회원가입"
-        content="개발자들을 위한 커뮤니티 디깅 회원가입 페이지"
-      >
+      <Layout title="Diggging | 회원가입" content="개발자들을 위한 커뮤니티 디깅 회원가입 페이지">
         <BackgroundColor>
           <SignupBox>
             <Alert />
@@ -249,15 +240,15 @@ function signup() {
   );
 }
 export {
-  Logo,
   BackgroundColor,
-  GuideMessage,
-  UserInput,
-  LinkBtn,
-  LinkBox,
-  VerifyMessage,
-  LoaderBox,
   FormBtn,
+  GuideMessage,
+  LinkBox,
+  LinkBtn,
+  LoaderBox,
+  Logo,
+  UserInput,
+  VerifyMessage,
 };
 export default signup;
 

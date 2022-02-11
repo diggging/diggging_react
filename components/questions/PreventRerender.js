@@ -1,32 +1,26 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import styled from "styled-components";
-import Link from "next/link";
-import NavBar from "../NavBar";
 import Image from "next/image";
-import { useSelector, useDispatch } from "react-redux";
-import QuestionList from "../questions/QuestionList";
-import Layout from "../../hocs/Layout";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { setQuestion, setMine } from "../../modules/questions";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
+import Layout from "../../hocs/Layout";
+import { setMine, setQuestion } from "../../modules/questions";
+import { BannerBackground, SubTitle } from "../../pages/main";
 import recent from "../../pages/recent";
 import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
 import SvgToggleBtn from "../../public/static/images/ToggleBtn";
-import { BannerBackground, SubTitle } from "../../pages/main";
+import navBar from "../common/NavBar";
+import QuestionList from "../questions/QuestionList";
 
 function Prevent({ children }) {
   const ref = useRef();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const {
-    data,
-    count,
-    page,
-    bigCriteria,
-    smallCriteria,
-    loading,
-    error,
-    mineToken,
-  } = useSelector((state) => state.questions);
+  const { data, count, page, bigCriteria, smallCriteria, loading, error, mineToken } = useSelector(
+    (state) => state.questions,
+  );
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [isRcent, setIsRcent] = useState(false);
   const [isPopular, setIsPopular] = useState(false);
@@ -61,7 +55,7 @@ function Prevent({ children }) {
   const style = {
     color: "#343434",
     fontFamily: "Pretendard-Bold",
-    borderTop: "4px solid #ffd358"
+    borderTop: "4px solid #ffd358",
   };
 
   useEffect(() => {
@@ -70,15 +64,17 @@ function Prevent({ children }) {
 
   useEffect(() => {
     const checkClickOutSide = (e) => {
-      if(open && ref.current && !ref.current.contains(e.target)) {
+      if (open && ref.current && !ref.current.contains(e.target)) {
         setOpen(false);
       }
-    }
-    document.addEventListener("click", checkClickOutSide)
+    };
+
+    document.addEventListener("click", checkClickOutSide);
+
     return () => {
-      document.addEventListener("click", checkClickOutSide)
-    }
-  },[open])
+      document.addEventListener("click", checkClickOutSide);
+    };
+  }, [open]);
 
   return (
     <Layout>
@@ -200,19 +196,13 @@ function Prevent({ children }) {
           {open ? (
             <DropBox>
               <DropList>
-                <DropListItem
-                  onClick={() => ToggleDispatch(bigCriteria, "wait_answer")}
-                >
+                <DropListItem onClick={() => ToggleDispatch(bigCriteria, "wait_answer")}>
                   답변 대기 중
                 </DropListItem>
-                <DropListItem
-                  onClick={() => ToggleDispatch(bigCriteria, "answer_done")}
-                >
+                <DropListItem onClick={() => ToggleDispatch(bigCriteria, "answer_done")}>
                   답변 완료
                 </DropListItem>
-                <DropListItem
-                  onClick={() => ToggleDispatch(bigCriteria, "all")}
-                >
+                <DropListItem onClick={() => ToggleDispatch(bigCriteria, "all")}>
                   답변 전체
                 </DropListItem>
               </DropList>
@@ -228,8 +218,6 @@ function Prevent({ children }) {
 }
 
 export default Prevent;
-
-
 
 const ServiceTitle = styled.h3`
   color: #343434;
@@ -281,7 +269,7 @@ const CreateBtn = styled.button`
   background: #ffffff;
   border-radius: 25px;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 16px;
   line-height: 32px;
   letter-spacing: 0.01em;
@@ -304,13 +292,13 @@ const TabItemContainer = styled.div`
 `;
 
 const TabContainer = styled.div`
-   display: flex;
+  display: flex;
   align-items: baseline;
   justify-content: center;
 `;
 
 const Tab = styled.div`
-  font-family: 'Pretendard-SemiBold';
+  font-family: "Pretendard-SemiBold";
   width: 130px;
   height: 53px;
   color: #898a90;
@@ -324,7 +312,7 @@ const Tab = styled.div`
   padding-top: 0.75rem;
 
   &:hover {
-    font-family: 'Pretendard-Bold';
+    font-family: "Pretendard-Bold";
     color: #343434;
   }
 `;
@@ -358,7 +346,7 @@ const ToggleContainer = styled.button`
   font-size: 0.875rem;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px;
   transition: 300ms;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   color: #343434;
   font-size: 1rem;
   transition: 300ms;
@@ -382,7 +370,6 @@ const DropBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-
 `;
 
 const DropList = styled.ul`

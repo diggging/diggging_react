@@ -1,16 +1,16 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import AlarmList from './AlarmList';
+import axios from "axios";
+import React, { useState } from "react";
+import styled from "styled-components";
 
+import AlarmList from "./AlarmList";
 
 function AlarmContainer() {
   // const {alarmType, postTitle, alarmContent, alarmTime, userProfile, userNickname, isChecked} = alarmData;
 
   //get해서 알람 리스트 배열로 받아오기 => map으로 반복
-  
 
-  const [isChecked, setIsChecked] = useState();
+  // const [isChecked, setIsChecked] = useState();
+
   return (
     <Container>
       <AlarmTop>
@@ -28,7 +28,7 @@ function AlarmContainer() {
         <AlarmList />
       </AlarmBottom>
     </Container>
-  )
+  );
 }
 
 export default AlarmContainer;
@@ -40,9 +40,9 @@ const Container = styled.div`
   background-color: white;
   border: #e5e5e5;
   border-radius: 0.25rem;
-  box-shadow: 0 0.25rem 1.25rem 0 rgba(0,0,0,0.04);
+  box-shadow: 0 0.25rem 1.25rem 0 rgba(0, 0, 0, 0.04);
 
-  display:flex;
+  display: flex;
   flex-direction: column;
 
   position: absolute;
@@ -63,15 +63,15 @@ const DeleteAlarm = styled.button`
   padding: 0 0.6rem;
 
   cursor: pointer;
-  color: #8D8C85;
+  color: #8d8c85;
   transition: 300ms;
 
-  font-family: 'Pretendard-Medium';
+  font-family: "Pretendard-Medium";
   font-size: 0.625rem;
 
   &:hover {
     color: #343434;
-    font-family: 'Pretendard-SemiBold';
+    font-family: "Pretendard-SemiBold";
   }
 `;
 
@@ -83,22 +83,21 @@ const AlarmBottom = styled.div`
   flex-direction: column;
   overflow: scroll;
 
-  
   /* 포인트 modal scroll 커스텀 */
-  ::-webkit-scrollbar{ 
-    width: 0.5rem; 
+  ::-webkit-scrollbar {
+    width: 0.5rem;
   }
 
-  /* 스크롤바 막대 설정*/ 
-  ::-webkit-scrollbar-thumb{ 
+  /* 스크롤바 막대 설정*/
+  ::-webkit-scrollbar-thumb {
     height: 17%;
-    background-color: #E4E1D6; 
+    background-color: #e4e1d6;
     opacity: 70%;
-    border-radius: 0.375rem; 
-  } 
+    border-radius: 0.375rem;
+  }
 
-  /* 스크롤바 뒷 배경 설정*/ 
-  ::-webkit-scrollbar-track{ 
+  /* 스크롤바 뒷 배경 설정*/
+  ::-webkit-scrollbar-track {
     background-color: none;
   }
 `;

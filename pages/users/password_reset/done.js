@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
 
 function EmailSent() {
-  return (
-    <div>
-      비밀번호를 변경할 수 있는 이메일이 전송되었습니다.
-    </div>
-  )
+  return <div>비밀번호를 변경할 수 있는 이메일이 전송되었습니다.</div>;
 }
+const abc = ["hi   "];
 
-export default EmailSent
+export default EmailSent;

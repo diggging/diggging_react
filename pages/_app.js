@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Component } from "react";
-import { ThemeProvider } from "styled-components";
-import theme from "../components/common/theme";
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
 import "../public/static/fonts/font.css";
 import "../public/static/css/Paging.css";
+
+import Head from "next/head";
+import React, { Component, useState } from "react";
 import { Provider } from "react-redux";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import reset from "styled-reset";
+
+import theme from "../components/common/theme";
 import { useStore } from "../redux/store.js";
-import Head from 'next/head';
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <Head>
           <title>Diggging</title>
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <GlobalStyles />
         <ThemeProvider theme={theme}>

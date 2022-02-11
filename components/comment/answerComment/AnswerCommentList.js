@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect,useState } from "react";
+
 import AnswerSingleComment from "../answerComment/AnswerSingleComment";
 
 function AnswerCommentList({
-  id, comments, newComment, setUpdateCount, setUpdateComment, updateCount
+  id,
+  comments,
+  newComment,
+  setUpdateCount,
+  setUpdateComment,
+  updateCount,,
 }) {
   const [comment, setComment] = useState(comments);
 

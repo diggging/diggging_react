@@ -1,69 +1,80 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import { API_URL } from '../../config';
-import SearchIcon from '../../public/static/images/Search';
-import CloseIcon from '../../public/static/images/CloseIcon';
+import axios from "axios";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 
-function SearchInput({setSearchData, setNoData, searchData, setLoading}) {
+import { API_URL } from "../../config";
+import CloseIcon from "../../public/static/images/CloseIcon";
+import SearchIcon from "../../public/static/images/Search";
+
+function SearchInput({ setSearchData, setNoData, searchData, setLoading }) {
   const [searchInput, setSearchInput] = useState("");
 
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
-  }
+  };
 
   const getSearchData = async () => {
     setLoading(true);
     const trimmedInput = searchInput.trim();
-    if (trimmedInput == '' || trimmedInput == '#' || trimmedInput == '/' || trimmedInput == '?') {
-      const apiRes = await axios.get(`${API_URL}/posts/search_quest/`)
+
+    if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
+      const apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
+
       setLoading(false);
+
       return apiRes;
     } else {
-      const apiRes = await axios.get(`${API_URL}/posts/search_quest_result/${trimmedInput}`)
+      const apiRes = await axios.get(`${API_URL}/posts/search_quest_result/${trimmedInput}`);
+
       setLoading(false);
+
       return apiRes;
     }
-  }
+  };
 
   const onSubmitSearch = async (e) => {
     e.preventDefault();
-      //get해오는api연결
-      axios.defaults.headers.common["Authorization"] = "";
-      try {
-        const apiRes = await getSearchData()
-        if (apiRes.status == 200) {
-          const newData = [...apiRes.data];
-          await setSearchData(newData); //searchData로 담아주기
-          if (newData.length == 0) { //검색결과가 없을 때
-            setNoData(true); //noResult 컴포넌트 뜰 수 있도록
-          } else {
-            setNoData(false);
-          }
-          return {searchData};
+    //get해오는api연결
+    axios.defaults.headers.common["Authorization"] = "";
+    try {
+      const apiRes = await getSearchData();
+
+      if (apiRes.status == 200) {
+        const newData = [...apiRes.data];
+
+        await setSearchData(newData); //searchData로 담아주기
+        if (newData.length == 0) {
+          //검색결과가 없을 때
+          setNoData(true); //noResult 컴포넌트 뜰 수 있도록
+        } else {
+          setNoData(false);
         }
-      } catch (err) {
-        return {err}
+
+        return { searchData };
       }
-  }
+    } catch (err) {
+      return { err };
+    }
+  };
 
   const onClickReset = () => {
-    setSearchInput('');
-  }
+    setSearchInput("");
+  };
 
   return (
     <form onSubmit={(e) => onSubmitSearch(e)}>
       <SearchInputBox>
         <SearchIcon width="1.75rem" height="1.625rem" />
-        <StyledSearchInput 
-          type="text" 
-          placeholder="무엇을 찾고 있나요?" 
+        <StyledSearchInput
+          type="text"
+          placeholder="무엇을 찾고 있나요?"
           value={searchInput}
-          onChange={(e) => onInputChange(e)} />
-        {searchInput && <CloseIcon onClick={onClickReset} cursor="pointer"/>}
+          onChange={(e) => onInputChange(e)}
+        />
+        {searchInput && <CloseIcon onClick={onClickReset} cursor="pointer" />}
       </SearchInputBox>
     </form>
-  )
+  );
 }
 
 export default SearchInput;
@@ -78,7 +89,7 @@ const SearchInputBox = styled.div`
   align-items: center;
 
   background-color: white;
-  border: solid 1px #E5E5E5;
+  border: solid 1px #e5e5e5;
   border-radius: 0.25rem;
   background-color: white;
 
@@ -90,41 +101,42 @@ const SearchInputBox = styled.div`
 
 const StyledSearchInput = styled.input`
   ${({ theme }) => {
-      const { colors, device } = theme;
-      return css`
-        width: 100%;
-        height: 4.5rem;
-        margin-left: 1.2rem;
-        border: none;
+    const { colors, device } = theme;
+
+    return css`
+      width: 100%;
+      height: 4.5rem;
+      margin-left: 1.2rem;
+      border: none;
+      outline: none;
+
+      font-size: 1.5rem;
+      font-family: "Pretendard-Regular";
+      color: ${colors.grey}; //c4c4c4
+
+      &:hover {
+        transition: 300ms;
+        color: ${colors.black};
+        font-family: "Pretendard-Medium";
+      }
+
+      ::placeholder {
+        color: ${colors.grey};
+      }
+      ::placeholder:hover {
+        color: ${colors.black};
+      }
+
+      &:active {
         outline: none;
-        
-        font-size: 1.5rem;
-        font-family: 'Pretendard-Regular';
-        color: ${colors.grey}; //c4c4c4
-        
-        &:hover{
-          transition: 300ms;
-          color: ${colors.black};
-          font-family: 'Pretendard-Medium';
-        }
+      }
+      ${device.tablet} {
+        font-size: 1.375rem;
+      }
 
-        ::placeholder {
-          color: ${colors.grey};
-        }
-        ::placeholder:hover {
-          color: ${colors.black};
-        }
-        
-        &:active {
-          outline: none;
-        }
-        ${device.tablet} {
-          font-size: 1.375rem;
-        }
-
-        ${device.mobile} {
-          font-size: 1.25rem;
-        }
-      `;
-    }}
-`
+      ${device.mobile} {
+        font-size: 1.25rem;
+      }
+    `;
+  }}
+`;

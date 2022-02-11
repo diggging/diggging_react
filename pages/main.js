@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import styled from "styled-components";
-import Link from "next/link";
-import NavBar from "../components/NavBar";
 import Image from "next/image";
-import { useSelector, useDispatch } from "react-redux";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
+import NavBar from "../components/common/NavBar";
 import QuestionList from "../components/questions/QuestionList";
 import Layout from "../hocs/Layout";
+import { setQuestion } from "../modules/questions";
 import SvgDigggingLogo from "../public/static/images/DigggingLogo.js";
-import { useRouter } from "next/router";
 import SvgToggleBtn from "../public/static/images/ToggleBtn";
-import {
-  setQuestion,
-} from "../modules/questions";
 
-function main({ children }) {
+function Main({ children }) {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const { data, count, page, bigCriteria, smallCriteria, loading, error } =
-    useSelector((state) => state.questions);
+  const { data, count, page, bigCriteria, smallCriteria, loading, error } = useSelector(
+    (state) => state.questions,
+  );
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ function main({ children }) {
 
   const style = {
     color: "#343434",
-    borderTop: "4px solid #ffd358"
-  }
+    borderTop: "4px solid #ffd358",
+  };
 
   return (
     <Layout>
@@ -92,21 +92,25 @@ function main({ children }) {
             onClick={() => {
               setOpen(!open);
             }}
-          > {smallCriteria === "all" ? <>답변 전체</> : (smallCriteria === "wait_answer" ? <>답변 대기 중</> : (smallCriteria === "answer_done" ? <>답변 완료</> : null))}
+          >
+            {" "}
+            {smallCriteria === "all" ? (
+              <>답변 전체</>
+            ) : smallCriteria === "wait_answer" ? (
+              <>답변 대기 중</>
+            ) : smallCriteria === "answer_done" ? (
+              <>답변 완료</>
+            ) : null}
             <SvgToggleBtn />
-           </ToggleContainer>
+          </ToggleContainer>
           {open ? (
             <DropBox>
               <DropList>
                 <DropListItem onClick={() => ToggleDispatch("wait_answer")}>
                   답변 대기 중
                 </DropListItem>
-                <DropListItem onClick={() => ToggleDispatch("answer_done")}>
-                  답변 완료
-                </DropListItem>
-                <DropListItem onClick={() => ToggleDispatch("all")}>
-                  답변 전체
-                </DropListItem>
+                <DropListItem onClick={() => ToggleDispatch("answer_done")}>답변 완료</DropListItem>
+                <DropListItem onClick={() => ToggleDispatch("all")}>답변 전체</DropListItem>
               </DropList>
             </DropBox>
           ) : null}
@@ -118,8 +122,9 @@ function main({ children }) {
     </Layout>
   );
 }
-export {BannerBackground, SubTitle}
-export default main;
+export { BannerBackground, SubTitle };
+export default Main;
+
 const BannerBackground = styled.div`
   width: 100%;
   height: 32.5rem;
@@ -211,7 +216,7 @@ const CreateBtn = styled.button`
   background: #ffffff;
   border-radius: 25px;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 16px;
   line-height: 32px;
   letter-spacing: 0.01em;
@@ -240,7 +245,7 @@ const TabContainer = styled.div`
 `;
 
 const Tab = styled.div`
-  font-family: 'Pretendard-SemiBold';
+  font-family: "Pretendard-SemiBold";
   width: 130px;
   height: 53px;
   color: #898a90;
@@ -255,7 +260,7 @@ const Tab = styled.div`
 
   &:hover {
     color: #343434;
-    font-family: 'Pretendard-Bold';
+    font-family: "Pretendard-Bold";
   }
 `;
 
@@ -280,7 +285,7 @@ const ToggleContainer = styled.button`
   font-size: 0.875rem;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px;
   transition: 300ms;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   color: #343434;
   font-size: 1rem;
   transition: 300ms;

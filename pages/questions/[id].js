@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 import axios from "axios";
-import Image from "next/image";
 import Layout from "../../hocs/Layout";
-import NavBar from "../../components/NavBar";
+import Image from "next/image";
+
+import NavBar from "../../components/common/NavBar";
 import dynamic from "next/dynamic";
 import DetailLike from "../../components/questions/DetailLike";
 import Comment from "../../components/comment/questionComment/Comment";
