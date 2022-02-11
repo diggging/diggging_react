@@ -111,7 +111,7 @@ const FormBox = styled.div`
   margin: auto auto;
   margin-top: 11.25rem;
   position: relative;
-  color: "#8D8C85"
+  color: "#8D8C85";
 `;
 
 const NicknameBox = styled.header`
@@ -135,7 +135,7 @@ const ProfileTitle2 = styled.span`
   margin-left: 0.125rem;
 `;
 
-const ProfileBox = styled.form`
+ const ProfileBox = styled.form`
   display: flex;
   flex-direction: row;
   padding: ${({ padding }) => padding} 0;

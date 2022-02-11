@@ -1,17 +1,15 @@
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { darken, lighten } from "polished";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 
-import { API_URL } from "../../config/index";
-import { ProfileBioBox } from "../../pages/accountSetting";
-import SvgEditIcon from "../../public/static/images/EditIcon";
-import { load_user } from "../../redux/actions/auth";
-import { alertService } from "../alert.service";
-import YellowButton from "../common/YellowButton";
+import { API_URL } from "../../../config/index";
+import { ProfileBioBox } from "../../../pages/accountSetting";
+import { load_user } from "../../../redux/actions/auth";
+import { alertService } from "../../alert.service";
+import YellowButton from "../../common/YellowButton";
+import { EditButton, ImageBox, ProfileBio, ProfileImgWrapper } from "./style";
 
 function ProfileInfoBox({ userData, token }) {
   const router = useRouter();
@@ -131,51 +129,3 @@ function ProfileInfoBox({ userData, token }) {
 }
 
 export default ProfileInfoBox;
-
-const ImageBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileImgWrapper = styled.div`
-  position: relative;
-  width: 8.125rem;
-  height: 8.125rem;
-  object-fit: cover;
-  margin-bottom: 0.8125rem;
-  text-align: center;
-  & img {
-    border-radius: 50%;
-  }
-`;
-
-const EditButton = styled(SvgEditIcon)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-  &:hover rect {
-    fill: #000000;
-  }
-`;
-
-const ProfileBio = styled.p`
-  height: 8.125rem;
-  max-width: 34.0625rem;
-  margin-top: 1.875rem;
-  margin-left: 1.5rem;
-  font-family: "Pretendard-Regular";
-
-  color: #8d8c85;
-  font-size: 1rem;
-  line-height: 1.625rem;
-
-  white-space: normal;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  overflow: hidden;
-`;

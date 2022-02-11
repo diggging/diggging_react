@@ -1,16 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 
-import { API_URL } from "../../config";
-import { ProfileBox } from "../../pages/accountSetting";
-import { load_user } from "../../redux/actions/auth";
-import { alertService } from "../alert.service";
-import FlexColumn from "../common/FlexColumn";
-import GreyInput from "../common/GreyInput";
-import YellowButton from "../common/YellowButton";
-import YellowTitle from "../common/YellowTitle";
+import { API_URL } from "../../../config";
+import { ProfileBox } from "../../../pages/accountSetting";
+import { load_user } from "../../../redux/actions/auth";
+import { alertService } from "../../alert.service";
+import FlexColumn from "../../common/FlexColumn";
+import GreyInput from "../../common/GreyInput";
+import YellowButton from "../../common/YellowButton";
+import YellowTitle from "../../common/YellowTitle";
+import { ErrorMessage } from "./style";
 
 function NicknameUpdateBox({ userData, token }) {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ function NicknameUpdateBox({ userData, token }) {
   const [errorMessage, setErrorMessage] = useState("");
   const { id } = userData.user;
 
+  //닉네임 input관리
   const onChangeNickname = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -29,6 +30,7 @@ function NicknameUpdateBox({ userData, token }) {
     }
   };
 
+  //닉네임 변경하기 api연결
   const onUpdateNickname = async (e) => {
     e.preventDefault();
     await axios
@@ -80,10 +82,3 @@ function NicknameUpdateBox({ userData, token }) {
 }
 
 export default NicknameUpdateBox;
-const ErrorMessage = styled.span`
-  font-family: "Pretendard-Medium";
-  font-size: 0.75rem;
-  color: #b6b6b6;
-  margin-top: 0.2rem;
-  margin-left: 0.2rem;
-`;

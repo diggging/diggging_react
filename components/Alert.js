@@ -9,12 +9,12 @@ export { Alert };
 
 Alert.propTypes = {
   id: PropTypes.string,
-  fade: PropTypes.bool,,
+  fade: PropTypes.bool,
 };
 
 Alert.defaultProps = {
   id: "default-alert",
-  fade: true,,
+  fade: true,
 };
 
 function Alert({ id, fade }) {
