@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Alarm from "../public/static/images/Alarm";
-import Directory from "../public/static/images/Directory";
+// import Directory from "../public/static/images/Directory";
 import ToggleBtn from "../public/static/images/ToggleBtn";
 import { logout } from "../redux/actions/auth";
 import AlarmContainer from "./AlarmContainer";

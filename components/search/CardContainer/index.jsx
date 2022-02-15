@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import ListCard from "../ListCard";
+import ListCard from "../../search/ListCard";
 import { StyledCardContainer } from "./style";
 
 //데이터바인딩
