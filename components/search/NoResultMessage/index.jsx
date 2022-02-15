@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import styled from "styled-components";
+
+import { ImageWrapper, NotFoundMessage, NotFoundTitle } from "./style";
 
 function NoResultMessage() {
   return (
@@ -22,24 +23,3 @@ function NoResultMessage() {
 }
 
 export default NoResultMessage;
-
-const ImageWrapper = styled.div`
-  margin: auto;
-  text-align: center;
-`;
-
-const NotFoundTitle = styled.h2`
-  font-family: "Pretendard-Bold";
-  font-size: 1.5rem;
-  color: #343434;
-  text-align: center;
-  margin-bottom: 1.125rem;
-  margin-top: 2.125rem;
-`;
-
-const NotFoundMessage = styled.h4`
-  font-family: "Pretendard-Medium";
-  font-size: 1.125rem;
-  color: #343434;
-  text-align: center;
-`;
