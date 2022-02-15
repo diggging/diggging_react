@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import { useEffect, useRef,useState } from 'react';
-import styled from 'styled-components';
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
-import { alertService, AlertType } from './alert.service';
+import { alertService, AlertType } from "./alert.service";
 
 export { Alert };
 
@@ -100,8 +100,8 @@ function Alert({ id, fade }) {
       [AlertType.Success]: "alert-success",
       [AlertType.Error]: "alert-danger",
       [AlertType.Info]: "alert-info",
-      [AlertType.Warning]: "alert-warning",,
-    };;
+      [AlertType.Warning]: "alert-warning",
+    };
 
     classes.push(alertTypeClass[alert.type]);
 
@@ -122,7 +122,7 @@ function Alert({ id, fade }) {
           <AlertClose className="close" onClick={() => removeAlert(alert)}>
             &times;
           </AlertClose>
-        </AlertBody>,
+        </AlertBody>
       ))}
     </div>
   );

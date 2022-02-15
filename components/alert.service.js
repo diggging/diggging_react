@@ -8,14 +8,14 @@ export const alertService = {
   info,
   warn,
   alert,
-  clear,,
+  clear,
 };
 
 export const AlertType = {
   Success: "Success",
   Error: "Error",
   Info: "Info",
-  Warning: "Warning",,
+  Warning: "Warning",
 };
 
 const alertSubject = new Subject();

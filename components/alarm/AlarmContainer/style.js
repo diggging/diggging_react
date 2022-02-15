@@ -1,39 +1,6 @@
-import axios from "axios";
-import React, { useState } from "react";
 import styled from "styled-components";
 
-import AlarmList from "./AlarmList";
-
-function AlarmContainer() {
-  // const {alarmType, postTitle, alarmContent, alarmTime, userProfile, userNickname, isChecked} = alarmData;
-
-  //get해서 알람 리스트 배열로 받아오기 => map으로 반복
-
-  // const [isChecked, setIsChecked] = useState();
-
-  return (
-    <Container>
-      <AlarmTop>
-        <DeleteAlarm>전체삭제</DeleteAlarm>
-        <DeleteAlarm>읽음삭제</DeleteAlarm>
-      </AlarmTop>
-      <AlarmBottom>
-        {/* {alarm.map((alarm) => (<AlarmList key={alarm.id} />))} */}
-        <AlarmList />
-        <AlarmList />
-        <AlarmList />
-        <AlarmList />
-        <AlarmList />
-        <AlarmList />
-        <AlarmList />
-      </AlarmBottom>
-    </Container>
-  );
-}
-
-export default AlarmContainer;
-
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 23.75rem;
   height: 26.5rem;
 
@@ -51,13 +18,13 @@ const Container = styled.div`
   text-align: right;
 `;
 
-const AlarmTop = styled.div`
+export const AlarmTop = styled.div`
   width: 100%;
   padding: 0.625rem 1.5rem;
   border-bottom: 1px solid #e5e5e5;
 `;
 
-const DeleteAlarm = styled.button`
+export const DeleteAlarm = styled.button`
   border: none;
   background: none;
   padding: 0 0.6rem;
@@ -75,7 +42,7 @@ const DeleteAlarm = styled.button`
   }
 `;
 
-const AlarmBottom = styled.div`
+export const AlarmBottom = styled.div`
   width: 100%;
   height: 100%;
   text-align: left;
