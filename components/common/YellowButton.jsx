@@ -19,7 +19,6 @@ export default YellowButton;
 const StyledYellowButton = styled.button`
   padding: ${({ paddingTop }) => paddingTop} ${({ paddingRight }) => paddingRight};
   border-radius: 1.5625rem;
-  
 
   background-color: #FFD358;
   color: #343434;

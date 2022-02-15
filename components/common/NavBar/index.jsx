@@ -1,24 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import NavSearch from "../public/static/images/Search";
-import Alarm from "../public/static/images/Alarm";
+// import Alarm from "../public/static/images/Alarm";
 import axios from "axios";
-// import Directory from '../public/static/images/Directory';
-import ToggleBtn from "../public/static/images/ToggleBtn";
-import SvgDiggging from "../public/static/images/Diggging";
-// import img from '../public/static/images/profile_img.jpg'; //기본 프로필이미지 넣어주기
-import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
-import { logout } from "../redux/actions/auth";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { check_auth_status } from "../redux/actions/auth";
-import { load_user } from "../redux/actions/auth";
-import { changePage } from "../modules/questions";
-import AlarmContainer from "./AlarmContainer";
+import React, { useEffect, useRef, useState } from "react";
+// import img from '../public/static/images/profile_img.jpg'; //기본 프로필이미지 넣어주기
+import { useDispatch, useSelector } from "react-redux";
 
-import {Nav, NavLeft, NavItem, NavRight, ToggleContainer, UserImg, DropBox, DropList, DropListItem, LogoutButton} from "./style";
+import SvgDiggging from "../../../public/static/images/Diggging";
+import NavSearch from "../../../public/static/images/Search";
+// import Directory from '../public/static/images/Directory';
+import ToggleBtn from "../../../public/static/images/ToggleBtn";
+import { load_user, logout } from "../../../redux/actions/auth";
+// import { check_auth_status } from "../redux/actions/auth";
+// import { changePage } from "../modules/questions";
+// import AlarmContainer from "./AlarmContainer";
+import {
+  DropBox,
+  DropList,
+  DropListItem,
+  LogoutButton,
+  Nav,
+  NavItem,
+  NavLeft,
+  NavRight,
+  ToggleContainer,
+  // UserImg,
+} from "./style";
 
-function navBar() {
+function NavBar() {
   const dispatch = useDispatch();
   const ref = useRef();
   const router = useRouter();
@@ -31,12 +41,10 @@ function navBar() {
   });
   const [alarmData, setAlarmData] = useState([]);
   const [profileImage, setProfileImage] = useState("");
-  
   const { alarmOpen, profileOpen } = open;
 
   const logoutHandler = async () => {
-    if (dispatch && dispatch !== null && dispatch !== undefined)
-      await dispatch(logout());
+    if (dispatch && dispatch !== null && dispatch !== undefined) await dispatch(logout());
     router.push("/loginPage");
   };
 
@@ -49,19 +57,22 @@ function navBar() {
 
   useEffect(() => {
     const checkClickOutSide = (e) => {
-      if(profileOpen === true && ref.current && !ref.current.contains(e.target)) {
-        setOpen({...open, profileOpen : false});
+      if (profileOpen === true && ref.current && !ref.current.contains(e.target)) {
+        setOpen({ ...open, profileOpen: false });
       }
-    }
-    document.addEventListener("click", checkClickOutSide)
+    };
+
+    document.addEventListener("click", checkClickOutSide);
+
     return () => {
-      document.addEventListener("click", checkClickOutSide)
-    }
-  },[profileOpen])
+      document.addEventListener("click", checkClickOutSide);
+    };
+  }, [profileOpen]);
 
   const getAlarmList = async () => {
     try {
-      const apiRes = axios.get(``);
+      const apiRes = axios.get("");
+
       if (apiRes.status === 200) {
         setAlarmData(apiRes.data);
       } else {
@@ -70,7 +81,7 @@ function navBar() {
     } catch (err) {
       console.log(err);
     }
-  }; 
+  };
 
   return (
     <div>
@@ -126,16 +137,20 @@ function navBar() {
                     setOpen({ ...open, profileOpen: !profileOpen });
                   }}
                   ref={ref}
-                > 
-                  {user?.user.user_profile_image ? (<><Image
-                    src={`https://api-diggging.shop${user.user.user_profile_image}`}
-                    width={40}
-                    height={40}
-                    alt="profileImage"
-                    quality={90}
-                    // layout="fill"
-                    objectFit="cover"
-                  /></>) : null}
+                >
+                  {user?.user.user_profile_image ? (
+                    <>
+                      <Image
+                        src={`https://api-diggging.shop${user.user.user_profile_image}`}
+                        width={40}
+                        height={40}
+                        alt="profileImage"
+                        quality={90}
+                        // layout="fill"
+                        objectFit="cover"
+                      />
+                    </>
+                  ) : null}
                   <ToggleBtn />
                 </ToggleContainer>
                 {profileOpen && (
@@ -157,9 +172,7 @@ function navBar() {
                         </Link>
                       </DropListItem>
                       <DropListItem>
-                        <LogoutButton onClick={logoutHandler}>
-                          로그아웃
-                        </LogoutButton>
+                        <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
                       </DropListItem>
                     </DropList>
                   </DropBox>
@@ -182,4 +195,4 @@ function navBar() {
   );
 }
 
-export default navBar;
+export default NavBar;

@@ -18,7 +18,7 @@ function WhiteButton({ paddingTop, paddingRight, fontSize, children, type, onCli
 }
 
 export default WhiteButton;
-//0.625rem 1.5625rem;
+
 const StyledButton = styled.button`
   padding-top: ${({ paddingTop }) => paddingTop};
   padding-bottom: ${({ paddingTop }) => paddingTop};

@@ -1,28 +1,27 @@
-
 //user라는state가져와서 거기 저장되어있는 프사이미지 사용
-
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { NavItem } from "./common/NavBar";
-import Link from "next/link";
-import AlarmContainer from "./AlarmContainer";
-import Directory from "../public/static/images/Directory";
 import Image from "next/image";
-import ToggleBtn from "../public/static/images/ToggleBtn"
-import styled from 'styled-components';
-import { useState } from "react";
-import Alarm from "../public/static/images/Alarm"
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
+import Alarm from "../public/static/images/Alarm";
+import Directory from "../public/static/images/Directory";
+import ToggleBtn from "../public/static/images/ToggleBtn";
 import { logout } from "../redux/actions/auth";
-
-
-function AuthMenu({userData, isAuthenticated}) {
+import AlarmContainer from "./AlarmContainer";
+import { NavItem } from "./common/NavBar";
+function AuthMenu({ userData, isAuthenticated }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [imgBase64, setImgBase64] = useState(''); //파일미리보기용
+  const [imgBase64, setImgBase64] = useState(""); //파일미리보기용
+
   if (userData) {
-    const {user_profile_image} = userData.user;
+    const { user_profile_image } = userData.user;
     const strProfileImg = user_profile_image.toString();
+
     setImgBase64(strProfileImg);
   }
 
@@ -30,19 +29,18 @@ function AuthMenu({userData, isAuthenticated}) {
   const [toggleOpen, setToggleOpen] = useState(false);
 
   const openAlarmHandler = () => {
-    setAlarmOpen(alarmOpen => !alarmOpen)
-  }
+    setAlarmOpen((alarmOpen) => !alarmOpen);
+  };
 
   const openToggleHandler = () => {
-    setToggleOpen(toggleOpen => !toggleOpen)
-  }
-
+    setToggleOpen((toggleOpen) => !toggleOpen);
+  };
 
   // const [alarmData, setAlarmData] = useState([]);
 
   const logoutHandler = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) {
-      dispatch(logout)
+      dispatch(logout);
       router.push("/loginPage");
     }
   };
@@ -62,49 +60,54 @@ function AuthMenu({userData, isAuthenticated}) {
   // }
   return (
     <>
-      {userData?.user.id && (<>
-      <Link href="/" passHref>
-        <NavItem>
-          <Alarm onClick={() => openAlarmHandler()} />
-        </NavItem>
-      </Link>
-      {alarmOpen && (<AlarmContainer />)}
-      {/* <Link href="/" passHref>
+      {userData?.user.id && (
+        <>
+          <Link href="/" passHref>
+            <NavItem>
+              <Alarm onClick={() => openAlarmHandler()} />
+            </NavItem>
+          </Link>
+          {alarmOpen && <AlarmContainer />}
+          {/* <Link href="/" passHref>
         <NavItem>
           <Directory />
         </NavItem>
       </Link> */}
-      <NavItem>
-        <ToggleContainer >
-          <UserImgWrapper>
-            <Image 
-              src={`https://api-diggging.shop/${imgBase64}`}
-              width={40} 
-              height={40} 
-              alt="profileImage" 
-              quality={90}
-              layout="fill"
-              objectFit="cover"
-              />
-          </UserImgWrapper>
-          <ToggleBtn onClick={() => openToggleHandler}/>
-        </ToggleContainer>
-        {toggleOpen && (
-        <DropBox>
-          <DropList> 
-            <DropListItem><Link href="/questionCreate">새 글 작성</Link></DropListItem>
-            <DropListItem><Link 
-              href="/accountSetting"
-              >계정설정</Link>
-            </DropListItem>
-            <DropListItem><LogoutButton onClick={() => logoutHandler()}>로그아웃</LogoutButton></DropListItem>
-          </DropList>
-        </DropBox>
-        )}
-      </NavItem>
-    </>)}
+          <NavItem>
+            <ToggleContainer>
+              <UserImgWrapper>
+                <Image
+                  src={`https://api-diggging.shop/${imgBase64}`}
+                  width={40}
+                  height={40}
+                  alt="profileImage"
+                  quality={90}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </UserImgWrapper>
+              <ToggleBtn onClick={() => openToggleHandler} />
+            </ToggleContainer>
+            {toggleOpen && (
+              <DropBox>
+                <DropList>
+                  <DropListItem>
+                    <Link href="/questionCreate">새 글 작성</Link>
+                  </DropListItem>
+                  <DropListItem>
+                    <Link href="/accountSetting">계정설정</Link>
+                  </DropListItem>
+                  <DropListItem>
+                    <LogoutButton onClick={() => logoutHandler()}>로그아웃</LogoutButton>
+                  </DropListItem>
+                </DropList>
+              </DropBox>
+            )}
+          </NavItem>
+        </>
+      )}
     </>
-  )
+  );
 }
 
 export default AuthMenu;
@@ -126,8 +129,6 @@ const ToggleContainer = styled.button`
     margin-left: 10px;
   }
 `;
-
-
 const UserImgWrapper = styled.div`
   position: relative;
   width: 8.125rem;
@@ -153,14 +154,14 @@ const DropBox = styled.div`
 const DropList = styled.ul`
   list-style: none;
   line-height: 2rem;
-  font-family: 'Pretendard-Regular';
+  font-family: "Pretendard-Regular";
 `;
 
 const DropListItem = styled.li`
-  color: #B6B6B6;
+  color: #b6b6b6;
   &:hover {
     color: #343434;
-    font-family: 'Pretendard-Medium';
+    font-family: "Pretendard-Medium";
   }
 `;
 
