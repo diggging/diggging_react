@@ -43,4 +43,9 @@ module.exports = {
     es2021: true,
     commonjs: true,
   },
+  parserOptions: {
+    parser: "babel-eslint",
+    ecmaVersion: 2020,
+    sourceType: "module",
+  },
 };
