@@ -2,22 +2,20 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "prismjs/themes/prism.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
 
-import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
-import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Editor } from "@toast-ui/react-editor";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Prism from "prismjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 import { API_URL } from "../../config/index";
 import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
 import WhiteButton from "../common/WhiteButton";
+import { BtnContainer } from "../ToastAnswerCreate/style";
+
 function ToastAnswerCreate({ title, token, id }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -108,11 +106,3 @@ function ToastAnswerCreate({ title, token, id }) {
 }
 
 export default React.memo(ToastAnswerCreate);
-
-const BtnContainer = styled.div`
-  width: 21.875rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 1.5rem;
-`;

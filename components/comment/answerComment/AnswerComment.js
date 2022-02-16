@@ -4,7 +4,6 @@ import TextareaAutosize from "react-autosize-textarea";
 import styled from "styled-components";
 
 import { API_URL } from "../../../config";
-import { Alert } from "../../Alert";
 import { alertService } from "../../alert.service";
 import YellowButton from "../../common/YellowButton";
 import AnswerCommentList from "./AnswerCommentList";

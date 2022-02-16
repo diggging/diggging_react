@@ -2,21 +2,18 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "prismjs/themes/prism.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
 
-import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
-import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Editor } from "@toast-ui/react-editor";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Prism from "prismjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 import { API_URL } from "../../config";
 import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
+import { Btn, BtnContainer } from "../ToastAnswerUpdate/style";
 
 function ToastAnswerUpdate({ id, title, desc, token, questionId }) {
   const router = useRouter();
@@ -125,22 +122,3 @@ function ToastAnswerUpdate({ id, title, desc, token, questionId }) {
 }
 
 export default React.memo(ToastAnswerUpdate);
-
-const BtnContainer = styled.div`
-  width: 21.875rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 1.5rem;
-`;
-
-const Btn = styled.button`
-  width: 8.75rem;
-  height: 3rem;
-  background-color: #f5f5f7;
-  /* border: 3px solid #FFFFFF; */
-  /* border: none; */
-  box-sizing: border-box;
-  border-radius: 1.5625rem;
-  cursor: pointer;
-`;
