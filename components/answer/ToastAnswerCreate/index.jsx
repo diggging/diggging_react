@@ -1,12 +1,14 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "prismjs/themes/prism.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+
 import { Editor } from "@toast-ui/react-editor";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { API_URL } from "../../config/index";
 import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";

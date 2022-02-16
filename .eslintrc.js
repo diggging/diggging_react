@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "no-unused-vars": "warn",
     "prettier/prettier": ["error"],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
@@ -42,5 +43,10 @@ module.exports = {
     browser: true,
     es2021: true,
     commonjs: true,
+  },
+  parserOptions: {
+    parser: "babel-eslint",
+    ecmaVersion: 2020,
+    sourceType: "module",
   },
 };
