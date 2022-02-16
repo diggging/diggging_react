@@ -1,38 +1,36 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { API_URL } from '../../config';
-import { load_user } from '../../redux/actions/auth';
-import { alertService } from '../alert.service';
-import ContentText from '../common/ContentText';
-import FlexColumn from '../common/FlexColumn';
-import FlexRow from '../common/FlexRow';
-import GreyInput from '../common/GreyInput'
-import YellowButton from '../common/YellowButton'
-import YellowTitle from '../common/YellowTitle'
+import { API_URL } from "../../../config";
+import { load_user } from "../../../redux/actions/auth";
+import { alertService } from "../../alert.service";
+import FlexColumn from "../../common/FlexColumn";
+import GreyInput from "../../common/GreyInput";
+import YellowButton from "../../common/YellowButton";
+import YellowTitle from "../../common/YellowTitle";
+import { ErrorMsg, PasswordInputBox, PasswordMessage, PasswordResetBox, RowBox } from "./style";
 
-function PasswordSetBox({  userData, token  }) {
-  const {  id } = userData.user;;
+function PasswordSetBox({ userData, token }) {
+  const { id } = userData.user;
   const dispatch = useDispatch();
   const [pwInput, setPwInput] = useState({
     oldPW: "",
     newPW1: "",
     newPW2: "",
   });
-  const {  oldPW, newPW1, newPW2  } = pwInput;
+  const { oldPW, newPW1, newPW2 } = pwInput;
 
   const [errorMessage, setErrorMessage] = useState({
     pw1Error: "",
     pw2Error: "",
   });
-  const {  pw1Error, pw2Error  } = errorMessage;
+  const { pw1Error, pw2Error } = errorMessage;
   const onChangePW = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
-    const {  value, name  } = e.target;
+    const { value, name } = e.target;
 
     setPwInput({
       ...pwInput,
@@ -43,12 +41,12 @@ function PasswordSetBox({  userData, token  }) {
         if (e.target.value.length < 8) {
           setErrorMessage({
             ...errorMessage,
-            pw1Error: "8자 이상 입력해주세요",,
+            pw1Error: "8자 이상 입력해주세요",
           });
         } else {
           setErrorMessage({
             ...errorMessage,
-            pw1Error: "",,
+            pw1Error: "",
           });
         }
         break;
@@ -56,12 +54,12 @@ function PasswordSetBox({  userData, token  }) {
         if (e.target.value == newPW1) {
           setErrorMessage({
             ...errorMessage,
-            pw2Error: " ",,
-          });;
+            pw2Error: " ",
+          });
         } else {
           setErrorMessage({
             ...errorMessage,
-            pw2Error: "비밀번호가 일치하지 않습니다",,
+            pw2Error: "비밀번호가 일치하지 않습니다",
           });
         }
         break;
@@ -86,22 +84,23 @@ function PasswordSetBox({  userData, token  }) {
       )
       .then((res) => {
         if (res.status === 200) {
-          alertService.warn("성공적으로 변경되었습니다.");;
+          alertService.warn("성공적으로 변경되었습니다.");
           dispatch(load_user());
         }
       })
       .catch((err) => {
         if (err.response.status === 400) {
           if (newPW1 !== newPW2) {
-            alertService.warn("두 비밀번호가 일치하지 않습니다.");;
+            alertService.warn("두 비밀번호가 일치하지 않습니다.");
           } else {
-            alertService.warn("이전 비밀번호를 확인해주세요");;
+            alertService.warn("이전 비밀번호를 확인해주세요");
           }
         } else {
-          alertService.warn(err);;
+          alertService.warn(err);
         }
-      });;
+      });
   };
+
   return (
     <PasswordResetBox onSubmit={(e) => onUpdatePassword(e)}>
       <YellowTitle marginBottom="0.75rem">비밀번호 변경</YellowTitle>
@@ -156,36 +155,3 @@ function PasswordSetBox({  userData, token  }) {
   );
 }
 export default PasswordSetBox;
-
-const PasswordResetBox = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding: 1.875rem 0;
-  border-bottom: solid 2px #e5e5e5;
-  justify-content: space-between;
-`;
-const PasswordInputBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 2.125rem;
-`;
-
-const RowBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-`;
-
-const PasswordMessage = styled(ContentText)`
-  margin-bottom: 2.125rem;
-`;
-
-const ErrorMsg = styled.span`
-  font-family: "Pretendard-Medium";
-  font-size: 0.75rem;
-  color: #b6b6b6;
-  margin-top: 0.2rem;
-  margin-left: 0.2rem;
-`;
-

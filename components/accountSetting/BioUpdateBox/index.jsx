@@ -1,37 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 
-import { API_URL } from "../../config/index";
-import { ProfileBox } from "../../pages/accountSetting";
-import { load_user } from "../../redux/actions/auth";
-import { Alert } from "../Alert";
-import { alertService } from "../alert.service";
-import YellowButton from "../common/YellowButton";
-
-const ProfileBioInput = styled.textarea`
-  width: 34.375rem;
-  height: 8.125rem;
-  margin-left: 0.375rem;
-  margin-right: 2.625rem;
-  outline: none;
-  border: none;
-  font-family: "Pretendard-Regular";
-  font-size: 0.875rem;
-  color: #999893;
-  resize: none;
-  background-color: #f5f5f7;
-  border-radius: 0.5rem;
-  padding: 0.875rem 1rem;
-`;
+import { alertService } from "../../../alert.service";
+import { API_URL } from "../../../config/index";
+import { ProfileBox } from "../../../pages/accountSetting";
+import { load_user } from "../../../redux/actions/auth";
+import YellowButton from "../../common/YellowButton";
+import { ProfileBioInput } from "./style";
 
 function BioUpdateBox({ userData, token }) {
   const dispatch = useDispatch();
   const [bio, setBio] = useState("");
-  const { id, user_profile_image } = userData.user;
-  const [imgBase64, setImgBase64] = useState(user_profile_image.toString()); // 파일 base64 : 미리보기용
+  const { id } = userData.user;
 
+  //자기소개 입력, 변경하기
   const onChangeBio = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();

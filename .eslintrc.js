@@ -34,10 +34,18 @@ module.exports = {
       { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"] },
     ],
     "eslint/no-var-requires": 0,
+    "react/prop-types": 0,
+    "import/namespace": 0,
+    "import/no-unresolved": "off",
   },
   env: {
     browser: true,
     es2021: true,
     commonjs: true,
+  },
+  parserOptions: {
+    parser: "babel-eslint",
+    ecmaVersion: 2020,
+    sourceType: "module",
   },
 };

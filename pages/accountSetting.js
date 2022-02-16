@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "../components/common/NavBar";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import Layout from "../hocs/Layout";
-import { load_user, check_auth_status, logout } from "../redux/actions/auth";
 import { useRouter } from "next/router";
-import ProfileInfoBox from "../components/accountSetting/ProfileInfoBox";
-import FlexRow from "../components/common/FlexRow";
-import WhiteButton from "../components/common/WhiteButton";
-import GreyInput from "../components/common/GreyInput";
-import YellowButton from "../components/common/YellowButton";
-import YellowTitle from "../components/common/YellowTitle";
-import ContentText from "../components/common/ContentText";
-import FlexColumn from "../components/common/FlexColumn";
-import { PageTitle } from "../pages/findPassword";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import BioUpdateBox from "../components/accountSetting/BioUpdateBox";
 import NicknameUpdateBox from "../components/accountSetting/NicknameUpdateBox";
 import PasswordSetBox from "../components/accountSetting/PasswordSetBox";
+import ProfileInfoBox from "../components/accountSetting/ProfileInfoBox";
 import { Alert } from "../components/Alert";
+import ContentText from "../components/common/ContentText";
+import NavBar from "../components/common/NavBar";
+import WhiteButton from "../components/common/WhiteButton";
+import YellowTitle from "../components/common/YellowTitle";
+import Layout from "../hocs/Layout";
+import { PageTitle } from "../pages/findPassword";
+import { check_auth_status, logout } from "../redux/actions/auth";
 
-function accountSetting() {
+function AccountSetting() {
   //1. profileImg변경하기 O
   //2. profileBio변경하기
   //3. email주소 보여주기
@@ -39,6 +36,7 @@ function accountSetting() {
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.access;
+
           setToken(accessToken);
         })
         .catch((err) => console.log(err));
@@ -53,17 +51,13 @@ function accountSetting() {
 
   //token 확인(refresh, verify)
   useEffect(() => {
-    if (dispatch && dispatch !== null && dispatch !== undefined)
-      dispatch(check_auth_status());
+    if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(check_auth_status());
     getAccessToken();
   }, [dispatch]);
 
   return (
     <>
-      <Layout
-        title="Diggging | 계정설정"
-        content="개발자들을 위한 커뮤니티 디깅 계정설정 페이지"
-      >
+      <Layout title="Diggging | 계정설정" content="개발자들을 위한 커뮤니티 디깅 계정설정 페이지">
         <NavBar />
         {user?.user?.id ? (
           <>
@@ -104,14 +98,14 @@ function accountSetting() {
 }
 
 export { ProfileBioBox, ProfileBox };
-export default accountSetting;
+export default AccountSetting;
 
 const FormBox = styled.div`
   width: 49.375rem;
   margin: auto auto;
   margin-top: 11.25rem;
   position: relative;
-  color: "#8D8C85"
+  color: "#8D8C85";
 `;
 
 const NicknameBox = styled.header`
