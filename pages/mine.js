@@ -5,14 +5,17 @@ import styled from "styled-components";
 
 import Prevent from "../components/questions/PreventRerender";
 import QuestionList from "../components/questions/QuestionList";
-import { setMine, setMinePage, setPage, setQuestion } from "../modules/questions";
+import { setMine } from "../modules/questions";
 import { check_auth_status } from "../redux/actions/auth";
 
 function Mine() {
   const dispatch = useDispatch();
-  const { data, count, page, smallCriteria, loading, error, mineToken } = useSelector(
-    (state) => state.questions,
-  );
+  const {
+    data,
+    count,
+    page,
+    // smallCriteria, loading, error, mineToken
+  } = useSelector((state) => state.questions);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [token, setToken] = useState("");
 

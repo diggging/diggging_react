@@ -11,15 +11,13 @@ import { alertService } from "../components/alert.service";
 import Layout from "../hocs/Layout";
 import { register } from "../redux/actions/auth";
 
-function signup() {
+function Signup() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const register_success = useSelector((state) => state.auth.register_success); //가입성공여부
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); //로그인 여부
   //reducer의 loading state가져오기(auth라는 이름으로 combine되어있음)
   const loading = useSelector((state) => state.auth.loading);
-  const bad_request = useSelector((state) => state.auth.bad_request);
 
   if (typeof window !== "undefined" && isAuthenticated) {
     //로그인 되어있으면 메인으로 가짐.
@@ -41,9 +39,6 @@ function signup() {
     password1: "",
     password2: "",
   });
-
-  const [errors, setErrors] = useState(false);
-  //비구조화할당으로 inputs에서 값 가져오기
 
   const { username, user_nickname, email, password1, password2 } = inputs;
   let emailCheck = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
@@ -111,7 +106,7 @@ function signup() {
           setTimeout(() => {
             router.push("/loginPage");
           }, 1500);
-        } else if (res === 400 || 401) {
+        } else if (res === 400 || res === 401) {
           if (password1 !== password2) {
             alertService.warn("비밀번호가 일치하지 않습니다. 다시 입력해주세요😅");
           } else if (username.length < 4 || username.length > 10) {
@@ -250,7 +245,7 @@ export {
   UserInput,
   VerifyMessage,
 };
-export default signup;
+export default Signup;
 
 const LoaderBox = styled.div`
   display: flex;
@@ -355,16 +350,6 @@ const LinkBtn = styled.a`
   font-size: 14px;
   text-decoration: none;
 `;
-
-const Button = styled.button`
-  padding: 12px 20px;
-  border-radius: 20px;
-  color: #5f5f5f;
-
-  box-shadow: 0, 4, 12, rgba(1, 1, 1, 10%);
-  border: none;
-`;
-
 const LinkBox = styled.div`
   color: #c4c4c4;
   text-align: right;

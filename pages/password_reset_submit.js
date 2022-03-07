@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { darken, lighten } from "polished";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -9,7 +9,6 @@ import { alertService } from "../components/alert.service";
 import FlexColumn from "../components/common/FlexColumn";
 import GreyInput from "../components/common/GreyInput";
 import NavBar from "../components/common/NavBar";
-import YellowButton from "../components/common/YellowButton";
 import YellowTitle from "../components/common/YellowTitle";
 import Layout from "../hocs/Layout";
 import { reset_password_confirm } from "../redux/actions/auth";

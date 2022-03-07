@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { alertService } from "../../../alert.service";
 import { API_URL } from "../../../config/index";
 import { ProfileBox } from "../../../pages/accountSetting";
 import { load_user } from "../../../redux/actions/auth";
+import { alertService } from "../../alert.service";
 import YellowButton from "../../common/YellowButton";
 import { ProfileBioInput } from "./style";
 

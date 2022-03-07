@@ -2,7 +2,7 @@ import "../public/static/fonts/font.css";
 import "../public/static/css/Paging.css";
 
 import Head from "next/head";
-import React, { Component, useState } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import reset from "styled-reset";

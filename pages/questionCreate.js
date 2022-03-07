@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
-import { check_auth_status, load_user } from "../redux/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
-import Loader from 'react-loader-spinner';
-import Layout from "../hocs/Layout";
+import React, { useCallback, useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
-function questionCreate() {
+import Layout from "../hocs/Layout";
+import { check_auth_status, load_user } from "../redux/actions/auth";
+
+function QuestionCreate() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
@@ -15,20 +16,27 @@ function questionCreate() {
   const [tags, setTags] = useState([]);
   const [token, setToken] = useState("");
 
-  const onChangeTitle = useCallback((e) => {
-    setTitle(e.target.value);
-  }, [title]);
+  const onChangeTitle = useCallback(
+    (e) => {
+      setTitle(e.target.value);
+    },
+    [title],
+  );
 
-  const onChangeTags = useCallback((e) => {
-    setTags(e.target.value.split(','));
-  }, [tags]);
+  const onChangeTags = useCallback(
+    (e) => {
+      setTags(e.target.value.split(","));
+    },
+    [tags],
+  );
 
   const onLoadUser = async () => {
     const response = dispatch(load_user());
+
     if (user) {
       const userData = user.user;
       const { email, user_nickname, username } = userData;
-    } 
+    }
   };
 
   const getAccessToken = async () => {
@@ -37,18 +45,21 @@ function questionCreate() {
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.access;
+
           setToken(accessToken);
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const ToastCreate = dynamic(() => import("../components/questions/ToastUiCreate"), { ssr: false, loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100}/> });
+  const ToastCreate = dynamic(() => import("../components/questions/ToastUiCreate"), {
+    ssr: false,
+    loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100} />,
+  });
 
   //token 확인(refresh, verify)
   useEffect(() => {
-    if (dispatch && dispatch !== null && dispatch !== undefined)
-      dispatch(check_auth_status());
+    if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(check_auth_status());
   }, [dispatch]);
 
   useEffect(() => {
@@ -58,16 +69,16 @@ function questionCreate() {
 
   return (
     <Layout>
-    <div>
-      <MainContainer>
-        <Container>
-          <FormContainer>
-            <QuestionTitle
-              name="title"
-              onChange={onChangeTitle}
-              placeholder="제목을 입력하세요."
-            />
-            {/* <QuestionFolder
+      <div>
+        <MainContainer>
+          <Container>
+            <FormContainer>
+              <QuestionTitle
+                name="title"
+                onChange={onChangeTitle}
+                placeholder="제목을 입력하세요."
+              />
+              {/* <QuestionFolder
               name="question_folder"
               onChange={onChangeFolder}
             >
@@ -75,27 +86,21 @@ function questionCreate() {
                 🗂 게시글을 담을 폴더를 선택하세요!
               </option>
             </QuestionFolder> */}
-            <QuestionHash
-              name="question_tags"
-              onChange={onChangeTags}
-              placeholder="태그를 쉼표로 구분해주세요. Ex) diggging,해시태그"
-
-            />
-            <ToastCreate
-              title={title}
-              folder={folder}
-              tags={tags}
-              token={token}
-            />  
-          </FormContainer>
-        </Container>
-      </MainContainer>
-    </div>
-  </Layout>
+              <QuestionHash
+                name="question_tags"
+                onChange={onChangeTags}
+                placeholder="태그를 쉼표로 구분해주세요. Ex) diggging,해시태그"
+              />
+              <ToastCreate title={title} folder={folder} tags={tags} token={token} />
+            </FormContainer>
+          </Container>
+        </MainContainer>
+      </div>
+    </Layout>
   );
 }
 
-export default React.memo(questionCreate);
+export default React.memo(QuestionCreate);
 
 const MainContainer = styled.div`
   margin-top: 9.0625rem;

@@ -12,7 +12,7 @@ import YellowTitle from "../components/common/YellowTitle";
 import Layout from "../hocs/Layout";
 import { reset_password } from "../redux/actions/auth";
 
-function findPassword() {
+function FindPassword() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
@@ -125,4 +125,4 @@ const InputRow = styled.div`
 `;
 
 export { GuideMessage, PageTitle, PWFormBox };
-export default findPassword;
+export default FindPassword;
