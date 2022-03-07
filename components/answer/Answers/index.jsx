@@ -1,6 +1,6 @@
 import React from "react";
 
-import AnswersList from "./AnswersList";
+import AnswersList from "../AnswersList";
 
 function Answers({ questionId, answers, user, token, questionUserId, AnswerisSelected }) {
   return (

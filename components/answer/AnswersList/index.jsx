@@ -1,39 +1,39 @@
-import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import axios from "axios";
-import styled from "styled-components";
-import dynamic from "next/dynamic";
-import SelectedAnswer from "../../public/static/images/SelectedAnswer";
-import NotSelectedAnswer from "../../public/static/images/NotSelectedAnswer";
-import Selected from "./Selected";
-import { API_URL } from "../../config";
-import AnswerComment from "../comment/answerComment/AnswerComment";
-import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
-import WhiteButton from "../common/WhiteButton";
-import { alertService } from "../alert.service";
+
+import { API_URL } from "../../../config";
+import NotSelectedAnswer from "../../../public/static/images/NotSelectedAnswer";
+import SelectedAnswer from "../../../public/static/images/SelectedAnswer";
+import { alertService } from "../../alert.service";
 import {
-  MainContainer,
-  Container,
-  HeadContainer,
-  Title,
-  Selection,
-  SelectionText,
-  SecondContainer,
-  Data,
-  BtnContainer,
+  AnswerBtn,
   Btn,
+  BtnContainer,
+  Container,
+  Data,
   DescContainer,
   FlexContainer,
-  AnswerBtn,
+  HeadContainer,
+  MainContainer,
   ProfileContainer,
+  ProfileContent,
   ProfileImg,
   ProfileInfoContainer,
-  ProfileName,
   ProfileLevel,
-  ProfileContent,
+  ProfileName,
+  SecondContainer,
+  Selection,
+  SelectionText,
+  Title,
 } from "../AnswersList/style";
+import AnswerComment from "../comment/answerComment/AnswerComment";
+import WhiteButton from "../common/WhiteButton";
+import Selected from "./Selected";
 
 function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
   const ref = useRef();
