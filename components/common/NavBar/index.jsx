@@ -92,9 +92,12 @@ function NavBar() {
               <SvgDiggging />
             </NavItem>
           </Link>
-          {/* <Link href="/aboutus" passHref>
-            <NavItem>디깅소개</NavItem>
-          </Link> */}
+          <Link
+            href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
+            passHref
+          >
+            <NavItem target="blank">디깅소개</NavItem>
+          </Link>
           {/* <Link href="/main" passHref>
             <NavItem>메인</NavItem>
           </Link> */}
