@@ -1,7 +1,8 @@
+![디깅 소개 이미지](https://user-images.githubusercontent.com/62272445/157062316-10cde10a-8f78-4875-abee-18930571ab3a.png)
+
 # ver.2.0.
 - 2021/12/22 ver.2.0.
-- 
-![Uploading 디깅 소개 이미지.png…]()
+
 
 ## 기술스택
 
