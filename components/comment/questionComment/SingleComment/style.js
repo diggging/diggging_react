@@ -1,3 +1,4 @@
+import TextareaAutosize from "react-autosize-textarea";
 import styled from "styled-components";
 
 export const CommentContainer = styled.ul`

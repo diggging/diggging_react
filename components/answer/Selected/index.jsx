@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
-import { API_URL } from "../../config";
-import { alertService } from "../alert.service";
-import { SelectedContainer, IsSelected, FlexContainer, SelectedBtn } from "../Selected/style";
+
+import { API_URL } from "../../../config";
+import { alertService } from "../../alert.service";
+import { FlexContainer, IsSelected, SelectedBtn, SelectedContainer } from "../Selected/style";
 
 function Selected({ setIsOpen, id, token, questionId, isOpen }) {
   const router = useRouter();

@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { API_URL } from "../../config/index";
-import LikeDetail from "../../public/static/images/LikeDetail";
-import LinkDetail from "../../public/static/images/LinkDetail";
-import { alertService } from "../alert.service";
-import * from './style';
+import { API_URL } from "../../../config/index";
+import LikeDetail from "../../../public/static/images/LikeDetail";
+import LinkDetail from "../../../public/static/images/LinkDetail";
+import { alertService } from "../../alert.service";
+import { Container, Element, ElementContainer, FlexContainer, LinkClickAlarm } from "./style";
 
 function DetailLike({ token, id, handleLinkAlarm }) {
   const router = useRouter();

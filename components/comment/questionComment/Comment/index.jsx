@@ -1,12 +1,17 @@
 import axios from "axios";
-import React, { useCallback,useState } from "react";
-import TextareaAutosize from "react-autosize-textarea";
+import React, { useCallback, useState } from "react";
 
-import { API_URL } from "../../../config";
-import { alertService } from "../../alert.service";
-import CommentList from "../../comment/questionComment/CommentList";
-import YellowButton from "../../common/YellowButton";
-import * from './style';
+import { API_URL } from "../../../../config";
+import { alertService } from "../../../alert.service";
+import YellowButton from "../../../common/YellowButton";
+import CommentList from "../CommentList/index";
+import {
+  CommentContainer,
+  CommentCount,
+  CommentInput,
+  CommentSendBtn,
+  FormContainer,
+} from "./style";
 
 function Comment({ updateCount, comments, id, token, setUpdateCount, setUpdateComment }) {
   const [text, setText] = useState("");
@@ -31,7 +36,7 @@ function Comment({ updateCount, comments, id, token, setUpdateCount, setUpdateCo
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
         .post(`${API_URL}/comments/question_comment_create/?question_id=${id}`, {
-          text: text,,
+          text,
         })
         .then((response) => {
           setNewComment(response.data);

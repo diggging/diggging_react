@@ -1,4 +1,7 @@
 import styled from "styled-components";
+
+import SvgToggleBtn from "../../../public/static/images/ToggleBtn";
+
 export const ServiceTitle = styled.h3`
   color: #343434;
   font-family: "Pretendard-Bold";

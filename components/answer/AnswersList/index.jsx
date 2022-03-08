@@ -1,39 +1,40 @@
-import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import axios from "axios";
-import styled from "styled-components";
-import dynamic from "next/dynamic";
-import SelectedAnswer from "../../public/static/images/SelectedAnswer";
-import NotSelectedAnswer from "../../public/static/images/NotSelectedAnswer";
-import Selected from "./Selected";
-import { API_URL } from "../../config";
-import AnswerComment from "../comment/answerComment/AnswerComment";
-import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
-import WhiteButton from "../common/WhiteButton";
-import { alertService } from "../alert.service";
+import styled from "styled-components";
+
+import { API_URL } from "../../../config";
+import NotSelectedAnswer from "../../../public/static/images/NotSelectedAnswer";
+import SelectedAnswer from "../../../public/static/images/SelectedAnswer";
+import { alertService } from "../../alert.service";
+import AnswerComment from "../../comment/answerComment/AnswerComment";
+import WhiteButton from "../../common/WhiteButton";
 import {
-  MainContainer,
-  Container,
-  HeadContainer,
-  Title,
-  Selection,
-  SelectionText,
-  SecondContainer,
-  Data,
-  BtnContainer,
+  AnswerBtn,
   Btn,
+  BtnContainer,
+  Container,
+  Data,
   DescContainer,
   FlexContainer,
-  AnswerBtn,
+  HeadContainer,
+  MainContainer,
   ProfileContainer,
+  ProfileContent,
   ProfileImg,
   ProfileInfoContainer,
-  ProfileName,
   ProfileLevel,
-  ProfileContent,
+  ProfileName,
+  SecondContainer,
+  Selection,
+  SelectionText,
+  Title,
 } from "../AnswersList/style";
+import Selected from "../Selected/index";
 
 function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
   const ref = useRef();
@@ -79,7 +80,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
     setIsOpen(!isOpen);
   };
 
-  const Viewer = dynamic(() => import("../../components/answer/AnswerView"), {
+  const Viewer = dynamic(() => import("../AnswerView/index"), {
     ssr: false,
     loading: () => <Loader type="Oval" color="#FFE59C" width={100} height={loaderHeight} />,
   });

@@ -1,4 +1,8 @@
+import Image from "next/image";
 import styled from "styled-components";
+
+import HeartIcon from "../../../public/static/images/HeartIcon";
+
 export const ListContainer = styled.ul`
   min-width: 42.5rem;
   max-width: 67rem;

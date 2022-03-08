@@ -1,11 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import * from './style';
+import { Editor } from "@toast-ui/react-editor";
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useCallback, useDispatch, useEffect, useRef, useSelector, useState } from "react";
 
 import { API_URL } from "../../config";
 import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
 import WhiteButton from "../common/WhiteButton";
+import { Btn, BtnContainer } from "./style";
 
 function ToastUi({ title, folder, tags, token }) {
   const router = useRouter();

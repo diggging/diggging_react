@@ -1,12 +1,17 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
-import TextareaAutosize from "react-autosize-textarea";
 
-import { API_URL } from "../../../config";
-import { alertService } from "../../alert.service";
-import YellowButton from "../../common/YellowButton";
-import AnswerCommentList from "./AnswerCommentList";
-import * from './style';
+import { API_URL } from "../../../../config";
+import { alertService } from "../../../alert.service";
+import YellowButton from "../../../common/YellowButton";
+import AnswerCommentList from "../AnswerCommentList/index";
+import {
+  CommentContainer,
+  CommentCount,
+  CommentInput,
+  CommentSendBtn,
+  FormContainer,
+} from "./style";
 
 function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUpdateComment }) {
   const [text, setText] = useState("");

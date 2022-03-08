@@ -5,6 +5,7 @@ import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import { Viewer } from "@toast-ui/react-editor";
 import Prism from "prismjs";
+import React from "react";
 
 function QuestionView({ desc }) {
   return (

@@ -3,16 +3,28 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * from './style';
 
-import Layout from "../../hocs/Layout";
-import { setMine, setQuestion } from "../../modules/questions";
-import { BannerBackground, SubTitle } from "../../pages/main";
-import recent from "../../pages/recent";
-import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
-import SvgToggleBtn from "../../public/static/images/ToggleBtn";
-import navBar from "../common/NavBar";
-import QuestionList from "../questions/QuestionList";
+import Layout from "../../../hocs/Layout";
+import { setMine, setQuestion } from "../../../modules/questions";
+import { BannerBackground, SubTitle } from "../../../pages/main";
+import SvgDigggingLogo from "../../../public/static/images/DigggingLogo";
+import NavBar from "../../common/NavBar";
+import {
+  Container,
+  CreateBtn,
+  DropBox,
+  DropList,
+  DropListItem,
+  ImageContainer,
+  QuestionsContainer,
+  ServiceIntro,
+  ServiceTitle,
+  Tab,
+  TabContainer,
+  TabItemContainer,
+  ToggleBtn,
+  ToggleContainer,
+} from "./style";
 
 function Prevent({ children }) {
   const ref = useRef();

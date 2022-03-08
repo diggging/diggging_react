@@ -1,15 +1,28 @@
 import axios from "axios";
 import Image from "next/image";
-import React, { useCallback,useEffect, useState } from "react";
-import TextareaAutosize from "react-autosize-textarea";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { API_URL } from "../../../config";
-import { check_auth_status } from "../../../redux/actions/auth";
-import { alertService } from "../../alert.service";
-import YellowButton from "../../common/YellowButton";
-
-import * from './style';
+import { API_URL } from "../../../../config";
+import { check_auth_status } from "../../../../redux/actions/auth";
+import { alertService } from "../../../alert.service";
+import YellowButton from "../../../common/YellowButton";
+import {
+  Btn,
+  BtnContainer,
+  CommentContainer,
+  CommentDate,
+  CommentInput,
+  CommentSendBtn,
+  CommentText,
+  CommentUpdateContainer,
+  Container,
+  FlexContainer,
+  NameDateContainer,
+  UserImg,
+  UserInfoContainer,
+  UserNickName,
+} from "./style";
 
 function AnswerSingleComment({
   data,
@@ -69,16 +82,16 @@ function AnswerSingleComment({
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
         .put(`${API_URL}/comments/${id}/answer_comment_update`, {
-          text: text,,
+          text,
         })
         .then((response) => {
           setIsUpdated(false);
-          console.log(response);;
+          console.log(response);
           comment.map((item) => {
             if (item.id === data.id) {
-              setUpdateData(text);;
+              setUpdateData(text);
             }
-          });;
+          });
         });
     } catch (e) {
       console.log(e);

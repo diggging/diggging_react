@@ -1,13 +1,25 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * from './style';
 
-import { setMine, setPage, setQuestion } from "../../modules/questions";
-import HeartIcon from "../../public/static/images/HeartIcon.js";
-import FlexColumn from "../common/FlexColumn";
-import Paging from "../Paging";
+import { setMine, setPage, setQuestion } from "../../../modules/questions";
+import FlexColumn from "../../common/FlexColumn";
+import Paging from "../../Paging";
+import {
+  BottomContainer,
+  BottomText,
+  DescContainer,
+  FlexContainer,
+  HeartBtn,
+  ListContainer,
+  ListHash,
+  ListHashContainer,
+  ListTitle,
+  ProfileContainer,
+  ProfileImg,
+  ProfileName,
+  TitleHashContainer,
+} from "./style";
 
 function QuestionList({ data, count }) {
   const dispatch = useDispatch();
@@ -31,8 +43,8 @@ function QuestionList({ data, count }) {
         {removeTagDesc.length > 0 ? <></> : null}
         {data &&
           data.map((list) => (
-            <Link href={`/questions/${list.id}`} passHref>
-              <ListContainer key={list.id}>
+            <Link href={`/questions/${list.id}`} key={list.id} passHref>
+              <ListContainer>
                 <FlexContainer>
                   <TitleHashContainer>
                     <FlexColumn>

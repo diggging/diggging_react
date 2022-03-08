@@ -11,13 +11,13 @@ import { useRouter } from "next/router";
 import Prism from "prismjs";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * from './style';
 
 import { API_URL } from "../../config";
 import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
 import WhiteButton from "../common/WhiteButton";
+import { Btn, BtnContainer } from "./style";
 
 function ToastUiUpdate({ id, title, desc, tags, token }) {
   const router = useRouter();
