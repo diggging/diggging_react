@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import SingleComment from "../questionComment/SingleComment";
 
 function CommentList({ id, comments, newComment, setUpdateCount, setUpdateComment, updateCount }) {
@@ -10,7 +11,7 @@ function CommentList({ id, comments, newComment, setUpdateCount, setUpdateCommen
 
   useEffect(() => {
     setComment(comments);
-  }, [comment])
+  }, [comment]);
 
   return (
     <>

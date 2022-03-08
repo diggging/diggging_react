@@ -1,14 +1,14 @@
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback,useState } from "react";
 import TextareaAutosize from "react-autosize-textarea";
-import styled from "styled-components";
 
 import { API_URL } from "../../../config";
 import { alertService } from "../../alert.service";
+import CommentList from "../../comment/questionComment/CommentList";
 import YellowButton from "../../common/YellowButton";
-import AnswerCommentList from "./AnswerCommentList";
+import * from './style';
 
-function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUpdateComment }) {
+function Comment({ updateCount, comments, id, token, setUpdateCount, setUpdateComment }) {
   const [text, setText] = useState("");
   const [newComment, setNewComment] = useState([]);
 
@@ -19,13 +19,19 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
     [text],
   );
 
-  const CreateAnswerComment = async () => {
+  const onClickIsAuth = () => {
+    if (!token) {
+      alertService.warn("로그인 후 이용해주세요.");
+    }
+  };
+
+  const CreateComment = async () => {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios.defaults.headers.common["Content-Type"] = "application/json";
       await axios
-        .post(`${API_URL}/comments/answer_comment_create/?answer_id=${id}`, {
-          text,
+        .post(`${API_URL}/comments/question_comment_create/?question_id=${id}`, {
+          text: text,,
         })
         .then((response) => {
           setNewComment(response.data);
@@ -41,13 +47,7 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
           }
         });
     } catch (e) {
-      alertService.warn("로그인 후 이용해주세요.");
-    }
-  };
-
-  const onClickIsAuth = () => {
-    if (!token) {
-      alertService.warn("로그인 후 이용해주세요.");
+      alertService.success("로그인 후 이용해주세요.");
     }
   };
 
@@ -55,23 +55,23 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
     <FormContainer>
       <CommentContainer>
         <CommentInput
-          onClick={onClickIsAuth}
           placeholder="댓글을 입력하세요"
           value={text}
           onChange={onChange}
+          onClick={onClickIsAuth}
         />
         <YellowButton
-          fontSize="0.8125rem"
           paddingTop="0.6rem"
           paddingRight="1.5rem"
-          onClick={CreateAnswerComment}
+          onClick={CreateComment}
           type="button"
         >
           댓글 남기기
         </YellowButton>
       </CommentContainer>
+      {/* {updateCount !== undefined ? (<><CommentCount>댓글 {updateCount}개</CommentCount></>) : (<><CommentCount>댓글 {commentNum}개</CommentCount></>)} */}
       <CommentCount>댓글 {updateCount}개</CommentCount>
-      <AnswerCommentList
+      <CommentList
         id={id}
         comments={comments}
         newComment={newComment}
@@ -83,53 +83,4 @@ function AnswerComment({ updateCount, comments, id, token, setUpdateCount, setUp
   );
 }
 
-export default React.memo(AnswerComment);
-
-const FormContainer = styled.form`
-  width: 100%;
-`;
-
-const CommentContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 44px;
-`;
-
-const CommentInput = styled(TextareaAutosize)`
-  resize: none;
-  width: 758px;
-  min-height: 6.125rem;
-  border: 1px solid #ececec;
-  box-sizing: border-box;
-  border-radius: 8px;
-  padding: 1rem 1rem 1.5rem;
-  font-family: "Pretendard-Regular";
-  font-size: 1rem;
-  color: rgb(33, 37, 41);
-  line-height: 1.75;
-  &:focus {
-    outline: 0;
-  }
-`;
-
-const CommentSendBtn = styled.button`
-  width: 114px;
-  height: 38px;
-  background: #ffd358;
-  box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
-  border-radius: 20px;
-  font-family: "Pretendard-Bold";
-  font-size: 13px;
-  line-height: 19px;
-  color: #343434;
-`;
-
-const CommentCount = styled.div`
-  width: 100%;
-  font-family: "Pretendard-Bold";
-  font-size: 18px;
-  line-height: 21px;
-  color: #343434;
-  padding-bottom: 20px;
-`;
+export default React.memo(Comment);
