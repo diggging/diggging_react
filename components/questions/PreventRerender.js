@@ -11,7 +11,7 @@ import { BannerBackground, SubTitle } from "../../pages/main";
 import recent from "../../pages/recent";
 import SvgDigggingLogo from "../../public/static/images/DigggingLogo";
 import SvgToggleBtn from "../../public/static/images/ToggleBtn";
-import navBar from "../common/NavBar";
+import NavBar from "../common/NavBar";
 import QuestionList from "../questions/QuestionList";
 
 function Prevent({ children }) {

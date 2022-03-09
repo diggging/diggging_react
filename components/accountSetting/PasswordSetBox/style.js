@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import ContentText from "../../common/ContentText";
+
 export const PasswordResetBox = styled.form`
   display: flex;
   flex-direction: column;

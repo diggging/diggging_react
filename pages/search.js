@@ -15,7 +15,10 @@ function Search() {
 
   return (
     <div>
-      <Layout title="Diggging | 검색" content="개발자들을 위한 커뮤니티, 검색페이지">
+      <Layout
+        title="개발자를 위한 커뮤니티, Diggging | 검색"
+        content="디깅에서 다양한 질문들을 검색해보세요"
+      >
         <NavBar />
         <SearchInput
           setLoading={setLoading}

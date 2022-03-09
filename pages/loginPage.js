@@ -1,15 +1,25 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useCallback,useEffect, useState } from 'react';
-import Loader from 'react-loader-spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
-import { Alert } from '../components/Alert';
-import { alertService } from '../components/alert.service';
-import Layout from '../hocs/Layout'; 
-import { login, reset_bad_request,reset_register_success } from '../redux/actions/auth';
-import { BackgroundColor,FormBtn, GuideMessage, LinkBox, LinkBtn, LoaderBox, Logo, UserInput, VerifyMessage } from './signup';
+import { Alert } from "../components/Alert";
+import { alertService } from "../components/alert.service";
+import Layout from "../hocs/Layout";
+import { login, reset_bad_request, reset_register_success } from "../redux/actions/auth";
+import {
+  BackgroundColor,
+  FormBtn,
+  GuideMessage,
+  LinkBox,
+  LinkBtn,
+  LoaderBox,
+  Logo,
+  UserInput,
+  VerifyMessage,
+} from "./signup";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -17,8 +27,6 @@ function LoginPage() {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
-  const bad_request = useSelector((state) => state.auth.bad_request);
-
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
@@ -27,10 +35,10 @@ function LoginPage() {
   const [error, setError] = useState({
     usernameError: "",
     passwordError: "",
-    loginError: "",,
+    loginError: "",
   });
 
-  const {  usernameError, passwordError, loginError  } = error;
+  const { usernameError, passwordError, loginError } = error;
   const { username, password } = inputs;
 
   useEffect(() => {
@@ -56,8 +64,8 @@ function LoginPage() {
           if (e.target.value.length < 4) {
             setError({
               ...error,
-              usernameError: "아이디를 4자 이상 입력해주세요.",,
-            });;
+              usernameError: "아이디를 4자 이상 입력해주세요.",
+            });
           } else {
             setError({
               ...error,
@@ -69,8 +77,8 @@ function LoginPage() {
           if (e.target.value.length < 8) {
             setError({
               ...error,
-              passwordError: "비밀번호를 8자 이상 입력하세요.",,
-            });;
+              passwordError: "비밀번호를 8자 이상 입력하세요.",
+            });
           } else {
             setError({
               ...error,
@@ -97,19 +105,14 @@ function LoginPage() {
             // 400일때 아이디비번확인 401일때 이멜인증해달라고 하기(시형이가 status 고쳐줘야함)
             alertService.warn("아이디와 비밀번호를 확인해주세요.🙂");
           } else if (res === 500) {
-            alertService.warn("서버에 문제가 생겼습니다. 다시 시도해주세요🙁");;
+            alertService.warn("서버에 문제가 생겼습니다. 다시 시도해주세요🙁");
           } else if (res === 405) {
-            alertService.warn("잘못된 접근입니다🙁");;
+            alertService.warn("잘못된 접근입니다🙁");
           } else if (res === 401) {
-            alertService.success("📬이메일 인증을 완료해주세요");;
-          } else {
-            setError({
-              ...error,
-              loginError: err,,
-            });;
+            alertService.success("📬이메일 인증을 완료해주세요");
           }
         })
-        .catch((err) => alertService.warn(err));;
+        .catch((err) => alertService.warn(err));
     }
   };
 
@@ -118,7 +121,10 @@ function LoginPage() {
   }
 
   return (
-    <Layout title="Diggging | 로그인" content="개발자들을 위한 커뮤니티 디깅 로그인 페이지">
+    <Layout
+      title="Diggging, 개발자를 위한 커뮤니티 | 로그인"
+      content="디깅에 로그인하고 질문해보세요"
+    >
       <BackgroundColor>
         <LoginBox>
           <Alert />
@@ -191,11 +197,11 @@ const LoginBox = styled.div`
   height: auto;
   padding: 40px 50px;
 `;
-const Button = styled.button`
-  padding: 12px 20px;
-  border-radius: 20px;
-  color: #5f5f5f;
+// const Button = styled.button`
+//   padding: 12px 20px;
+//   border-radius: 20px;
+//   color: #5f5f5f;
 
-  box-shadow: 0, 4, 12, rgba(1, 1, 1, 10%);
-  border: none;
-`;
+//   box-shadow: 0, 4, 12, rgba(1, 1, 1, 10%);
+//   border: none;
+// `;

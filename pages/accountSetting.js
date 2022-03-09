@@ -53,11 +53,14 @@ function AccountSetting() {
   useEffect(() => {
     if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(check_auth_status());
     getAccessToken();
-  }, [dispatch]);
+  }, [dispatch, getAccessToken]);
 
   return (
     <>
-      <Layout title="Diggging | 계정설정" content="개발자들을 위한 커뮤니티 디깅 계정설정 페이지">
+      <Layout
+        title="Diggging, 개발자를 위한 커뮤니티 | 계정설정"
+        content="개발자들을 위한 커뮤니티 디깅 계정설정 페이지"
+      >
         <NavBar />
         {user?.user?.id ? (
           <>

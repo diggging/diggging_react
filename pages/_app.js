@@ -2,7 +2,7 @@ import "../public/static/fonts/font.css";
 import "../public/static/css/Paging.css";
 
 import Head from "next/head";
-import React, { Component, useState } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Pretendard-Regular', 'Arial', sans-serif;
+    font-family: "Pretendard" -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; */
     line-height: 1.5;
     background-color: #FAFAFF;
   }
