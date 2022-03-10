@@ -1,23 +1,27 @@
-import React, { useState, useEffect } from "react";
-import SingleComment from "../questionComment/SingleComment";
+import React, { useEffect, useState } from "react";
 
-function CommentList({ id, comments, newComment, setUpdateCount, setUpdateComment, updateCount }) {
-  const [comment, setComment] = useState([]);
+import AnswerSingleComment from "../AnswerSingleComment/index";
+
+function AnswerCommentList({
+  id,
+  comments,
+  newComment,
+  setUpdateCount,
+  setUpdateComment,
+  updateCount,
+}) {
+  const [comment, setComment] = useState(comments);
 
   useEffect(() => {
     setComment([...comment, newComment]);
   }, [newComment]);
-
-  useEffect(() => {
-    setComment(comments);
-  }, [comment])
 
   return (
     <>
       <ul>
         {comment &&
           comment.map((item) => (
-            <SingleComment
+            <AnswerSingleComment
               key={item.id}
               data={item}
               comment={comment}
@@ -26,11 +30,11 @@ function CommentList({ id, comments, newComment, setUpdateCount, setUpdateCommen
               updateCount={updateCount}
               setUpdateCount={setUpdateCount}
               setUpdateComment={setUpdateComment}
-            ></SingleComment>
+            ></AnswerSingleComment>
           ))}
       </ul>
     </>
   );
 }
 
-export default React.memo(CommentList);
+export default React.memo(AnswerCommentList);

@@ -2,12 +2,12 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import styled from "styled-components";
 
-import { API_URL } from "../../config/index";
-import LikeDetail from "../../public/static/images/LikeDetail";
-import LinkDetail from "../../public/static/images/LinkDetail";
-import { alertService } from "../alert.service";
+import { API_URL } from "../../../config/index";
+import LikeDetail from "../../../public/static/images/LikeDetail";
+import LinkDetail from "../../../public/static/images/LinkDetail";
+import { alertService } from "../../alert.service";
+import { Container, Element, ElementContainer, FlexContainer, LinkClickAlarm } from "./style";
 
 function DetailLike({ token, id, handleLinkAlarm }) {
   const router = useRouter();
@@ -74,53 +74,3 @@ function DetailLike({ token, id, handleLinkAlarm }) {
 }
 
 export default DetailLike;
-
-const Container = styled.div`
-  position: fixed;
-  right: 2%;
-  top: 10%;
-`;
-
-const ElementContainer = styled.div`
-  width: 145px;
-  height: 93px;
-  background: #f5f5f5;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Element = styled.div`
-  margin: 0 auto;
-  cursor: pointer;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 0 auto;
-  font-family: "Pretendard-Bold";
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
-  color: #5f5f5f;
-`;
-
-const LinkClickAlarm = styled.div`
-  width: 145px;
-  height: 50px;
-  background: #f5f5f5;
-  border-radius: 20px;
-  font-family: "Pretendard-Bold";
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
-  color: #5f5f5f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-`;

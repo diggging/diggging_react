@@ -5,11 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
+import styled from "styled-components";
 
 import { API_URL } from "../../../config";
 import NotSelectedAnswer from "../../../public/static/images/NotSelectedAnswer";
 import SelectedAnswer from "../../../public/static/images/SelectedAnswer";
 import { alertService } from "../../alert.service";
+import AnswerComment from "../../comment/answerComment/AnswerComment";
+import WhiteButton from "../../common/WhiteButton";
 import {
   AnswerBtn,
   Btn,
@@ -31,9 +34,7 @@ import {
   SelectionText,
   Title,
 } from "../AnswersList/style";
-import AnswerComment from "../comment/answerComment/AnswerComment";
-import WhiteButton from "../common/WhiteButton";
-import Selected from "./Selected";
+import Selected from "../Selected/index";
 
 function AnswersList({ answer, user, token, questionId, questionUserId, AnswerisSelected }) {
   const ref = useRef();
@@ -79,7 +80,7 @@ function AnswersList({ answer, user, token, questionId, questionUserId, Answeris
     setIsOpen(!isOpen);
   };
 
-  const Viewer = dynamic(() => import("../../components/answer/AnswerView"), {
+  const Viewer = dynamic(() => import("../AnswerView/index"), {
     ssr: false,
     loading: () => <Loader type="Oval" color="#FFE59C" width={100} height={loaderHeight} />,
   });
