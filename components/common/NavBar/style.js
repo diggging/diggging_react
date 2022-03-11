@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Nav = styled.nav`
-  min-width: 42.5rem;
+  /* min-width: 42.5rem; */
   z-index: 1000;
   position: fixed;
   top: 0;
@@ -12,7 +12,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
-  height: 4rem;
+  height: 3.8rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(0, 0, 0, 0.05);
 `;
 
