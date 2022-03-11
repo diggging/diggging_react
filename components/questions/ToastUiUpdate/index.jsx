@@ -11,13 +11,13 @@ import { useRouter } from "next/router";
 import Prism from "prismjs";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 import { API_URL } from "../../config";
 import { setDesc } from "../../modules/editor";
 import { Alert } from "../Alert";
 import { alertService } from "../alert.service";
 import WhiteButton from "../common/WhiteButton";
+import { Btn, BtnContainer } from "./style";
 
 function ToastUiUpdate({ id, title, desc, tags, token }) {
   const router = useRouter();
@@ -138,22 +138,3 @@ function ToastUiUpdate({ id, title, desc, tags, token }) {
 }
 
 export default React.memo(ToastUiUpdate);
-
-const BtnContainer = styled.div`
-  width: 21.875rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 1.5rem;
-`;
-
-const Btn = styled.button`
-  width: 8.75rem;
-  height: 3rem;
-  background-color: #f5f5f7;
-  /* border: 3px solid #FFFFFF; */
-  /* border: none; */
-  box-sizing: border-box;
-  border-radius: 1.5625rem;
-  cursor: pointer;
-`;
