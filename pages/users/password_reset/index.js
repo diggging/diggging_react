@@ -1,6 +1,5 @@
-import { Router, useRouter } from "next/router";
 import React, { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { Alert } from "../../../components/Alert";
@@ -12,14 +11,12 @@ import YellowTitle from "../../../components/common/YellowTitle";
 import Layout from "../../../hocs/Layout";
 import { reset_password } from "../../../redux/actions/auth";
 
-function findPassword() {
-  const router = useRouter();
+function FindPassword() {
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     email: "",
     username: "",
   });
-  const [requestSent, setRequestSent] = useState(false);
 
   const onInput = (e) => {
     const { name, value } = e.target;
@@ -114,4 +111,4 @@ const GuideMessage = styled.p`
 `;
 
 export { FormBox, GuideMessage, PageTitle };
-export default findPassword;
+export default FindPassword;
