@@ -104,7 +104,7 @@ export { ProfileBioBox, ProfileBox };
 export default AccountSetting;
 
 const FormBox = styled.div`
-  width: 49.375rem;
+  width: 44.375rem;
   margin: auto auto;
   margin-top: 11.25rem;
   position: relative;
@@ -137,8 +137,7 @@ const ProfileBox = styled.form`
   flex-direction: row;
   padding: ${({ padding }) => padding} 0;
   border-bottom: solid 2px #e5e5e5;
-  justify-content: flex-start;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   position: relative;
 `;
@@ -153,4 +152,5 @@ const AccountBtnBox = styled.form`
   margin-top: 4rem;
   flex-direction: row;
   justify-content: flex-end;
+  padding-bottom: 2rem;
 `;

@@ -6,6 +6,7 @@ import { API_URL } from "../../../config";
 import { load_user } from "../../../redux/actions/auth";
 import { alertService } from "../../alert.service";
 import FlexColumn from "../../common/FlexColumn";
+import FlexRow from "../../common/FlexRow";
 import GreyInput from "../../common/GreyInput";
 import YellowButton from "../../common/YellowButton";
 import YellowTitle from "../../common/YellowTitle";
@@ -107,45 +108,47 @@ function PasswordSetBox({ userData, token }) {
       <PasswordMessage>새 비밀번호를 입력하시면 비밀번호가 변경됩니다.</PasswordMessage>
       <PasswordInputBox>
         <RowBox>
-          <GreyInput
-            type="password"
-            required
-            name="oldPW"
-            value={oldPW}
-            onChange={onChangePW}
-            placeholder="이전 비밀번호"
-            width="12rem"
-            height="3.125rem"
-            marginRight="0.75rem"
-          />
-          <FlexColumn>
+          <FlexRow>
             <GreyInput
               type="password"
               required
-              name="newPW1"
-              value={newPW1}
+              name="oldPW"
+              value={oldPW}
               onChange={onChangePW}
-              placeholder="새 비밀번호"
-              width="12rem"
+              placeholder="이전 비밀번호"
+              width="10rem"
               height="3.125rem"
               marginRight="0.75rem"
             />
-            <ErrorMsg>{pw1Error}</ErrorMsg>
-          </FlexColumn>
-          <FlexColumn>
-            <GreyInput
-              type="password"
-              required
-              name="newPW2"
-              value={newPW2}
-              onChange={onChangePW}
-              placeholder="비밀번호 확인"
-              width="12rem"
-              height="3.125rem"
-              marginRight="3.75rem"
-            ></GreyInput>
-            <ErrorMsg>{pw2Error}</ErrorMsg>
-          </FlexColumn>
+            <FlexColumn>
+              <GreyInput
+                type="password"
+                required
+                name="newPW1"
+                value={newPW1}
+                onChange={onChangePW}
+                placeholder="새 비밀번호"
+                width="10rem"
+                height="3.125rem"
+                marginRight="0.75rem"
+              />
+              <ErrorMsg>{pw1Error}</ErrorMsg>
+            </FlexColumn>
+            <FlexColumn>
+              <GreyInput
+                type="password"
+                required
+                name="newPW2"
+                value={newPW2}
+                onChange={onChangePW}
+                placeholder="비밀번호 확인"
+                width="10rem"
+                height="3.125rem"
+                marginRight="3.75rem"
+              ></GreyInput>
+              <ErrorMsg>{pw2Error}</ErrorMsg>
+            </FlexColumn>
+          </FlexRow>
           <YellowButton type="submit" paddingRight="2.125rem" paddingTop="0.75rem">
             변경
           </YellowButton>
