@@ -38,6 +38,8 @@ module.exports = {
     "react/prop-types": 0,
     "import/namespace": 0,
     "import/no-unresolved": "off",
+    "import/no-named-as-default": 0,
+    "no-useless-escape": "warn",
   },
   env: {
     browser: true,
