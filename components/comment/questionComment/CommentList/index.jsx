@@ -6,7 +6,7 @@ function CommentList({ id, comments, newComment, setUpdateCount, setUpdateCommen
   const [comment, setComment] = useState([]);
 
   useEffect(() => {
-    setComment([...comment, newComment]);
+    setComment([...comment, ...newComment]);
   }, [newComment]);
 
   useEffect(() => {
