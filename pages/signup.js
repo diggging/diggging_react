@@ -252,14 +252,15 @@ const LoaderBox = styled.div`
   justify-content: center;
   margin: auto auto;
   color: #ffd664;
-  height: 102px;
-  padding: 35px;
+  height: 6.375rem;
+  padding: 2.1875rem;
   width: 100%;
 `;
 
 const BackgroundColor = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 43rem;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -273,11 +274,11 @@ const BackgroundColor = styled.div`
 const SignupBox = styled.div`
   position: relative;
   background-color: white;
-  box-shadow: 10px 10px 35px 0 rgb(1 1 1 / 10%);
-  border-radius: 20px;
-  width: 480px;
+  box-shadow: 0.625rem 0.625rem 2.1875rem 0 rgb(1 1 1 / 10%);
+  border-radius: 1.25rem;
+  width: 30rem;
   height: auto;
-  padding: 40px 50px;
+  padding: 2.5rem 3.125rem;
   color: #b6b6b6;
 `;
 
@@ -291,10 +292,12 @@ const Logo = styled.a`
 
 const GuideMessage = styled.p`
   color: #848484;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-family: "Pretendard-Regular";
   text-align: center;
-  margin-bottom: 30px;
+  line-height: 1.25rem;
+  margin-bottom: 1.2rem;
+  margin-top: 0.875rem;
 `;
 
 const VerifyMessage = styled.p`
@@ -307,32 +310,32 @@ const VerifyMessage = styled.p`
 
 const UserInput = styled.input`
   background-color: #f7f7f7;
-  padding: 16px 14px;
-  width: 380px;
-  border-radius: 8px;
+  padding: 1rem 0.875rem;
+  width: 23.75rem;
+  border-radius: 0.5rem;
   border: none;
   outline: none;
-  margin-top: 14px;
+  margin-top: 0.875rem;
   color: #999893;
 `;
 
 const FormBtn = styled.button`
   background-color: #ffd358;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   color: white;
   box-shadow: none;
   border: none;
 
-  padding: 14px;
-  margin-top: 22px;
-  margin-bottom: 28px;
+  padding: 0.875rem;
+  margin-top: 1.375rem;
+  margin-bottom: 1.75rem;
   width: 100%;
-  height: 50px;
+  height: 3.125rem;
 
-  font-size: 20px;
+  font-size: 1.1rem;
   text-align: center;
   font-family: "Pretendard-SemiBold";
-
+  transition: 300ms;
   cursor: pointer;
 
   &:hover {
@@ -346,10 +349,12 @@ const FormBtn = styled.button`
 `;
 
 const LinkBtn = styled.a`
+  font-family: "Pretendard-Regular";
   color: #c4c4c4;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-decoration: none;
 `;
+
 const LinkBox = styled.div`
   color: #c4c4c4;
   text-align: right;
