@@ -160,10 +160,10 @@ function NavBar() {
                   <DropBox>
                     <DropList>
                       <DropListItem>
-                        <Link href="/questionCreate">새 글 작성</Link>
+                        <a href="/questionCreate">새 글 작성</a>
                       </DropListItem>
                       <DropListItem>
-                        <Link
+                        <a
                           // href={{
                           //   pathname: `/accountSetting`,
                           //   query: {user: JSON.stringify(user)},
@@ -172,7 +172,7 @@ function NavBar() {
                           href="/accountSetting"
                         >
                           계정설정
-                        </Link>
+                        </a>
                       </DropListItem>
                       <DropListItem>
                         <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>

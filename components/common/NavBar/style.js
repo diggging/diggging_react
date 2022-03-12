@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 const Nav = styled.nav`
@@ -88,30 +89,58 @@ const UserImg = styled.div`
 
 const DropBox = styled.div`
   background-color: white;
-  box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.05);
-  width: 10rem;
-  padding: 0 1.5rem;
+  box-shadow: -0.25rem -0.25rem 0.875rem 0px rgba(0, 0, 0, 0.05);
   position: absolute;
-  top: 68px;
+  top: 64px;
   right: 60px;
+  border-radius: 0.25rem;
 `;
 
 const DropList = styled.ul`
   list-style: none;
-  line-height: 2rem;
-  font-family: "Pretendard-Regular";
+  line-height: 2.375rem;
+  font-family: "Pretendard-Medium";
 `;
 
 const DropListItem = styled.li`
   color: #b6b6b6;
+  cursor: pointer;
 
-  &:hover {
+  &:first-child:hover a {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+  }
+
+  &:hover a {
     color: #343434;
-    font-family: "Pretendard-Medium";
+    font-family: "Pretendard-SemiBold";
+    background: #f4f4f4;
+  }
+
+  & > a {
+    transition: 300ms;
+    display: block;
+    width: 9.25rem;
   }
 `;
-const LogoutButton = styled(DropList)`
+const LogoutButton = styled.button`
+  color: #b6b6b6;
+  width: 9.25rem;
   cursor: pointer;
+  background: none;
+  border: none;
+  font-family: "Pretendard-Medium";
+  font-size: 1rem;
+  padding: 0;
+  height: 2.375rem;
+  transition: 300ms;
+  &:hover {
+    color: #343434;
+    font-family: "Pretendard-SemiBold";
+    background: #f4f4f4;
+    border-bottom-left-radius: 0.025rem;
+    border-bottom-right-radius: 0.025rem;
+  }
 `;
 
 export {
