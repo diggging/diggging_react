@@ -52,7 +52,7 @@ function QuestionCreate() {
     }
   };
 
-  const ToastCreate = dynamic(() => import("../components/questions/ToastUiCreate"), {
+  const ToastCreate = dynamic(() => import("../components/questions/ToastUiCreate/index"), {
     ssr: false,
     loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100} />,
   });
