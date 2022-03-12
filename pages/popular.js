@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Prevent from "../components/questions/PreventRerender";
+import Prevent from "../components/questions/PreventRerender/index";
 import QuestionList from "../components/questions/QuestionList";
 import { setQuestion } from "../modules/questions";
 
