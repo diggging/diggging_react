@@ -77,7 +77,7 @@ function ListCard({ data }) {
         </ProfileBox>
       </CardHead>
       <ContentWrapper>
-        <PostContent>{desc.replace(/(<([^>]+)>)/gi, "").slice(0, 315)}</PostContent>
+        <PostContent>{desc.replace(/(<([^>]+)>)/gi, "").slice(0, 440)}</PostContent>
       </ContentWrapper>
       <CardFooter>
         <PostDateInfo>
