@@ -89,6 +89,8 @@ function ListCard({ data }) {
           <NumberData>{helped_num}</NumberData>
           <Hit>조회</Hit>
           <NumberData>{hits}</NumberData>
+          {/* <Hit>답변 수</Hit>
+          <NumberData>{answer_count}</NumberData> */}
         </div>
       </CardFooter>
       <Alert />

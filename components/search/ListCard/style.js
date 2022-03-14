@@ -25,6 +25,12 @@ export const CardBox = styled.button`
   text-align: left;
   background-color: white;
   box-shadow: 0px 0.25rem 1.25rem 0px rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    transition: all 200ms ease-in;
+    transform: translateY(-2px);
+    box-shadow: rgb(0 0 0 / 7%) 0rem 0.25rem 1.5rem;
+  }
 `;
 
 //title 글자수 표시제한 필요:54글자로.
