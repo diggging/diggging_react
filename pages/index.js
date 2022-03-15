@@ -18,7 +18,8 @@ function Main() {
   const {
     data,
     count,
-    // page, bigCriteria,
+    page,
+    bigCriteria,
     smallCriteria,
     // loading, error
   } = useSelector((state) => state.questions);
