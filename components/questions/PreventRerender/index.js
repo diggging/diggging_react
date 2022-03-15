@@ -42,8 +42,8 @@ function Prevent({ children }) {
     if (bigCriteria !== undefined) {
       dispatch(setQuestion(1, bigCriteria, smallCriteria));
       setOpen(false);
-    } else if (bigCriteria === undefined) {
-      dispatch(setMine(1, smallCriteria, mineToken));
+    } else if (bigCriteria === "mine") {
+      dispatch(setMine("mine", 1, smallCriteria, mineToken));
       setOpen(false);
     }
   };
@@ -87,7 +87,7 @@ function Prevent({ children }) {
       document.addEventListener("click", checkClickOutSide);
     };
   }, [open]);
-  console.log(bigCriteria);
+  // console.log(bigCriteria);
 
   return (
     <Layout>
