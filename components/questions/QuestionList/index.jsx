@@ -51,7 +51,7 @@ function QuestionList({ data, count }) {
                       <ListTitle>{list.title}</ListTitle>
                       <ListHashContainer>
                         {list.question_tags.map((hash) => (
-                          <ListHash>{hash}</ListHash>
+                          <ListHash key={hash}>{hash}</ListHash>
                         ))}
                       </ListHashContainer>
                     </FlexColumn>
