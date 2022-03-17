@@ -125,7 +125,6 @@ export const ToggleContainer = styled.button`
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   font-weight: 600;
-  color: rgb(73, 80, 87);
   font-size: 0.875rem;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px;
   transition: 300ms;

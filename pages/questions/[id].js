@@ -352,23 +352,23 @@ const Hash = styled.div`
   color: #7a7a7a;
 `;
 
-// const CommentBtn = styled.div`
-//   width: 98px;
-//   height: 37px;
-//   /* border: 1px solid #FFFFFF; */
-//   border-radius: 25px;
-//   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-//   box-sizing: border-box;
-//   font-family: "Pretendard-Bold";
-//   font-size: 13px;
-//   line-height: 19px;
-//   text-align: center;
-//   color: #5f5f5f;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: pointer;
-// `;
+const CommentBtn = styled.div`
+  width: 98px;
+  height: 37px;
+  /* border: 1px solid #FFFFFF; */
+  border-radius: 25px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  font-family: "Pretendard-Bold";
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  color: #5f5f5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
 
 const ProfileContainer = styled.div`
   width: 100%;
