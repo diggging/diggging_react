@@ -1,28 +1,29 @@
 import { API_URL } from "../../../config";
 
 export default async (req, res) => {
-  const {email, username} = req.body;
+  const { email, username } = req.body;
   const body = JSON.stringify({
     email,
     username,
   });
 
   try {
-     const apiRes = await fetch(`${API_URL}/users/request-reset-email/`, {
-      method: 'POST', 
+    const apiRes = await fetch(`${API_URL}/users/request-reset-email/`, {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: body,
-    })
-    
+      body,
+    });
+
     const data = await apiRes.json();
+
     if (apiRes.ok || apiRes.status === 200) {
-      return res.status(apiRes.status).json({data})
+      return res.status(apiRes.status).json({ data });
     } else {
-      return res.status(apiRes.status).json({data})
+      return res.status(apiRes.status).json({ data });
     }
   } catch (err) {
-    return res.status(500).json({error:"문제가 발생했습니다"});
+    return res.status(500).json({ error: "문제가 발생했습니다" });
   }
 };

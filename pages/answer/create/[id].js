@@ -1,23 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
-import styled from 'styled-components';
-import { check_auth_status, load_user } from "../../../redux/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import Loader from 'react-loader-spinner';
+import React, { useCallback, useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-function answerCreate() {
+import { check_auth_status } from "../../../redux/actions/auth";
+
+function AnswerCreate() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
 
-  const user = useSelector((state) => state.auth.user);
   const [title, setTitle] = useState("");
   const [token, setToken] = useState("");
 
-  const onChangeTitle = useCallback((e) => {
-    setTitle(e.target.value);
-  }, [title]);
+  const onChangeTitle = useCallback(
+    (e) => {
+      setTitle(e.target.value);
+    },
+    [title],
+  );
 
   const getAccessToken = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) {
@@ -25,19 +28,22 @@ function answerCreate() {
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.access;
+
           setToken(accessToken);
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const ToastCreate = dynamic(() => import("../../../components/answer/ToastAnswerCreate"), { ssr: false, loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100}/> });
+  const ToastCreate = dynamic(() => import("../../../components/answer/ToastAnswerCreate"), {
+    ssr: false,
+    loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100} />,
+  });
 
   //token 확인(refresh, verify)
   useEffect(() => {
-    if (dispatch && dispatch !== null && dispatch !== undefined)
-      dispatch(check_auth_status());
-      getAccessToken();
+    if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(check_auth_status());
+    getAccessToken();
   }, [dispatch]);
 
   return (
@@ -45,16 +51,8 @@ function answerCreate() {
       <MainContainer>
         <Container>
           <FormContainer>
-            <AnswerTitle
-              name="title"
-              onChange={onChangeTitle}
-              placeholder="제목을 입력하세요."
-            />
-            <ToastCreate
-              title={title}
-              token={token}
-              id={id}
-            />  
+            <AnswerTitle name="title" onChange={onChangeTitle} placeholder="제목을 입력하세요." />
+            <ToastCreate title={title} token={token} id={id} />
           </FormContainer>
         </Container>
       </MainContainer>
@@ -62,7 +60,7 @@ function answerCreate() {
   );
 }
 
-export default React.memo(answerCreate);
+export default React.memo(AnswerCreate);
 
 const MainContainer = styled.div`
   margin-top: 9.0625rem;

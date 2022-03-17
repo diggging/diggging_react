@@ -281,9 +281,8 @@ const BtnContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: Roboto;
+  font-family: "Pretendard-Bold";
   font-style: normal;
-  font-weight: bold;
   font-size: 1.75rem;
   line-height: 3rem;
   color: #212529;
@@ -292,7 +291,7 @@ const Title = styled.div`
 const Btn = styled.div`
   width: 100%;
   height: 1.1875rem;
-  font-family: Noto Sans KR;
+  font-family: "Pretendard-Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 0.8125rem;
@@ -311,7 +310,7 @@ const Data = styled.div`
   margin-top: 5px;
   margin-right: auto;
   height: 19px;
-  font-family: Noto Sans KR;
+  font-family: "Pretendard-Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -396,7 +395,6 @@ const ProfileInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   margin-right: 20px;
 `;
 
@@ -408,9 +406,7 @@ const ProfileName = styled.div`
 `;
 
 const ProfileLevel = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Medium";
   font-size: 12px;
   line-height: 17px;
   color: #7a7a7a;
