@@ -10,12 +10,9 @@ import { check_auth_status } from "../redux/actions/auth";
 
 function Mine() {
   const dispatch = useDispatch();
-  const {
-    data,
-    count,
-    page,
-    // smallCriteria, loading, error, mineToken
-  } = useSelector((state) => state.questions);
+  const { data, count, page, smallCriteria, loading, error, mineToken, bigCriteria } = useSelector(
+    (state) => state.questions,
+  );
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [token, setToken] = useState("");
 

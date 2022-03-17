@@ -57,7 +57,7 @@ function Prevent({ children }) {
       setIsRcent(false);
       setIsPopular(true);
       setIsMine(false);
-    } else {
+    } else if (bigCriteria === "mine") {
       setIsRcent(false);
       setIsPopular(false);
       setIsMine(true);
@@ -87,6 +87,7 @@ function Prevent({ children }) {
       document.addEventListener("click", checkClickOutSide);
     };
   }, [open]);
+  console.log(bigCriteria);
 
   return (
     <Layout>

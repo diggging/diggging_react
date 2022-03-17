@@ -8,7 +8,7 @@ import NavBar from "../components/common/NavBar";
 import QuestionList from "../components/questions/QuestionList";
 import Layout from "../hocs/Layout";
 import { setQuestion } from "../modules/questions";
-import SvgDigggingLogo from "../public/static/images/DigggingLogo.js";
+import DigggingLogoReszie from "../public/static/images/DigggingLogoResize";
 import SvgToggleBtn from "../public/static/images/ToggleBtn";
 
 function Main() {
@@ -18,7 +18,8 @@ function Main() {
   const {
     data,
     count,
-    // page, bigCriteria,
+    page,
+    bigCriteria,
     smallCriteria,
     // loading, error
   } = useSelector((state) => state.questions);
@@ -50,7 +51,7 @@ function Main() {
           objectFit="cover"
         />
         <SubTitle>개발자들을 위한 커뮤니티,</SubTitle>
-        <SvgDigggingLogo display="block" />
+        <DigggingLogoReszie display="block" />
         <ServiceTitle>디깅에 기록하고, 질문하고, 공유하세요</ServiceTitle>
         <ServiceIntro>
           질문하고 기록하는 습관은 누구든 성장하게 해줍니다
@@ -130,7 +131,7 @@ export default Main;
 
 const BannerBackground = styled.div`
   width: 100%;
-  height: 32.5rem;
+  height: 27rem;
   position: relative;
   padding: 4rem 6rem;
   & img {
@@ -149,56 +150,32 @@ const BannerBackground = styled.div`
 `;
 
 const SubTitle = styled.h2`
-  min-width: 270px;
   margin-top: 2.5rem;
   color: white;
   font-family: "Pretendard-Bold";
-  font-size: 1.75rem;
+  font-size: 1.3rem;
   display: inline-block;
   background-color: #ffba42;
   margin-bottom: 1rem;
-  padding: 0.1rem 0.6rem;
+  padding: 0.2rem 1.4rem;
   border-radius: 0.4rem;
-
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.5rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.3rem;
-  }
 `;
 
 const ServiceTitle = styled.h3`
   color: #343434;
   font-family: "Pretendard-Bold";
-  font-size: 1.75rem;
-  letter-spacing: -4;
-  margin-top: 3rem;
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.5rem;
-    margin-top: 2.3rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.3rem;
-    margin-top: 1.6rem;
-  }
+  /* letter-spacing: -4; */
+  font-size: 1.4rem;
+  margin-top: 2rem;
 `;
 
 const ServiceIntro = styled.p`
   min-width: 454px;
   color: #343434;
   font-family: "Pretendard-Medium";
-  font-size: 1.5rem;
-  line-height: 2.2rem;
-  margin-top: 0.875rem;
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.2rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.2rem;
-    margin-top: 0.2rem;
-    line-height: 1.8rem;
-  }
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin-top: 0.5rem;
 `;
 
 const Container = styled.div`
