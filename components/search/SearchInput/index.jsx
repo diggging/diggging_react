@@ -15,6 +15,8 @@ function SearchInput({ setSearchData, setNoData, searchData, setLoading }) {
 
   const getSearchData = async () => {
     setLoading(true);
+    setNoData(false);
+    setSearchData([]);
     const trimmedInput = searchInput.trim();
 
     if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
