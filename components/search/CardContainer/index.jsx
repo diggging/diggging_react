@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 
 import ListCard from "../../search/ListCard";
@@ -9,9 +8,7 @@ function CardContainer({ searchData }) {
   return (
     <StyledCardContainer>
       {searchData.map((data) => (
-        <Link key={data.id} href={`/questions/${data.id}`} passHref>
-          <ListCard data={data} />
-        </Link>
+        <ListCard key={data.id} data={data} />
       ))}
     </StyledCardContainer>
   );

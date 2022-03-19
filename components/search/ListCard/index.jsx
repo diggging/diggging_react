@@ -1,4 +1,5 @@
 // import { useRouter } from "next/router";
+import Link from "next/link";
 import React from "react";
 
 // import { useDispatch, useSelector } from "react-redux";
@@ -55,46 +56,48 @@ function ListCard({ data }) {
   // const dispatch = useDispatch();
 
   return (
-    <CardBox>
-      <CardHead>
-        <FlexColumn>
-          <PostTitle>{title}</PostTitle>
-          <TagWrapper>
-            {question_tags && question_tags.map((tag) => <HashTag key={tag}>{tag}</HashTag>)}
-          </TagWrapper>
-        </FlexColumn>
-        <ProfileBox>
-          <ProfileImg
-            src={`https://api-diggging.shop${user_profile_image}`}
-            width={40}
-            height={40}
-            alt="profileImage"
-            quality={100}
-            // layout="fill"
-            objectFit="cover"
-          />
-          <Username>{user_nickname}</Username>
-        </ProfileBox>
-      </CardHead>
-      <ContentWrapper>
-        <PostContent>{desc.replace(/(<([^>]+)>)/gi, "").slice(0, 440)}</PostContent>
-      </ContentWrapper>
-      <CardFooter>
-        <PostDateInfo>
-          {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시 {createdMinutes}분
-        </PostDateInfo>
-        <div>
-          {/* <BookMarkBtn /><NumberData>{scrap_num}</NumberData> */}
-          <HeartBtn />
-          <NumberData>{helped_num}</NumberData>
-          <Hit>조회</Hit>
-          <NumberData>{hits}</NumberData>
-          {/* <Hit>답변 수</Hit>
+    <Link href={`/questions/${data.id}`} passHref>
+      <CardBox>
+        <CardHead>
+          <FlexColumn>
+            <PostTitle>{title}</PostTitle>
+            <TagWrapper>
+              {question_tags && question_tags.map((tag) => <HashTag key={tag}>{tag}</HashTag>)}
+            </TagWrapper>
+          </FlexColumn>
+          <ProfileBox>
+            <ProfileImg
+              src={`https://api-diggging.shop${user_profile_image}`}
+              width={40}
+              height={40}
+              alt="profileImage"
+              quality={100}
+              // layout="fill"
+              objectFit="cover"
+            />
+            <Username>{user_nickname}</Username>
+          </ProfileBox>
+        </CardHead>
+        <ContentWrapper>
+          <PostContent>{desc.replace(/(<([^>]+)>)/gi, "").slice(0, 440)}</PostContent>
+        </ContentWrapper>
+        <CardFooter>
+          <PostDateInfo>
+            {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시 {createdMinutes}분
+          </PostDateInfo>
+          <div>
+            {/* <BookMarkBtn /><NumberData>{scrap_num}</NumberData> */}
+            <HeartBtn />
+            <NumberData>{helped_num}</NumberData>
+            <Hit>조회</Hit>
+            <NumberData>{hits}</NumberData>
+            {/* <Hit>답변 수</Hit>
           <NumberData>{answer_count}</NumberData> */}
-        </div>
-      </CardFooter>
-      <Alert />
-    </CardBox>
+          </div>
+        </CardFooter>
+        <Alert />
+      </CardBox>
+    </Link>
   );
 }
 
