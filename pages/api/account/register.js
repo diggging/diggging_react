@@ -1,8 +1,7 @@
-import { API_URL } from '../../../config/index';
+import { API_URL } from "../../../config/index";
 
-var apiRes;
 export default async (req, res) => {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { username, user_nickname, email, password1, password2 } = req.body;
 
     const body = JSON.stringify({
@@ -15,12 +14,12 @@ export default async (req, res) => {
 
     try {
       var apiRes = await fetch(`${API_URL}/users/api/Signup/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        body: body,
+        body,
       });
 
       const data = await apiRes.json();
@@ -34,11 +33,12 @@ export default async (req, res) => {
       }
     } catch (err) {
       return res.status(500).json({
-        error: '회원가입 도중 문제가 발생했습니다.',
+        error: "회원가입 도중 문제가 발생했습니다.",
       });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader("Allow", ["POST"]);
+
     return res.status(405).json({ error: `Method ${req.method} not allowed` });
   }
 };

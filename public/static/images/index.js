@@ -7,6 +7,7 @@ export { default as CommentIcon } from "./CommentIcon";
 export { default as DefaultProfileImg } from "./DefaultProfileImg";
 export { default as Diggging } from "./Diggging";
 export { default as DigggingLogo } from "./DigggingLogo";
+export { default as DigggingLogoResize } from "./DigggingLogoResize";
 export { default as Directory } from "./Directory";
 export { default as EditIcon } from "./EditIcon";
 export { default as HeartIcon } from "./HeartIcon";

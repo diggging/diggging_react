@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { check_auth_status, load_user } from "../../redux/actions/auth";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Head from "next/head";
 import axios from "axios";
-import Layout from "../../hocs/Layout";
-import Image from "next/image";
-
-import NavBar from "../../components/common/NavBar";
 import dynamic from "next/dynamic";
-import DetailLike from "../../components/questions/DetailLike";
-import Comment from "../../components/comment/questionComment/Comment";
-import Answers from "../../components/answer/Answers";
-import { API_URL } from "../../config";
-import Loader from 'react-loader-spinner';
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { darken, lighten } from "polished";
+import React, { useEffect, useRef, useState } from "react";
+import Loader from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import { Alert } from "../../components/Alert";
 import { alertService } from "../../components/alert.service";
-import { lighten, darken } from 'polished';
+import Answers from "../../components/answer/Answers";
+import Comment from "../../components/comment/questionComment/Comment";
+import NavBar from "../../components/common/NavBar";
 import WhiteButton from "../../components/common/WhiteButton";
+import DetailLike from "../../components/questions/DetailLike";
+import { API_URL } from "../../config";
+import Layout from "../../hocs/Layout";
+import { check_auth_status, load_user } from "../../redux/actions/auth";
 
 const Question = () => {
   const ref = useRef();
@@ -28,11 +28,9 @@ const Question = () => {
   const [token, setToken] = useState("");
   const [commentIsOpen, setCommentIsOpen] = useState(true);
   const [loaderHeight, setLoaderHeight] = useState(0);
-  
+
   const [updateCount, setUpdateCount] = useState(null);
   const [updateComment, setUpdateComment] = useState([]);
-
-
   const router = useRouter();
   const dispatch = useDispatch();
   //유저 정보
@@ -69,14 +67,12 @@ const Question = () => {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios.defaults.headers.common["Content-Type"] = "application/json";
-      await axios
-        .delete(`${API_URL}/questions/${id}/delete/`)
-        .then((response) => {
-          alertService.success("질문이 삭제 되었습니다.");
-          setTimeout(() => {
-            router.push(`/`);
-          }, 1000)
-        });
+      await axios.delete(`${API_URL}/questions/${id}/delete/`).then((response) => {
+        alertService.success("질문이 삭제 되었습니다.");
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
+      });
     } catch (e) {
       alertService.warn("질문이 삭제 되지않았습니다.");
     }
@@ -88,19 +84,17 @@ const Question = () => {
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.access;
+
           setToken(accessToken);
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const Viewer = dynamic(
-    () => import("../../components/questions/QuestionView"),
-    {
-      ssr: false,
-      loading: () => <Loader type="Oval" color="#FFE59C" width={100} height={100}/>
-    }
-  );
+  const Viewer = dynamic(() => import("../../components/questions/QuestionView"), {
+    ssr: false,
+    loading: () => <Loader type="Oval" color="#FFE59C" width={100} height={100} />,
+  });
 
   //id값을 넣어줘야 데이터가 안사라짐
   useEffect(() => {
@@ -111,18 +105,18 @@ const Question = () => {
   }, [id]);
 
   useEffect(() => {
-    setUpdateCount(item.comment_count)
-  }, [item])
+    setUpdateCount(item.comment_count);
+  }, [item]);
 
   useEffect(() => {
-    if(ref.current) {
+    if (ref.current) {
       setLoaderHeight(ref.current.offsetHeight);
     }
-  }, [])
-  
+  }, []);
+
   const handleLinkAlarm = () => {
-    alertService.warn('링크가 복사되었습니다.')
-  }
+    alertService.warn("링크가 복사되었습니다.");
+  };
 
   return (
     <>
@@ -137,7 +131,7 @@ const Question = () => {
             <MainContainer>
               <Alert />
               <Container>
-                <DetailLike token={token} id={id} handleLinkAlarm={handleLinkAlarm}/>
+                <DetailLike token={token} id={id} handleLinkAlarm={handleLinkAlarm} />
                 <HeadContainer>
                   <Title>{item.title}</Title>
                   {item.user?.id === user?.user?.id ? (
@@ -154,8 +148,8 @@ const Question = () => {
                   )}
                 </HeadContainer>
                 <Data>
-                  {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}
-                  시 {createdMinutes}분
+                  {createdYear}년 {createdMonth}월 {createdDate}일 {createdHour}시 {createdMinutes}
+                  분
                 </Data>
 
                 <DescContainer ref={ref}>
@@ -165,26 +159,31 @@ const Question = () => {
                 <FlexContainer>
                   <HashContainer>
                     {item.question_tags?.map((hash) => (
-                      <Hash>{hash}</Hash>
+                      <Hash key={hash}>{hash}</Hash>
                     ))}
                   </HashContainer>
-                  <WhiteButton paddingTop="10px" paddingRight="18px" fontSize="13px" onClick={() => handleCommentOpen()}>
-                  {/* {commentIsOpen === true ? (<>댓글 접기</>) : (updateCount !== undefined ? (<>댓글 {updateCount}</>): (<>댓글 {item.comment_count}</>)) } */}
-                  {commentIsOpen === true ? (<>댓글 접기</>) : <>댓글 {updateCount}</> }
+                  <WhiteButton
+                    paddingTop="10px"
+                    paddingRight="18px"
+                    fontSize="13px"
+                    onClick={() => handleCommentOpen()}
+                  >
+                    {/* {commentIsOpen === true ? (<>댓글 접기</>) : (updateCount !== undefined ? (<>댓글 {updateCount}</>): (<>댓글 {item.comment_count}</>)) } */}
+                    {commentIsOpen === true ? <>댓글 접기</> : <>댓글 {updateCount}</>}
                   </WhiteButton>
                 </FlexContainer>
 
                 <ProfileContainer>
                   <ProfileImg>
                     <Image
-                        src={`${item.user.user_profile_image}`}
-                        width={50}
-                        height={50}
-                        alt="profileImage"
-                        quality={100}
-                        // layout="fill"
-                        objectFit="cover"
-                      />
+                      src={`${item.user.user_profile_image}`}
+                      width={50}
+                      height={50}
+                      alt="profileImage"
+                      quality={100}
+                      // layout="fill"
+                      objectFit="cover"
+                    />
                   </ProfileImg>
                   <ProfileInfoContainer>
                     {item.user?.user_nickname ? (
@@ -202,7 +201,7 @@ const Question = () => {
                     </>
                   ) : null}
                 </ProfileContainer>
-                
+
                 {commentIsOpen === true ? (
                   <>
                     <Comment
@@ -282,9 +281,8 @@ const BtnContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: Roboto;
+  font-family: "Pretendard-Bold";
   font-style: normal;
-  font-weight: bold;
   font-size: 1.75rem;
   line-height: 3rem;
   color: #212529;
@@ -293,7 +291,7 @@ const Title = styled.div`
 const Btn = styled.div`
   width: 100%;
   height: 1.1875rem;
-  font-family: Noto Sans KR;
+  font-family: "Pretendard-Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 0.8125rem;
@@ -312,7 +310,7 @@ const Data = styled.div`
   margin-top: 5px;
   margin-right: auto;
   height: 19px;
-  font-family: Noto Sans KR;
+  font-family: "Pretendard-Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -361,7 +359,7 @@ const CommentBtn = styled.div`
   border-radius: 25px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 13px;
   line-height: 19px;
   text-align: center;
@@ -397,21 +395,18 @@ const ProfileInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   margin-right: 20px;
 `;
 
 const ProfileName = styled.div`
-  font-family: 'Pretendard-Bold';
+  font-family: "Pretendard-Bold";
   font-size: 16px;
   line-height: 23px;
   color: #343434;
 `;
 
 const ProfileLevel = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Medium";
   font-size: 12px;
   line-height: 17px;
   color: #7a7a7a;
@@ -455,9 +450,9 @@ const AnswerCreateBtn = styled.div`
   cursor: pointer;
   transition: 300ms;
   &:hover {
-    background-color: ${lighten(0.02, '#FFD358')};
+    background-color: ${lighten(0.02, "#FFD358")};
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.15);
   }
   &:active {
-    background-color: ${darken(0.02, '#FFD358')};
+    background-color: ${darken(0.02, "#FFD358")};
 `;

@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import { check_auth_status } from "../../../redux/actions/auth";
-import { useDispatch } from "react-redux";
-import dynamic from "next/dynamic";
 import axios from "axios";
-import {API_URL} from '../../../config/index';
-import Loader from 'react-loader-spinner';
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-function answerUpdate() {
-    const router = useRouter();
-    const { id } = router.query;
+import { API_URL } from "../../../config/index";
+import { check_auth_status } from "../../../redux/actions/auth";
 
-    const dispatch = useDispatch();
+function AnswerUpdate() {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [token, setToken] = useState("");
   const [desc, setDesc] = useState("");
@@ -24,6 +25,7 @@ function answerUpdate() {
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.access;
+
           setToken(accessToken);
         })
         .catch((err) => console.log(err));
@@ -34,38 +36,34 @@ function answerUpdate() {
     (e) => {
       setTitle(e.target.value);
     },
-    [title]
+    [title],
   );
 
   const fetchData = async () => {
     try {
-      await axios
-        .get(`${API_URL}/questions/${id}/answer_detail/`)
-        .then((res) => {
-          setQuestionId(res.data.question);
-          setTitle(res.data.title);
-          setDesc(res.data.desc);
-        });
+      await axios.get(`${API_URL}/questions/${id}/answer_detail/`).then((res) => {
+        setQuestionId(res.data.question);
+        setTitle(res.data.title);
+        setDesc(res.data.desc);
+      });
     } catch (e) {
       console.log(e);
     }
   };
 
-  const ToastUpdate = dynamic(
-    () => import("../../../components/answer/ToastAnswerUpdate"),
-    { ssr: false,
-      loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100}/> }
-  );
+  const ToastUpdate = dynamic(() => import("../../../components/answer/ToastAnswerUpdate"), {
+    ssr: false,
+    loading: () => <Loader type="ThreeDots" color="#FFE59C" width={100} height={100} />,
+  });
 
   //token 확인(refresh, verify)
   useEffect(() => {
-    if (dispatch && dispatch !== null && dispatch !== undefined)
-      dispatch(check_auth_status());
+    if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(check_auth_status());
   }, [dispatch]);
 
   useEffect(() => {
-    if(id && id > 0) {
-      fetchData(); 
+    if (id && id > 0) {
+      fetchData();
       getAccessToken();
     }
   }, [id]);
@@ -99,7 +97,7 @@ function answerUpdate() {
   );
 }
 
-export default React.memo(answerUpdate);
+export default React.memo(AnswerUpdate);
 
 const MainContainer = styled.div`
   margin-top: 9.0625rem;
@@ -140,6 +138,3 @@ const AnswerTitle = styled.input`
     outline: 0;
   }
 `;
-
-
-

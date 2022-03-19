@@ -42,6 +42,8 @@ module.exports = {
     "no-useless-escape": "warn",
   },
   env: {
+    node: true,
+    es6: true,
     browser: true,
     es2021: true,
     commonjs: true,
