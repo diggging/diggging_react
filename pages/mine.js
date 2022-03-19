@@ -33,8 +33,9 @@ function Mine() {
 
   useEffect(() => {
     getAccessToken();
-    dispatch(setMine(1, "all", token));
+    dispatch(setMine("mine", 1, "all", token));
   }, [dispatch, token]);
+  console.log(bigCriteria);
 
   return (
     <Prevent>

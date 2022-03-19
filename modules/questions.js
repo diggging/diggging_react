@@ -42,11 +42,11 @@ export const setQuestion = (page, bigCriteria, smallCriteria) => async (dispatch
   }
 };
 
-export const setMine = (page, smallCriteria, mineToken) => async (dispatch) => {
+export const setMine = (bigCriteria, page, smallCriteria, mineToken) => async (dispatch) => {
   dispatch({ type: GET_MINE_QUESTIONS });
   try {
     const res = await fetch(
-      `${API_URL}/questions/question_list/?big_criteria=mine&page=${page}&small_criteria=${smallCriteria}`,
+      `${API_URL}/questions/question_list/?big_criteria=${bigCriteria}&page=${page}&small_criteria=${smallCriteria}`,
       {
         method: "GET",
         headers: {
@@ -62,6 +62,7 @@ export const setMine = (page, smallCriteria, mineToken) => async (dispatch) => {
         type: GET_MINE_QUESTIONS_SUCCESS,
         data,
         page,
+        bigCriteria,
         smallCriteria,
         mineToken,
       });
