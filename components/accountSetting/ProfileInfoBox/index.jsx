@@ -21,7 +21,7 @@ function ProfileInfoBox({ userData, token }) {
       alertService.warn("로그인 후 이용해주세요");
       router.push("/loginPage");
     }
-  }, []);
+  }, [router, userData]);
   const profileImgInput = useRef();
   const [updatedImg, setUpdatedImg] = useState(user_profile_image); //업로드 파일 이미지url
   const [imgBase64, setImgBase64] = useState(
@@ -90,15 +90,7 @@ function ProfileInfoBox({ userData, token }) {
     <ProfileBioBox padding="1.875rem" onSubmit={(e) => updateProfileImg(e)}>
       <ImageBox>
         <ProfileImgWrapper>
-          <Image
-            src={imgBase64}
-            width={120}
-            height={120}
-            alt="profileImage"
-            quality={100}
-            layout="fill"
-            objectFit="cover"
-          />
+          <Image src={imgBase64} alt="profileImage" quality={100} layout="fill" objectFit="cover" />
           <EditButton onClick={onClickUploadFile} />
         </ProfileImgWrapper>
         <YellowButton
