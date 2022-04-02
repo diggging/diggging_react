@@ -13,7 +13,7 @@ function AnswerCommentList({
   const [comment, setComment] = useState(comments);
 
   useEffect(() => {
-    setComment([...comment, ...newComment]);
+    setComment([...comment, newComment]);
   }, [newComment]);
 
   return (
