@@ -98,34 +98,35 @@ function Signup() {
   const onSubmitSignup = async (e) => {
     //새로고침방지
     e.preventDefault();
-
-    dispatch(register(username, user_nickname, email, password1, password2))
-      .then((res) => {
-        if (res === 201 || res === 200) {
-          alertService.success("회원가입 되었습니다. 전송된 메일로 인증을 완료해주세요 📧");
-          setTimeout(() => {
-            router.push("/loginPage");
-          }, 1500);
-        } else if (res === 400 || res === 401) {
-          if (password1 !== password2) {
-            alertService.warn("비밀번호가 일치하지 않습니다. 다시 입력해주세요😅");
-          } else if (username.length < 4 || username.length > 10) {
-            alertService.warn("아이디는 4자 이상 10자 이하로 설정해주세요");
-          } else if (user_nickname.length > 7 || user_nickname.length < 4) {
-            alertService.warn("닉네임은 4자 이상 7자 이하로 설정해주세요");
-          } else {
-            alertService.warn("이미 사용중인 아이디 혹은 이메일입니다😅");
+    if (dispatch && dispatch !== null && dispatch !== undefined) {
+      dispatch(register(username, user_nickname, email, password1, password2))
+        .then((res) => {
+          if (res === 201 || res === 200) {
+            alertService.success("회원가입 되었습니다. 전송된 메일로 인증을 완료해주세요 📧");
+            setTimeout(() => {
+              router.push("/loginPage");
+            }, 1500);
+          } else if (res === 400 || res === 401) {
+            if (password1 !== password2) {
+              alertService.warn("비밀번호가 일치하지 않습니다. 다시 입력해주세요😅");
+            } else if (username.length < 4 || username.length > 10) {
+              alertService.warn("아이디는 4자 이상 10자 이하로 설정해주세요");
+            } else if (user_nickname.length > 7 || user_nickname.length < 4) {
+              alertService.warn("닉네임은 4자 이상 7자 이하로 설정해주세요");
+            } else {
+              alertService.warn("이미 사용중인 아이디 혹은 이메일입니다😅");
+            }
+          } else if (res === 500) {
+            alertService.warn("회원가입 도중 서버에 문제가 생겼습니다🙁");
+          } else if (res === 405) {
+            alertService.warn("허용되지 않는 접근입니다.");
           }
-        } else if (res === 500) {
-          alertService.warn("회원가입 도중 서버에 문제가 생겼습니다🙁");
-        } else if (res === 405) {
-          alertService.warn("허용되지 않는 접근입니다.");
-        }
-      })
-      .catch((err) => {
-        alertService.warn(err);
-        alertService.warn("회원가입 도중  문제가 발생했습니다🙁");
-      });
+        })
+        .catch((err) => {
+          alertService.warn(err);
+          alertService.warn("회원가입 도중  문제가 발생했습니다🙁");
+        });
+    }
   };
 
   if (typeof window !== "undefined" && isAuthenticated) {
