@@ -247,7 +247,7 @@ export const reset_password = (email, username) => async (dispatch) => {
   const body = JSON.stringify({ email, username });
 
   try {
-    const apiRes = await fetch("/api/account/reset_password/", {
+    const apiRes = await fetch("/api/account/reset_password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
