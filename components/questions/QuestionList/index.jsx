@@ -47,14 +47,28 @@ function QuestionList({ data, count }) {
               <ListContainer>
                 <FlexContainer>
                   <TitleHashContainer>
-                    <FlexColumn>
-                      <ListTitle>{list.title}</ListTitle>
-                      <ListHashContainer>
-                        {list.question_tags.map((hash) => (
-                          <ListHash key={hash}>{hash}</ListHash>
-                        ))}
-                      </ListHashContainer>
-                    </FlexColumn>
+                    {list.question_tags ? (
+                      <>
+                        <FlexColumn>
+                          <ListTitle>{list.title}</ListTitle>
+                          {list.question_tags ? (
+                            <>
+                              <ListHashContainer>
+                                {list.question_tags.map((hash) => (
+                                  <ListHash key={hash}>{hash}</ListHash>
+                                ))}
+                              </ListHashContainer>
+                            </>
+                          ) : null}
+                        </FlexColumn>
+                      </>
+                    ) : (
+                      <>
+                        <FlexColumn justifyContent="center">
+                          <ListTitle>{list.title}</ListTitle>
+                        </FlexColumn>
+                      </>
+                    )}
                     <ProfileContainer>
                       <ProfileImg
                         src={`${list.user.user_profile_image}`}
