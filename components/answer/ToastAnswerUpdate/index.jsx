@@ -10,9 +10,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { API_URL } from "../../../config";
-import { setDesc } from "../../modules/editor";
-import { Alert } from "../Alert";
-import { alertService } from "../alert.service";
+import { setDesc } from "../../../modules/editor";
+import { Alert } from "../../Alert";
+import { alertService } from "../../alert.service";
 import { Btn, BtnContainer } from "../ToastAnswerUpdate/style";
 
 function ToastAnswerUpdate({ id, title, desc, token, questionId }) {
