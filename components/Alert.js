@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { alertService, AlertType } from "./alert.service";
