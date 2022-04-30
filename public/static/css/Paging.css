@@ -51,6 +51,7 @@ ul.pagination li.active {
 ul.pagination li:hover {
   background: gray;
   cursor: pointer;
+  transition-duration: 300ms;
 }
 
 ul.pagination li a:hover,
