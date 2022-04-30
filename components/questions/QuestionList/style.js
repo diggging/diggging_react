@@ -21,7 +21,7 @@ export const ListContainer = styled.ul`
   &:hover {
     transition: all 200ms ease-in;
     transform: translateY(-2px);
-    box-shadow: rgb(0 0 0 / 7%) 0rem 0.25rem 1.5rem;
+    box-shadow: 10px 20px 20px 0 rgb(92 95 112 / 8%);
     & p {
       transition: all 200ms ease-in;
       color: #343434;
