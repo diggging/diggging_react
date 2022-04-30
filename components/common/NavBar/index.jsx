@@ -148,7 +148,7 @@ function NavBar() {
                         width={40}
                         height={40}
                         alt="profileImage"
-                        quality={90}
+                        quality={100}
                         // layout="fill"
                         objectFit="cover"
                       />
