@@ -41,7 +41,7 @@ export const NameDateContainer = styled.div`
 `;
 
 export const UserNickName = styled.div`
-  font-family: "Pretenard-Bold";
+  font-family: "Pretendard-Bold";
   font-size: 14px;
   line-height: 20px;
   color: #343434;
@@ -49,14 +49,14 @@ export const UserNickName = styled.div`
 `;
 
 export const CommentDate = styled.div`
-  font-family: "Pretenard-Regular";
+  font-family: "Pretendard-Regular";
   font-size: 12px;
   line-height: 17px;
   color: #b8b7b4;
 `;
 
 export const CommentText = styled.p`
-  font-family: "Pretenard-Regular";
+  font-family: "Pretendard-Regular";
   font-size: 14px;
   line-height: 22px;
   color: #585858;
@@ -119,7 +119,7 @@ export const CommentSendBtn = styled.button`
   background: #ffd358;
   box-shadow: 4px 4px 8px rgba(170, 170, 170, 0.1);
   border-radius: 20px;
-  font-family: "Pretenard-Bold";
+  font-family: "Pretendard-Bold";
   font-size: 13px;
   line-height: 19px;
   color: #343434;
