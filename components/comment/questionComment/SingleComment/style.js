@@ -55,7 +55,7 @@ export const CommentDate = styled.div`
   color: #b8b7b4;
 `;
 
-export const CommentText = styled.div`
+export const CommentText = styled.p`
   font-family: "Pretenard-Regular";
   font-size: 14px;
   line-height: 22px;

@@ -14,8 +14,8 @@ import NavBar from "../components/common/NavBar";
 import WhiteButton from "../components/common/WhiteButton";
 import YellowTitle from "../components/common/YellowTitle";
 import Layout from "../hocs/Layout";
-import { PageTitle } from "../pages/findPassword";
 import { check_auth_status, logout } from "../redux/actions/auth";
+import { PageTitle } from "./find_password";
 
 function AccountSetting() {
   //1. profileImg변경하기 O

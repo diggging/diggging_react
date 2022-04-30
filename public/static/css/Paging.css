@@ -49,8 +49,9 @@ ul.pagination li.active {
 }
 
 ul.pagination li:hover {
-  background: gray;
+  background: #e6e6e6;
   cursor: pointer;
+  transition-duration: 300ms;
 }
 
 ul.pagination li a:hover,

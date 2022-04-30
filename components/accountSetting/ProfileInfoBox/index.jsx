@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { API_URL } from "../../../config/index";
-import { ProfileBioBox } from "../../../pages/accountSetting";
+import { ProfileBioBox } from "../../../pages/account_setting";
 import { load_user } from "../../../redux/actions/auth";
 import { alertService } from "../../alert.service";
 import YellowButton from "../../common/YellowButton";
