@@ -19,9 +19,13 @@ export const ListContainer = styled.ul`
 
   cursor: pointer;
   &:hover {
-    transition: ease-in-out 300ms;
-    transform: translateY(-6px);
-    box-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.05);
+    transition: all 200ms ease-in;
+    transform: translateY(-2px);
+    box-shadow: rgb(0 0 0 / 7%) 0rem 0.25rem 1.5rem;
+    & p {
+      transition: all 200ms ease-in;
+      color: #343434;
+    }
   }
 `;
 
@@ -33,7 +37,7 @@ export const TitleHashContainer = styled.div`
   width: 100%;
 `;
 
-export const ListTitle = styled.div`
+export const ListTitle = styled.h2`
   font-family: "Pretendard-SemiBold";
   color: #343434;
   font-size: 1.25rem;
@@ -111,7 +115,7 @@ export const ProfileName = styled.span`
   margin-top: 7px;
 `;
 
-export const DescContainer = styled.div`
+export const DescContainer = styled.p`
   width: 100%;
   height: 6.75rem;
   font-family: "Pretendard-Regular";
@@ -141,7 +145,7 @@ export const BottomContainer = styled.div`
   justify-content: right;
 `;
 
-export const BottomText = styled.div`
+export const BottomText = styled.p`
   height: 16px;
   font-family: "Pretendard-Regular";
   font-size: 0.6rem;
