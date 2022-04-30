@@ -12,7 +12,7 @@ import NavBar from "../components/common/NavBar";
 import YellowTitle from "../components/common/YellowTitle";
 import Layout from "../hocs/Layout";
 import { reset_password_confirm } from "../redux/actions/auth";
-import { GuideMessage, PageTitle, PWFormBox } from "./findPassword";
+import { GuideMessage, PageTitle, PWFormBox } from "./find_password";
 
 function ResetPassword() {
   const dispatch = useDispatch();

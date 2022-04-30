@@ -223,7 +223,7 @@ function Signup() {
                 <LinkBtn>로그인 </LinkBtn>
               </Link>
               |{" "}
-              <Link href="/findPassword" passHref>
+              <Link href="/find_password" passHref>
                 <LinkBtn>비밀번호 찾기</LinkBtn>
               </Link>
             </LinkBox>

@@ -178,7 +178,7 @@ function LoginPage() {
             <Link href="/signup" passHref>
               <LinkBtn>회원가입하기 | </LinkBtn>
             </Link>
-            <Link href="/findPassword" passHref>
+            <Link href="/find_password" passHref>
               <LinkBtn> 비밀번호 찾기</LinkBtn>
             </Link>
           </LinkBox>
