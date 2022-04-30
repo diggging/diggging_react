@@ -160,7 +160,7 @@ function NavBar() {
                   <DropBox>
                     <DropList>
                       <DropListItem>
-                        <Link href="/questionCreate">새 글 작성</Link>
+                        <Link href="/question_create">새 글 작성</Link>
                       </DropListItem>
                       <DropListItem>
                         <Link
@@ -169,7 +169,7 @@ function NavBar() {
                           //   query: {user: JSON.stringify(user)},
                           // }}
                           // as={`/accountSetting`}
-                          href="/accountSetting"
+                          href="/account_setting"
                         >
                           계정설정
                         </Link>
@@ -184,7 +184,7 @@ function NavBar() {
             </>
           ) : (
             <>
-              <Link href="/loginPage" passHref>
+              <Link href="/login_page" passHref>
                 <NavItem>로그인</NavItem>
               </Link>
               <Link href="/signup" passHref>
