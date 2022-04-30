@@ -3,6 +3,7 @@ import Loader from "react-loader-spinner";
 import styled from "styled-components";
 
 import NavBar from "../components/common/NavBar";
+import Paging from "../components/Paging";
 import CardContainer from "../components/search/CardContainer";
 import NoResultMessage from "../components/search/NoResultMessage";
 import SearchInput from "../components/search/SearchInput";
@@ -12,6 +13,12 @@ function Search() {
   const [searchData, setSearchData] = useState([]);
   const [noData, setNoData] = useState(false);
   const [loading, setLoading] = useState(false);
+  //페이지네이션
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+  const [count, setCount] = useState(0);
 
   return (
     <div>
@@ -25,6 +32,9 @@ function Search() {
           setSearchData={setSearchData}
           setNoData={setNoData}
           searchData={searchData}
+          page={page}
+          setPage={setPage}
+          setCount={setCount}
         />
         <SearchTab />
         {loading && (
@@ -33,6 +43,7 @@ function Search() {
           </LoaderWrapper>
         )}
         {noData ? <NoResultMessage /> : <CardContainer searchData={searchData} />}
+        <Paging handlePageChange={handlePageChange} page={page} count={count} />
       </Layout>
     </div>
   );
