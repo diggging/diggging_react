@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { API_URL } from "../../../config";
-import { ProfileBox } from "../../../pages/accountSetting";
+import { ProfileBox } from "../../../pages/account_setting";
 import { load_user } from "../../../redux/actions/auth";
 import { alertService } from "../../alert.service";
 import FlexColumn from "../../common/FlexColumn";

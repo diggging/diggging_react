@@ -7,12 +7,9 @@ import { setQuestion } from "../modules/questions";
 
 function Popular() {
   const dispatch = useDispatch();
-  const {
-    data,
-    count,
-    page,
-    // bigCriteria, smallCriteria, loading, error, mineToken
-  } = useSelector((state) => state.questions);
+  const { data, count, page, bigCriteria, smallCriteria, loading, error, mineToken } = useSelector(
+    (state) => state.questions,
+  );
 
   useEffect(() => {
     dispatch(setQuestion(1, "popular", "all"));

@@ -32,8 +32,8 @@ function QuestionList({ data, count }) {
     dispatch(setPage(page));
     if (bigCriteria !== undefined) {
       dispatch(setQuestion(page, bigCriteria, smallCriteria));
-    } else if (bigCriteria === undefined) {
-      dispatch(setMine(page, smallCriteria, mineToken));
+    } else if (bigCriteria === "mine") {
+      dispatch(setMine("mine", page, smallCriteria, mineToken));
     }
   };
 
@@ -51,7 +51,7 @@ function QuestionList({ data, count }) {
                       <ListTitle>{list.title}</ListTitle>
                       <ListHashContainer>
                         {list.question_tags.map((hash) => (
-                          <ListHash>{hash}</ListHash>
+                          <ListHash key={hash}>{hash}</ListHash>
                         ))}
                       </ListHashContainer>
                     </FlexColumn>

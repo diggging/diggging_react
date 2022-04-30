@@ -1,46 +1,72 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { API_URL } from "../../../config";
 import CloseIcon from "../../../public/static/images/CloseIcon";
 import SearchIcon from "../../../public/static/images/Search";
 import { SearchInputBox, StyledSearchInput } from "./style";
 
-function SearchInput({ setSearchData, setNoData, searchData, setLoading }) {
+function SearchInput({
+  setSearchData,
+  setNoData,
+  searchData,
+  setLoading,
+  page,
+  setCount,
+  setPage,
+}) {
   const [searchInput, setSearchInput] = useState("");
 
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
 
-  const getSearchData = async () => {
-    setLoading(true);
-    const trimmedInput = searchInput.trim();
+  const trimmedInput = searchInput.trim();
 
-    if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
-      const apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
+  const getSearchData = useCallback(
+    async (page) => {
+      setCount(0);
+      setLoading(true);
+      setNoData(false);
+      setSearchData([]);
+      var apiRes;
+      let newData = [];
 
-      setLoading(false);
+      if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
+        // apiRes = await axios.get(`${API_URL}/posts/search_quest?page=${page}`);
+        apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
+        setLoading(false);
+        if (apiRes.status == 200) {
+          newData = [...apiRes.data.results];
+          setCount(apiRes.data.count);
+        }
+      } else {
+        apiRes = await axios.get(
+          `${API_URL}/posts/search_quest_result/${trimmedInput}?page=${page}`,
+        );
+        setLoading(false);
+        if (apiRes.status == 200) {
+          newData = [...apiRes.data.results];
+          setCount(apiRes.data.count);
+        }
+      }
+      await setSearchData(newData);
+      console.log(apiRes);
 
-      return apiRes;
-    } else {
-      const apiRes = await axios.get(`${API_URL}/posts/search_quest_result/${trimmedInput}`);
+      return newData;
+    },
+    [setCount, setLoading, setNoData, setSearchData, trimmedInput],
+  );
 
-      setLoading(false);
+  const onSubmitSearch = useCallback(
+    async (e) => {
+      setPage(1);
+      e.preventDefault();
 
-      return apiRes;
-    }
-  };
-
-  const onSubmitSearch = async (e) => {
-    e.preventDefault();
-    //get해오는api연결
-    axios.defaults.headers.common["Authorization"] = "";
-    try {
-      const apiRes = await getSearchData();
-
-      if (apiRes.status == 200) {
-        const newData = [...apiRes.data];
+      //get해오는api연결
+      axios.defaults.headers.common["Authorization"] = "";
+      try {
+        const newData = await getSearchData(page);
 
         await setSearchData(newData); //searchData로 담아주기
         if (newData.length == 0) {
@@ -51,15 +77,27 @@ function SearchInput({ setSearchData, setNoData, searchData, setLoading }) {
         }
 
         return { searchData };
+      } catch (err) {
+        return { err };
       }
-    } catch (err) {
-      return { err };
-    }
-  };
+    },
+    [getSearchData, page, searchData, setNoData, setSearchData],
+  );
 
   const onClickReset = () => {
     setSearchInput("");
   };
+  //첫 마운트시에 데이터 받아오지 않도록
+  const mounted = useRef(false);
+
+  //선택한 page가 바뀔때마다 데이터 받아온다.
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      getSearchData(page);
+    }
+  }, [page]);
 
   return (
     <form onSubmit={(e) => onSubmitSearch(e)}>
@@ -76,5 +114,4 @@ function SearchInput({ setSearchData, setNoData, searchData, setLoading }) {
     </form>
   );
 }
-
 export default SearchInput;

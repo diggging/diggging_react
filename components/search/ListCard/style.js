@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 import SvgBookMarkIcon from "../../../public/static/images/BookMarkIcon";
@@ -17,7 +18,7 @@ export const CardBox = styled.button`
   max-width: 67rem;
   width: 100%;
   height: 16rem;
-  padding: 1.75rem 1.865rem 1.125rem 1.875rem;
+  padding: 1.5rem 1.865rem 1.125rem 1.875rem;
   margin: auto;
   margin-bottom: 2rem;
 
@@ -25,6 +26,16 @@ export const CardBox = styled.button`
   text-align: left;
   background-color: white;
   box-shadow: 0px 0.25rem 1.25rem 0px rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    transition: all 200ms ease-in;
+    transform: translateY(-2px);
+    box-shadow: rgb(0 0 0 / 7%) 0rem 0.25rem 1.5rem;
+    & p {
+      transition: all 200ms ease-in;
+      color: #343434;
+    }
+  }
 `;
 
 //title 글자수 표시제한 필요:54글자로.
@@ -94,8 +105,8 @@ export const ProfileImg = styled(Image)`
 
 export const Username = styled.span`
   font-family: "Pretendard-Medium";
-  color: #343434;
-  font-size: 0.875rem;
+  color: #7a7a7a;
+  font-size: 0.75rem;
   text-align: center;
   white-space: normal;
   display: -webkit-box;
@@ -121,8 +132,8 @@ export const ContentWrapper = styled.div`
 export const PostContent = styled.p`
   font-family: "Pretendard-Regular";
   color: #8d8c85;
-  font-size: 0.875rem;
-  line-height: 1.625rem;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
   height: 5.875rem;
 `;
 

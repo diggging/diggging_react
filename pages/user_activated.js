@@ -36,7 +36,7 @@ const AlarmTitle = styled.h1`
   font-size: 1.5rem;
   color: #343434;
   font-family: "Pretendard-Bold";
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.75rem;
   margin-top: 1.25rem;
 `;
 

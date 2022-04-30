@@ -21,6 +21,8 @@ export const RowBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const PasswordMessage = styled(ContentText)`
