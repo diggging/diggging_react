@@ -148,7 +148,7 @@ function NavBar() {
                         width={40}
                         height={40}
                         alt="profileImage"
-                        quality={90}
+                        quality={100}
                         // layout="fill"
                         objectFit="cover"
                       />
@@ -163,7 +163,7 @@ function NavBar() {
                         <Link href="/question_create">새 글 작성</Link>
                       </DropListItem>
                       <DropListItem>
-                        <Link
+                        <a
                           // href={{
                           //   pathname: `/accountSetting`,
                           //   query: {user: JSON.stringify(user)},
@@ -172,7 +172,7 @@ function NavBar() {
                           href="/account_setting"
                         >
                           계정설정
-                        </Link>
+                        </a>
                       </DropListItem>
                       <DropListItem>
                         <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
