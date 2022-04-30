@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { retryWhen } from "rxjs";
 
 import { API_URL } from "../../../config";
 import CloseIcon from "../../../public/static/images/CloseIcon";
@@ -38,8 +37,8 @@ function SearchInput({
         apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
         setLoading(false);
         if (apiRes.status == 200) {
-          newData = [...apiRes.data];
-          setCount(apiRes.data.length);
+          newData = [...apiRes.data.results];
+          setCount(apiRes.data.count);
         }
       } else {
         apiRes = await axios.get(
