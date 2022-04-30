@@ -92,9 +92,12 @@ function NavBar() {
               <SvgDiggging />
             </NavItem>
           </Link>
-          {/* <Link href="/aboutus" passHref>
-            <NavItem>디깅소개</NavItem>
-          </Link> */}
+          <Link
+            href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
+            passHref
+          >
+            <NavItem target="blank">디깅소개</NavItem>
+          </Link>
           {/* <Link href="/main" passHref>
             <NavItem>메인</NavItem>
           </Link> */}
@@ -145,7 +148,7 @@ function NavBar() {
                         width={40}
                         height={40}
                         alt="profileImage"
-                        quality={90}
+                        quality={100}
                         // layout="fill"
                         objectFit="cover"
                       />
@@ -157,19 +160,19 @@ function NavBar() {
                   <DropBox>
                     <DropList>
                       <DropListItem>
-                        <Link href="/questionCreate">새 글 작성</Link>
+                        <Link href="/question_create">새 글 작성</Link>
                       </DropListItem>
                       <DropListItem>
-                        <Link
+                        <a
                           // href={{
                           //   pathname: `/accountSetting`,
                           //   query: {user: JSON.stringify(user)},
                           // }}
                           // as={`/accountSetting`}
-                          href="/accountSetting"
+                          href="/account_setting"
                         >
                           계정설정
-                        </Link>
+                        </a>
                       </DropListItem>
                       <DropListItem>
                         <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
@@ -181,7 +184,7 @@ function NavBar() {
             </>
           ) : (
             <>
-              <Link href="/loginPage" passHref>
+              <Link href="/login_page" passHref>
                 <NavItem>로그인</NavItem>
               </Link>
               <Link href="/signup" passHref>

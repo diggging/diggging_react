@@ -1,29 +1,31 @@
-import {API_URL} from "../../../config/index"
+import { API_URL } from "../../../config/index";
 
 export default async (req, res) => {
-  
-  const {username, temp, new_password, password_confirm} = req.body;
+  const { username, temp, new_password, password_confirm } = req.body;
   const body = JSON.stringify({
-    username, temp, new_password, password_confirm
-  })
+    username,
+    temp,
+    new_password,
+    password_confirm,
+  });
 
   try {
-     const apiRes = await fetch(`${API_URL}/users/password_reset_API/`, { 
-      method: 'PUT',
+    const apiRes = await fetch(`${API_URL}/users/password_reset_API/`, {
+      method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: body,
-    })
+      body,
+    });
 
     const data = await apiRes.json();
 
     if (apiRes.ok || apiRes.status === 200) {
-      return res.status(apiRes.status).json({data})
+      return res.status(apiRes.status).json({ data });
     } else if (apiRes.status === 400) {
-      return res.status(apiRes.status).json({data})
+      return res.status(apiRes.status).json({ data });
     }
   } catch (err) {
-    return res.status(500).json({error:"문제가 발생했습니다"});
+    return res.status(500).json({ error: "문제가 발생했습니다" });
   }
 };

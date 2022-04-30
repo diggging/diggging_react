@@ -1,27 +1,26 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  RESET_REGISTER_SUCCESS,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAIL,
-  LOAD_USER_SUCCESS,
-  LOAD_USER_FAIL,
-  AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
-  REFRESH_SUCCESS,
-  REFRESH_FAIL,
-  SET_AUTH_LOADING,
-  REMOVE_AUTH_LOADING,
+  AUTHENTICATED_SUCCESS,
   BAD_REQUEST,
-  RESET_BAD_REQUEST,
-  PASSWORD_RESET_FAIL,
-  PASSWORD_RESET_SUCCESS,
+  LOAD_USER_FAIL,
+  LOAD_USER_SUCCESS,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT_FAIL,
+  LOGOUT_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
-
-} from '../actions/types';
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_SUCCESS,
+  REFRESH_FAIL,
+  REFRESH_SUCCESS,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  REMOVE_AUTH_LOADING,
+  RESET_BAD_REQUEST,
+  RESET_REGISTER_SUCCESS,
+  SET_AUTH_LOADING,
+} from "../actions/types";
 
 const initialState = {
   user: null,
@@ -52,12 +51,12 @@ const authReducer = (state = initialState, action) => {
         ...state,
         bad_request: true,
         loading: false,
-      }
-    case RESET_BAD_REQUEST :
+      };
+    case RESET_BAD_REQUEST:
       return {
         ...state,
         bad_request: false,
-      }
+      };
     case RESET_REGISTER_SUCCESS:
       return {
         ...state,
@@ -133,12 +132,11 @@ const authReducer = (state = initialState, action) => {
       };
     case PASSWORD_RESET_SUCCESS:
     case PASSWORD_RESET_FAIL:
-    case PASSWORD_RESET_FAIL:
     case PASSWORD_RESET_CONFIRM_FAIL:
     case PASSWORD_RESET_CONFIRM_SUCCESS:
       return {
         ...state,
-      }
+      };
     default:
       return state;
   }

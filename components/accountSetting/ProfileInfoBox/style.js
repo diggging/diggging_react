@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-import SvgEditIcon from "../../public/static/images/EditIcon";
-
+import SvgEditIcon from "../../../public/static/images/EditIcon";
 export const ImageBox = styled.div`
   display: flex;
   flex-direction: column;

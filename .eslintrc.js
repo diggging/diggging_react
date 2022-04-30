@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "no-unused-vars": "warn",
     "prettier/prettier": ["error"],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
@@ -37,8 +38,12 @@ module.exports = {
     "react/prop-types": 0,
     "import/namespace": 0,
     "import/no-unresolved": "off",
+    "import/no-named-as-default": 0,
+    "no-useless-escape": "warn",
   },
   env: {
+    node: true,
+    es6: true,
     browser: true,
     es2021: true,
     commonjs: true,

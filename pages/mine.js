@@ -5,12 +5,12 @@ import styled from "styled-components";
 
 import Prevent from "../components/questions/PreventRerender";
 import QuestionList from "../components/questions/QuestionList";
-import { setMine, setMinePage, setPage, setQuestion } from "../modules/questions";
+import { setMine } from "../modules/questions";
 import { check_auth_status } from "../redux/actions/auth";
 
 function Mine() {
   const dispatch = useDispatch();
-  const { data, count, page, smallCriteria, loading, error, mineToken } = useSelector(
+  const { data, count, page, smallCriteria, loading, error, mineToken, bigCriteria } = useSelector(
     (state) => state.questions,
   );
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -33,8 +33,9 @@ function Mine() {
 
   useEffect(() => {
     getAccessToken();
-    dispatch(setMine(1, "all", token));
+    dispatch(setMine("mine", 1, "all", token));
   }, [dispatch, token]);
+  console.log(bigCriteria);
 
   return (
     <Prevent>

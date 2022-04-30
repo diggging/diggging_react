@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Prevent from "../components/questions/PreventRerender";
+import Prevent from "../components/questions/PreventRerender/index";
 import QuestionList from "../components/questions/QuestionList";
-import { setPage, setQuestion } from "../modules/questions";
+import { setQuestion } from "../modules/questions";
 
 function Popular() {
   const dispatch = useDispatch();

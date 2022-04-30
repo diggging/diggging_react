@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import { check_auth_status } from "../../../redux/actions/auth";
-import { useDispatch } from "react-redux";
-import dynamic from "next/dynamic";
 import axios from "axios";
-import {API_URL} from '../../../config/index';
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-function update() {
+import { API_URL } from "../../../config/index";
+import { check_auth_status } from "../../../redux/actions/auth";
+
+function Update() {
   const router = useRouter();
   const { id } = router.query;
 
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const [folder, setFolder] = useState([]);
+  // const [folder, setFolder] = useState([]);
   const [tags, setTags] = useState([]);
   const [token, setToken] = useState("");
   const [desc, setDesc] = useState("");
@@ -22,14 +23,14 @@ function update() {
     (e) => {
       setTitle(e.target.value);
     },
-    [title]
+    [title],
   );
 
   const onChangeTags = useCallback(
     (e) => {
       setTags(e.target.value.split(","));
     },
-    [tags]
+    [tags],
   );
 
   const getAccessToken = async () => {
@@ -38,6 +39,7 @@ function update() {
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.access;
+
           setToken(accessToken);
         })
         .catch((err) => console.log(err));
@@ -46,32 +48,28 @@ function update() {
 
   const fetchData = async () => {
     try {
-      await axios
-        .get(`${API_URL}/questions/${id}/detail/`)
-        .then((res) => {
-          setTitle(res.data.title);
-          setTags(res.data.question_tags);
-          setDesc(res.data.desc);
-        });
+      await axios.get(`${API_URL}/questions/${id}/detail/`).then((res) => {
+        setTitle(res.data.title);
+        setTags(res.data.question_tags);
+        setDesc(res.data.desc);
+      });
     } catch (e) {
       console.log(e);
     }
   };
 
-  const ToastUpdate = dynamic(
-    () => import("../../../components/questions/ToastUiUpdate"),
-    { ssr: false }
-  );
+  const ToastUpdate = dynamic(() => import("../../../components/questions/ToastUiUpdate"), {
+    ssr: false,
+  });
 
   //token 확인(refresh, verify)
   useEffect(() => {
-    if (dispatch && dispatch !== null && dispatch !== undefined)
-      dispatch(check_auth_status());
+    if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(check_auth_status());
   }, [dispatch]);
 
   useEffect(() => {
-    if(id && id > 0) {
-      fetchData(); 
+    if (id && id > 0) {
+      fetchData();
       getAccessToken();
     }
   }, [id]);
@@ -103,13 +101,7 @@ function update() {
                   onChange={onChangeTags}
                   placeholder="태그를 쉼표로 구분해주세요. Ex) diggging,해시태그"
                 />
-                <ToastUpdate
-                  id={id}
-                  title={title}
-                  desc={desc}
-                  tags={tags}
-                  token={token}
-                />
+                <ToastUpdate id={id} title={title} desc={desc} tags={tags} token={token} />
               </FormContainer>
             </Container>
           </MainContainer>
@@ -119,7 +111,7 @@ function update() {
   );
 }
 
-export default React.memo(update);
+export default React.memo(Update);
 
 const MainContainer = styled.div`
   margin-top: 9.0625rem;
@@ -161,22 +153,22 @@ const QuestionTitle = styled.input`
   }
 `;
 
-const QuestionFolder = styled.select`
-  width: 51.375rem;
-  height: 4.375rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  background-color: #f5f5f7;
-  border: none;
-  border-radius: 0.3125rem;
-  cursor: pointer;
-  padding: 0.625rem 1.25rem;
-  font-size: 1.25rem;
+// const QuestionFolder = styled.select`
+//   width: 51.375rem;
+//   height: 4.375rem;
+//   margin-top: 1.5rem;
+//   margin-bottom: 1.5rem;
+//   background-color: #f5f5f7;
+//   border: none;
+//   border-radius: 0.3125rem;
+//   cursor: pointer;
+//   padding: 0.625rem 1.25rem;
+//   font-size: 1.25rem;
 
-  &:focus {
-    outline: 0;
-  }
-`;
+//   &:focus {
+//     outline: 0;
+//   }
+// `;
 
 const QuestionHash = styled.input`
   width: 58.75rem;
@@ -192,4 +184,3 @@ const QuestionHash = styled.input`
     outline: 0;
   }
 `;
-

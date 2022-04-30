@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import ContentText from "../../common/ContentText";
+
 export const PasswordResetBox = styled.form`
   display: flex;
   flex-direction: column;
@@ -19,6 +21,8 @@ export const RowBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const PasswordMessage = styled(ContentText)`

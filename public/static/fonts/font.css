@@ -1,50 +1,71 @@
 /* 
   src: 사용할 폰트의 위치 및 형식 
-    Safari, Android, iOS => ttf
-    Modern Browsers => woff
-    IE6-IE8 => eot
+    Modern Browsers => woff2
+    IE => woff
 */
 
-/*본문*/
+/* 폰트 적용할 때 fallback폰트도 같이 써주기 */
+/* font-family:Pretendard-???, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; */
+
+@font-face {
+  font-family: "Pretendard-Light";
+  font-display: fallback;
+  src: local("Pretendard-Light"), url("./Pretendard-Light.subset.woff2") format("woff2"),
+    url("./Pretendard-Light.subset.woff") format("woff"),
+    url("./Pretendard-Light.ttf") format("truetype");
+}
+
 @font-face {
   font-family: "Pretendard-Regular";
   font-display: fallback;
-  src: url("./Pretendard-Regular.eot?iefix") format("embedded-opentype"),
-    url("./Pretendard-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+  src: local("Pretendard-Regular"), url("./Pretendard-Regular.subset.woff2") format("woff2"),
+    url("./Pretendard-Regular.subset.woff") format("woff"),
+    url("./Pretendard-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Pretendard-Medium";
   font-display: fallback;
-  src: url("./Pretendard-Medium.eot?iefix") format("embedded-opentype"),
-    url("./Pretendard-Medium.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+  src: local("Pretendard-Medium"), url("./Pretendard-Medium.subset.woff2") format("woff2"),
+    url("./Pretendard-Medium.subset.woff") format("woff"),
+    url("./Pretendard-Medium.ttf") format("truetype");
 }
 
-/*버튼*/
+@font-face {
+  font-family: "Pretendard-Medium";
+  font-display: fallback;
+  src: local("Pretendard-Medium"), url("./Pretendard-Medium.subset.woff2") format("woff2"),
+    url("./Pretendard-Medium.subset.woff") format("woff"),
+    url("./Pretendard-Medium.ttf") format("truetype");
+}
+
 @font-face {
   font-family: "Pretendard-SemiBold";
-  src: url("./Pretendard-SemiBold.eot?iefix") format("embedded-opentype"),
-    url("./Pretendard-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
+  font-display: fallback;
+  src: local("Pretendard-SemiBold"), url("./Pretendard-SemiBold.subset.woff2") format("woff2"),
+    url("./Pretendard-SemiBold.subset.woff") format("woff"),
+    url("./Pretendard-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Pretendard-Bold";
-  src: url("./Pretendard-Bold.eot?iefix") format("embedded-opentype"),
-    url("./Pretendard-Bold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
+  font-display: fallback;
+  src: local("Pretendard-Bold"), url("./Pretendard-Bold.subset.woff2") format("woff2"),
+    url("./Pretendard-Bold.subset.woff") format("woff"), url("./Pretendard-Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Pretendard-ExtraBold";
-  src: url("./Pretendard-ExtraBold.eot?iefix") format("embedded-opentype"),
-    url("./Pretendard-ExtraBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
+  font-display: fallback;
+  src: local("Pretendard-ExtraBold"), url("./Pretendard-ExtraBold.subset.woff2") format("woff2"),
+    url("./Pretendard-ExtraBold.subset.woff") format("woff"),
+    url("./Pretendard-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard-SemiBold";
+  font-display: fallback;
+  src: local("Pretendard-SemiBold"), url("./Pretendard-SemiBold.subset.woff2") format("woff2"),
+    url("./Pretendard-SemiBold.subset.woff") format("woff"),
+    url("./Pretendard-SemiBold.ttf") format("truetype");
 }

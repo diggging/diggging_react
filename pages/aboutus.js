@@ -1,7 +1,7 @@
 import React from "react";
 
-function aboutus() {
+function AboutUs() {
   return <div>소개페이지임다</div>;
 }
 
-export default aboutus;
+export default AboutUs;
