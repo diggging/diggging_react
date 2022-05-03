@@ -12,7 +12,7 @@ import NavBar from "../components/common/NavBar";
 import YellowTitle from "../components/common/YellowTitle";
 import Layout from "../hocs/Layout";
 import { reset_password_confirm } from "../redux/actions/auth";
-import { GuideMessage, PageTitle, PWFormBox } from "./findPassword";
+import { GuideMessage, PageTitle, PWFormBox } from "./find_password";
 
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ function ResetPassword() {
           if (res.status === 200) {
             alertService.warn("비밀번호가 성공적으로 변경되었습니다🔑.");
             setTimeout(() => {
-              router.push("/loginPage");
+              router.push("/login_page");
             }, 1500);
           } else if (res.status === 400) {
             if (new_password !== password_confirm) {

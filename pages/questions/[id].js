@@ -281,6 +281,7 @@ const BtnContainer = styled.div`
 `;
 
 const Title = styled.div`
+  width: 85%;
   font-family: "Pretendard-Bold";
   font-style: normal;
   font-size: 1.75rem;

@@ -45,7 +45,7 @@ function NavBar() {
 
   const logoutHandler = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) await dispatch(logout());
-    router.push("/loginPage");
+    router.push("/login_page");
   };
 
   //계정설정 이동시 유저 데이터 넘겨주기
@@ -148,7 +148,7 @@ function NavBar() {
                         width={40}
                         height={40}
                         alt="profileImage"
-                        quality={90}
+                        quality={100}
                         // layout="fill"
                         objectFit="cover"
                       />
@@ -160,19 +160,19 @@ function NavBar() {
                   <DropBox>
                     <DropList>
                       <DropListItem>
-                        <Link href="/questionCreate">새 글 작성</Link>
+                        <Link href="/question_create">새 글 작성</Link>
                       </DropListItem>
                       <DropListItem>
-                        <Link
+                        <a
                           // href={{
-                          //   pathname: `/accountSetting`,
+                          //   pathname: `/account_setting`,
                           //   query: {user: JSON.stringify(user)},
                           // }}
-                          // as={`/accountSetting`}
-                          href="/accountSetting"
+                          // as={`/account_setting`}
+                          href="/account_setting"
                         >
                           계정설정
-                        </Link>
+                        </a>
                       </DropListItem>
                       <DropListItem>
                         <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
@@ -184,7 +184,7 @@ function NavBar() {
             </>
           ) : (
             <>
-              <Link href="/loginPage" passHref>
+              <Link href="/login_page" passHref>
                 <NavItem>로그인</NavItem>
               </Link>
               <Link href="/signup" passHref>

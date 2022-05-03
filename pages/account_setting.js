@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -8,13 +8,14 @@ import NicknameUpdateBox from "../components/accountSetting/NicknameUpdateBox";
 import PasswordSetBox from "../components/accountSetting/PasswordSetBox";
 import ProfileInfoBox from "../components/accountSetting/ProfileInfoBox";
 import { Alert } from "../components/Alert";
+import { alertService } from "../components/alert.service";
 import ContentText from "../components/common/ContentText";
 import NavBar from "../components/common/NavBar";
 import WhiteButton from "../components/common/WhiteButton";
 import YellowTitle from "../components/common/YellowTitle";
 import Layout from "../hocs/Layout";
-import { PageTitle } from "../pages/findPassword";
 import { check_auth_status, logout } from "../redux/actions/auth";
+import { PageTitle } from "./find_password";
 
 function AccountSetting() {
   //1. profileImg변경하기 O
@@ -30,18 +31,28 @@ function AccountSetting() {
   const user = useSelector((state) => state.auth.user);
   const [token, setToken] = useState("");
 
-  const getAccessToken = async () => {
+  const getAccessToken = useCallback(async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(check_auth_status())
-        .then((res) => res.json())
+        .then((res) => res?.json())
         .then((data) => {
-          const accessToken = data.access;
+          const accessToken = data?.access;
 
           setToken(accessToken);
+
+          return accessToken;
         })
-        .catch((err) => console.log(err));
+        .then((res) => {
+          if (res === undefined || res === null) {
+            throw new Error("로그인 후 이용해주세요");
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+          alertService.warn(err.message);
+        });
     }
-  };
+  }, [dispatch]);
 
   const onClickLogout = async (e) => {
     e.preventDefault();
@@ -57,6 +68,7 @@ function AccountSetting() {
 
   return (
     <>
+      <Alert />
       <Layout
         title="Diggging, 개발자를 위한 커뮤니티 | 계정설정"
         content="개발자들을 위한 커뮤니티 디깅 계정설정 페이지"
@@ -64,7 +76,7 @@ function AccountSetting() {
         <NavBar />
         {user?.user?.id ? (
           <>
-            <Alert />
+            {/* <Alert /> */}
             <FormBox>
               <PageTitle>계정 설정하기</PageTitle>
               <NicknameBox>
@@ -104,11 +116,10 @@ export { ProfileBioBox, ProfileBox };
 export default AccountSetting;
 
 const FormBox = styled.div`
-  width: 49.375rem;
+  width: 44.375rem;
   margin: auto auto;
   margin-top: 11.25rem;
   position: relative;
-  color: "#8D8C85";
 `;
 
 const NicknameBox = styled.header`
@@ -137,8 +148,7 @@ const ProfileBox = styled.form`
   flex-direction: row;
   padding: ${({ padding }) => padding} 0;
   border-bottom: solid 2px #e5e5e5;
-  justify-content: flex-start;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   position: relative;
 `;
@@ -153,4 +163,5 @@ const AccountBtnBox = styled.form`
   margin-top: 4rem;
   flex-direction: row;
   justify-content: flex-end;
+  padding-bottom: 2rem;
 `;
