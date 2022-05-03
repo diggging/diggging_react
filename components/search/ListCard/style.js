@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import styled from "styled-components";
 
 import SvgBookMarkIcon from "../../../public/static/images/BookMarkIcon";
@@ -10,7 +9,6 @@ export const CardHead = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 1rem;
 `;
 
 export const CardBox = styled.button`
@@ -21,6 +19,10 @@ export const CardBox = styled.button`
   padding: 1.5rem 1.865rem 1.125rem 1.875rem;
   margin: auto;
   margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 
   border-radius: 0.125rem;
   text-align: left;
@@ -38,12 +40,18 @@ export const CardBox = styled.button`
   }
 `;
 
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 3.5rem;
+  justify-content: space-between;
+`;
+
 //title 글자수 표시제한 필요:54글자로.
 export const PostTitle = styled.h2`
   font-family: "Pretendard-SemiBold";
   color: #343434;
   font-size: 1.25rem;
-  margin-bottom: 0.6rem;
 
   min-width: 36.125rem;
 
@@ -59,6 +67,7 @@ export const TagWrapper = styled.div`
   display: flex;
   flex-direction: row;
   min-width: 36.125rem;
+  line-height: 200%;
 
   white-space: normal;
   display: -webkit-box;
@@ -69,7 +78,7 @@ export const TagWrapper = styled.div`
 `;
 
 export const HashTag = styled.span`
-  height: 1.125rem;
+  height: 1.5rem;
   padding: 0.25rem 0.5rem;
   margin-right: 0.5rem;
 
@@ -78,7 +87,6 @@ export const HashTag = styled.span`
   color: #7a7a7a;
   font-family: "Pretendard-SemiBold";
   font-size: 0.625rem;
-  line-height: 1;
 `;
 
 export const ProfileBox = styled.div`
@@ -139,6 +147,7 @@ export const PostContent = styled.p`
 
 export const CardFooter = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
