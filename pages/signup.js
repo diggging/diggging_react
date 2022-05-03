@@ -104,7 +104,7 @@ function Signup() {
           if (res === 201 || res === 200) {
             alertService.success("회원가입 되었습니다. 전송된 메일로 인증을 완료해주세요 📧");
             setTimeout(() => {
-              router.push("/loginPage");
+              router.push("/login_page");
             }, 1500);
           } else if (res === 400 || res === 401) {
             if (password1 !== password2) {
@@ -219,7 +219,7 @@ function Signup() {
             </form>
             <LinkBox>
               {register}
-              <Link href="/loginPage" passHref>
+              <Link href="/login_page" passHref>
                 <LinkBtn>로그인 </LinkBtn>
               </Link>
               |{" "}
