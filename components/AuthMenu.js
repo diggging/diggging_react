@@ -41,7 +41,7 @@ function AuthMenu({ userData, isAuthenticated }) {
   const logoutHandler = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(logout);
-      router.push("/loginPage");
+      router.push("/login_page");
     }
   };
 
@@ -92,10 +92,10 @@ function AuthMenu({ userData, isAuthenticated }) {
               <DropBox>
                 <DropList>
                   <DropListItem>
-                    <Link href="/questionCreate">새 글 작성</Link>
+                    <Link href="/question_create">새 글 작성</Link>
                   </DropListItem>
                   <DropListItem>
-                    <Link href="/accountSetting">계정설정</Link>
+                    <Link href="/account_setting">계정설정</Link>
                   </DropListItem>
                   <DropListItem>
                     <LogoutButton onClick={() => logoutHandler()}>로그아웃</LogoutButton>

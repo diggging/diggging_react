@@ -45,7 +45,7 @@ function NavBar() {
 
   const logoutHandler = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) await dispatch(logout());
-    router.push("/loginPage");
+    router.push("/login_page");
   };
 
   //계정설정 이동시 유저 데이터 넘겨주기
@@ -165,10 +165,10 @@ function NavBar() {
                       <DropListItem>
                         <a
                           // href={{
-                          //   pathname: `/accountSetting`,
+                          //   pathname: `/account_setting`,
                           //   query: {user: JSON.stringify(user)},
                           // }}
-                          // as={`/accountSetting`}
+                          // as={`/account_setting`}
                           href="/account_setting"
                         >
                           계정설정

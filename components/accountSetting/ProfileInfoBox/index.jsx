@@ -19,7 +19,7 @@ function ProfileInfoBox({ userData, token }) {
   useEffect(() => {
     if (!userData) {
       alertService.warn("로그인 후 이용해주세요");
-      router.push("/loginPage");
+      router.push("/login_page");
     }
   }, [router, userData]);
   const profileImgInput = useRef();

@@ -64,7 +64,7 @@ function Main() {
       <Container>
         {isAuthenticated ? (
           <>
-            <Link href="/questionCreate" passHref>
+            <Link href="/question_create" passHref>
               <CreateBtn>질문하기</CreateBtn>
             </Link>
           </>

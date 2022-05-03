@@ -12,7 +12,7 @@ function EmailVerify() {
   const checkEmailVerify = async () => {
     try {
       await axios.get(`${API_URL}/users/activate/${uid}/${token}/`).then((res) => {
-        router.replace("/userActivated");
+        router.replace("/user_activated");
       });
     } catch (e) {
       alertService.warn("이메일 인증에 실패 했습니다.");
