@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { API_URL } from "../../../config";
 import CloseIcon from "../../../public/static/images/CloseIcon";
 import SearchIcon from "../../../public/static/images/Search";
 import { SearchInputBox, StyledSearchInput } from "./style";
+
+//todo(1) : loading, Nodata => useState에서 reducer로 UI연결
+//todo(2) : searchKeyword redux state로 저장되게 dispatch하기
 
 function SearchInput({
   setSearchData,
@@ -16,7 +20,8 @@ function SearchInput({
   setPage,
 }) {
   const [searchInput, setSearchInput] = useState("");
-
+  const dispatch = useDispatch();
+  const { searchKeyword, loading, noResultContent } = useSelector((state) => state.search);
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -32,8 +37,8 @@ function SearchInput({
       var apiRes;
       let newData = [];
 
+      //전체검색
       if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
-        // apiRes = await axios.get(`${API_URL}/posts/search_quest?page=${page}`);
         apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
         setLoading(false);
         if (apiRes.status == 200) {
