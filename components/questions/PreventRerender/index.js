@@ -87,7 +87,6 @@ function Prevent({ children }) {
       document.addEventListener("click", checkClickOutSide);
     };
   }, [open]);
-  // console.log(bigCriteria);
 
   return (
     <Layout>

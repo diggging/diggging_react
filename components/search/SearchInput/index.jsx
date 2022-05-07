@@ -51,7 +51,7 @@ function SearchInput({
         }
       }
       await setSearchData(newData);
-      console.log(apiRes);
+      // console.log(apiRes);
 
       return newData;
     },
