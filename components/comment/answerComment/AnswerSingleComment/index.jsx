@@ -86,7 +86,6 @@ function AnswerSingleComment({
         })
         .then((response) => {
           setIsUpdated(false);
-          console.log(response);
           comment.map((item) => {
             if (item.id === data.id) {
               setUpdateData(text);

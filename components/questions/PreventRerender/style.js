@@ -5,33 +5,18 @@ import SvgToggleBtn from "../../../public/static/images/ToggleBtn";
 export const ServiceTitle = styled.h3`
   color: #343434;
   font-family: "Pretendard-Bold";
-  font-size: 1.75rem;
-  letter-spacing: -4;
-  margin-top: 3rem;
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.5rem;
-    margin-top: 2.3rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.3rem;
-    margin-top: 1.6rem;
-  }
+  /* letter-spacing: -4; */
+  font-size: 1.4rem;
+  margin-top: 2rem;
 `;
 
 export const ServiceIntro = styled.p`
+  min-width: 454px;
   color: #343434;
   font-family: "Pretendard-Medium";
-  font-size: 1.5rem;
-  line-height: 2.2rem;
-  margin-top: 0.875rem;
-  @media ${({ theme: { device } }) => device.tablet} {
-    font-size: 1.2rem;
-  }
-  @media ${({ theme: { device } }) => device.mobile} {
-    font-size: 1.2rem;
-    margin-top: 0.2rem;
-    line-height: 1.8rem;
-  }
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin-top: 0.5rem;
 `;
 
 export const ImageContainer = styled.div`
