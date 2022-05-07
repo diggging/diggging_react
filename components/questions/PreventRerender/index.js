@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../../hocs/Layout";
 import { setMine, setQuestion } from "../../../modules/questions";
 import { BannerBackground, SubTitle } from "../../../pages/index";
-import SvgDigggingLogo from "../../../public/static/images/DigggingLogo";
+import DigggingLogoReszie from "../../../public/static/images/DigggingLogoResize";
 import NavBar from "../../common/NavBar/index";
 import {
   Container,
@@ -100,7 +100,7 @@ function Prevent({ children }) {
           objectFit="cover"
         />
         <SubTitle>개발자들을 위한 커뮤니티,</SubTitle>
-        <SvgDigggingLogo display="block" />
+        <DigggingLogoReszie display="block" />
         <ServiceTitle>디깅에 기록하고, 질문하고, 공유하세요</ServiceTitle>
         <ServiceIntro>
           질문하고 기록하는 습관은 누구든 성장하게 해줍니다
