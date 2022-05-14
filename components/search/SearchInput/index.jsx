@@ -19,12 +19,11 @@ import { SearchInputBox, StyledSearchInput } from "./style";
 
 //todo(1) : loading, Nodata => useState에서 reducer로 UI연결
 //todo(2) : searchKeyword redux state로 저장되게 dispatch하기
-
+//todo(3) : searchData연결하고 다른 페이지 이동 시 reset하기.
+//todo(4) : searchKeyword (새로고침, 뒤로/앞으로가기 시) 유지되게 하기
 function SearchInput({ page, setCount, setPage }) {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
-  const searchData = useSelector((state) => state.search.searchData);
-
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -40,7 +39,7 @@ function SearchInput({ page, setCount, setPage }) {
 
       //전체검색시 : 빈칸 혹은 그 외 특수문자
       if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
-        apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
+        apiRes = await axios.get(`${API_URL}/posts/search_quest/?page=${page}`);
         dispatch(removeSearchLoading());
         if (apiRes.status == 200) {
           newData = [...apiRes.data.results];
@@ -68,7 +67,7 @@ function SearchInput({ page, setCount, setPage }) {
   //검색창 엔터 누를 시 호출되는 함수
   const onSubmitSearch = useCallback(
     async (e) => {
-      setPage(1);
+      setPage(1); //현재의 페이지 번호를 1로 설정한다.
       e.preventDefault();
 
       //get해오는api연결
