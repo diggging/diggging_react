@@ -45,9 +45,10 @@ export const resetSearchData = () => (dispatch) => {
   });
 };
 
-export const enterSearchInput = () => (dispatch) => {
+export const enterSearchInput = (payload) => (dispatch) => {
   dispatch({
     type: ENTER_SEARCH_INPUT,
+    payload,
   });
 };
 

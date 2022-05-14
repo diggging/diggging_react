@@ -6,9 +6,11 @@ import { API_URL } from "../../../config";
 import CloseIcon from "../../../public/static/images/CloseIcon";
 import SearchIcon from "../../../public/static/images/Search";
 import {
+  enterSearchInput,
   removeSearchLoading,
   resetNoSearchResult,
   resetSearchData,
+  resetSearchInput,
   setNoSearchResult,
   setSearchLoading,
 } from "../../../redux/actions/search";
@@ -20,7 +22,7 @@ import { SearchInputBox, StyledSearchInput } from "./style";
 function SearchInput({ setSearchData, setNoData, searchData, page, setCount, setPage }) {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
-  const { searchKeyword, loading, noResultContent } = useSelector((state) => state.search);
+  const { searchKeyword } = useSelector((state) => state.search);
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -35,8 +37,7 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
       var apiRes;
       let newData = [];
 
-      console.log(loading);
-      //전체검색
+      //전체검색시 : 빈칸 혹은 그 외 특수문자
       if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
         apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
         dispatch(removeSearchLoading());
@@ -45,6 +46,7 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
           setCount(apiRes.data.count);
         }
       } else {
+        //keyword입력 검색시
         apiRes = await axios.get(
           `${API_URL}/posts/search_quest_result/${trimmedInput}?page=${page}`,
         );
@@ -55,15 +57,16 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
         }
       }
       await setSearchData(newData);
+      dispatch(enterSearchInput(searchInput)); //redux state에도 저장하기.
 
       return newData;
     },
-    [setCount, setNoData, setSearchData, trimmedInput],
+    [setCount, setSearchData, trimmedInput],
   );
 
+  //검색창 엔터 누를 시 호출되는 함수
   const onSubmitSearch = useCallback(
     async (e) => {
-      console.log(loading);
       setPage(1);
       e.preventDefault();
 
@@ -77,6 +80,7 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
           //검색결과가 없을 때
           dispatch(setNoSearchResult()); //noResult 컴포넌트 뜰 수 있도록
         } else {
+          //검색결과가 있다면 noResult state를 reset
           dispatch(resetNoSearchResult());
         }
 
@@ -90,8 +94,9 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
 
   const onClickReset = () => {
     setSearchInput("");
+    dispatch(resetSearchInput());
   };
-  //첫 마운트시에 데이터 받아오지 않도록
+  //첫 마운트시에 데이터 받아오지 않도록 첫 마운트시 false로 두고, 이후 true일 때 데이터 받아오기
   const mounted = useRef(false);
 
   //선택한 page가 바뀔때마다 데이터 받아온다.
