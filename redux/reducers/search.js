@@ -1,9 +1,13 @@
+import { createStore } from "redux";
+
 import {
   ENTER_SEARCH_INPUT,
   NO_SEARCH_RESULT,
   REMOVE_SEARCH_LOADING,
   RESET_NO_SEARCH_RESULT,
+  RESET_SEARCH_DATA,
   RESET_SEARCH_INPUT,
+  SET_SEARCH_DATA,
   SET_SEARCH_LOADING,
 } from "../actions/types";
 
@@ -11,6 +15,7 @@ const initialState = {
   searchKeyword: "",
   loading: false,
   noResultContent: false,
+  searchData: [],
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -46,6 +51,17 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         noResultContent: false,
+      };
+    case SET_SEARCH_DATA:
+      return {
+        ...state,
+        noResultContent: false,
+        searchData: payload,
+      };
+    case RESET_SEARCH_DATA:
+      return {
+        ...state,
+        searchData: [],
       };
     default:
       return state;
