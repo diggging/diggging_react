@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loader from "react-loader-spinner";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import NavBar from "../components/common/NavBar";
@@ -10,9 +11,11 @@ import SearchInput from "../components/search/SearchInput";
 import SearchTab from "../components/search/SearchTab";
 import Layout from "../hocs/Layout";
 function Search() {
+  // redux state 가져오기
+  const loading = useSelector((state) => state.search.loading);
+
   const [searchData, setSearchData] = useState([]);
   const [noData, setNoData] = useState(false);
-  const [loading, setLoading] = useState(false);
   //페이지네이션
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
@@ -28,7 +31,6 @@ function Search() {
       >
         <NavBar />
         <SearchInput
-          setLoading={setLoading}
           setSearchData={setSearchData}
           setNoData={setNoData}
           searchData={searchData}

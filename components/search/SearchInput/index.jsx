@@ -5,42 +5,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../../../config";
 import CloseIcon from "../../../public/static/images/CloseIcon";
 import SearchIcon from "../../../public/static/images/Search";
+import {
+  removeSearchLoading,
+  resetSearchData,
+  setSearchLoading,
+} from "../../../redux/actions/search";
 import { SearchInputBox, StyledSearchInput } from "./style";
 
 //todo(1) : loading, Nodata => useState에서 reducer로 UI연결
 //todo(2) : searchKeyword redux state로 저장되게 dispatch하기
 
-function SearchInput({
-  setSearchData,
-  setNoData,
-  searchData,
-  setLoading,
-  page,
-  setCount,
-  setPage,
-}) {
+function SearchInput({ setSearchData, setNoData, searchData, page, setCount, setPage }) {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
   const { searchKeyword, loading, noResultContent } = useSelector((state) => state.search);
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
-
   const trimmedInput = searchInput.trim();
 
   const getSearchData = useCallback(
     async (page) => {
-      setCount(0);
-      setLoading(true);
-      setNoData(false);
+      setCount(0); //pagination에 필요한 상태도 redux로 관리해야할까?
+      dispatch(setSearchLoading());
       setSearchData([]);
+      // dispatch(resetSearchData());
       var apiRes;
       let newData = [];
 
+      console.log(loading);
       //전체검색
       if (trimmedInput == "" || trimmedInput == "#" || trimmedInput == "/" || trimmedInput == "?") {
         apiRes = await axios.get(`${API_URL}/posts/search_quest/`);
-        setLoading(false);
+        dispatch(removeSearchLoading());
         if (apiRes.status == 200) {
           newData = [...apiRes.data.results];
           setCount(apiRes.data.count);
@@ -49,22 +46,22 @@ function SearchInput({
         apiRes = await axios.get(
           `${API_URL}/posts/search_quest_result/${trimmedInput}?page=${page}`,
         );
-        setLoading(false);
+        dispatch(removeSearchLoading());
         if (apiRes.status == 200) {
           newData = [...apiRes.data.results];
           setCount(apiRes.data.count);
         }
       }
       await setSearchData(newData);
-      console.log(apiRes);
 
       return newData;
     },
-    [setCount, setLoading, setNoData, setSearchData, trimmedInput],
+    [setCount, setNoData, setSearchData, trimmedInput],
   );
 
   const onSubmitSearch = useCallback(
     async (e) => {
+      console.log(loading);
       setPage(1);
       e.preventDefault();
 
