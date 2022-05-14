@@ -24,10 +24,18 @@ import { SearchInputBox, StyledSearchInput } from "./style";
 function SearchInput({ page, setCount, setPage }) {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
+  const searchHistory = useSelector((state) => state.search.searchKeyword);
+
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
   const trimmedInput = searchInput.trim();
+
+  useEffect(() => {
+    if (searchHistory) {
+      setSearchInput(searchHistory);
+    }
+  }, []);
 
   const getSearchData = useCallback(
     async (page) => {
