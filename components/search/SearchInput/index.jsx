@@ -7,7 +7,9 @@ import CloseIcon from "../../../public/static/images/CloseIcon";
 import SearchIcon from "../../../public/static/images/Search";
 import {
   removeSearchLoading,
+  resetNoSearchResult,
   resetSearchData,
+  setNoSearchResult,
   setSearchLoading,
 } from "../../../redux/actions/search";
 import { SearchInputBox, StyledSearchInput } from "./style";
@@ -73,9 +75,9 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
         await setSearchData(newData); //searchData로 담아주기
         if (newData.length == 0) {
           //검색결과가 없을 때
-          setNoData(true); //noResult 컴포넌트 뜰 수 있도록
+          dispatch(setNoSearchResult()); //noResult 컴포넌트 뜰 수 있도록
         } else {
-          setNoData(false);
+          dispatch(resetNoSearchResult());
         }
 
         return { searchData };
@@ -83,7 +85,7 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
         return { err };
       }
     },
-    [getSearchData, page, searchData, setNoData, setSearchData],
+    [getSearchData, page, searchData, setSearchData],
   );
 
   const onClickReset = () => {

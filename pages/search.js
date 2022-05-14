@@ -12,10 +12,9 @@ import SearchTab from "../components/search/SearchTab";
 import Layout from "../hocs/Layout";
 function Search() {
   // redux state 가져오기
-  const loading = useSelector((state) => state.search.loading);
+  const { loading, noResultContent } = useSelector((state) => state.search);
 
   const [searchData, setSearchData] = useState([]);
-  const [noData, setNoData] = useState(false);
   //페이지네이션
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
@@ -32,7 +31,6 @@ function Search() {
         <NavBar />
         <SearchInput
           setSearchData={setSearchData}
-          setNoData={setNoData}
           searchData={searchData}
           page={page}
           setPage={setPage}
@@ -44,7 +42,7 @@ function Search() {
             <Loader type="Puff" color="#FFE59C" width={100} height={100} />
           </LoaderWrapper>
         )}
-        {noData ? <NoResultMessage /> : <CardContainer searchData={searchData} />}
+        {noResultContent ? <NoResultMessage /> : <CardContainer searchData={searchData} />}
         <Paging handlePageChange={handlePageChange} page={page} count={count} />
       </Layout>
     </div>
