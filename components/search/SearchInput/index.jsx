@@ -6,6 +6,7 @@ import { API_URL } from "../../../config";
 import CloseIcon from "../../../public/static/images/CloseIcon";
 import SearchIcon from "../../../public/static/images/Search";
 import {
+  dispatchSearchData,
   enterSearchInput,
   removeSearchLoading,
   resetNoSearchResult,
@@ -19,10 +20,11 @@ import { SearchInputBox, StyledSearchInput } from "./style";
 //todo(1) : loading, Nodata => useState에서 reducer로 UI연결
 //todo(2) : searchKeyword redux state로 저장되게 dispatch하기
 
-function SearchInput({ setSearchData, setNoData, searchData, page, setCount, setPage }) {
+function SearchInput({ page, setCount, setPage }) {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
-  const { searchKeyword } = useSelector((state) => state.search);
+  const searchData = useSelector((state) => state.search.searchData);
+
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -32,8 +34,7 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
     async (page) => {
       setCount(0); //pagination에 필요한 상태도 redux로 관리해야할까?
       dispatch(setSearchLoading());
-      setSearchData([]);
-      // dispatch(resetSearchData());
+      dispatch(resetSearchData());
       var apiRes;
       let newData = [];
 
@@ -56,12 +57,12 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
           setCount(apiRes.data.count);
         }
       }
-      await setSearchData(newData);
+      dispatch(dispatchSearchData(newData));
       dispatch(enterSearchInput(searchInput)); //redux state에도 저장하기.
 
       return newData;
     },
-    [setCount, setSearchData, trimmedInput],
+    [dispatch, searchInput, setCount, trimmedInput],
   );
 
   //검색창 엔터 누를 시 호출되는 함수
@@ -75,7 +76,7 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
       try {
         const newData = await getSearchData(page);
 
-        await setSearchData(newData); //searchData로 담아주기
+        dispatch(dispatchSearchData(newData));
         if (newData.length == 0) {
           //검색결과가 없을 때
           dispatch(setNoSearchResult()); //noResult 컴포넌트 뜰 수 있도록
@@ -84,12 +85,12 @@ function SearchInput({ setSearchData, setNoData, searchData, page, setCount, set
           dispatch(resetNoSearchResult());
         }
 
-        return { searchData };
+        return { newData };
       } catch (err) {
         return { err };
       }
     },
-    [getSearchData, page, searchData, setSearchData],
+    [dispatch, getSearchData, page, setPage],
   );
 
   const onClickReset = () => {

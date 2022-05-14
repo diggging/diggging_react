@@ -12,9 +12,7 @@ import SearchTab from "../components/search/SearchTab";
 import Layout from "../hocs/Layout";
 function Search() {
   // redux state 가져오기
-  const { loading, noResultContent } = useSelector((state) => state.search);
-
-  const [searchData, setSearchData] = useState([]);
+  const { loading, noResultContent, searchData } = useSelector((state) => state.search);
   //페이지네이션
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
@@ -29,13 +27,7 @@ function Search() {
         content="디깅에서 다양한 질문들을 검색해보세요"
       >
         <NavBar />
-        <SearchInput
-          setSearchData={setSearchData}
-          searchData={searchData}
-          page={page}
-          setPage={setPage}
-          setCount={setCount}
-        />
+        <SearchInput page={page} setPage={setPage} setCount={setCount} />
         <SearchTab />
         {loading && (
           <LoaderWrapper>

@@ -1,5 +1,3 @@
-import { createStore } from "redux";
-
 import {
   ENTER_SEARCH_INPUT,
   NO_SEARCH_RESULT,

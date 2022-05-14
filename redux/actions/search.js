@@ -33,9 +33,10 @@ export const resetNoSearchResult = () => (dispatch) => {
   });
 };
 
-export const setSearchData = () => (dispatch) => {
+export const dispatchSearchData = (payload) => (dispatch) => {
   dispatch({
     type: SET_SEARCH_DATA,
+    payload,
   });
 };
 
