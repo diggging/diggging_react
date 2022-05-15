@@ -12,6 +12,11 @@ import NavSearch from "../../../public/static/images/Search";
 // import Directory from '../public/static/images/Directory';
 import ToggleBtn from "../../../public/static/images/ToggleBtn";
 import { load_user, logout } from "../../../redux/actions/auth";
+import {
+  resetNoSearchResult,
+  resetSearchData,
+  resetSearchInput,
+} from "../../../redux/actions/search";
 // import { check_auth_status } from "../redux/actions/auth";
 // import { changePage } from "../modules/questions";
 // import AlarmContainer from "./AlarmContainer";
@@ -20,6 +25,7 @@ import {
   DropList,
   DropListItem,
   LogoutButton,
+  MoveToAbout,
   Nav,
   NavItem,
   NavLeft,
@@ -34,6 +40,7 @@ function NavBar() {
   const router = useRouter();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
+  const { searchKeyword, noResultContent, searchData } = useSelector((state) => state.search);
 
   const [open, setOpen] = useState({
     alarmOpen: false,
@@ -45,6 +52,9 @@ function NavBar() {
 
   const logoutHandler = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) await dispatch(logout());
+    dispatch(resetNoSearchResult());
+    dispatch(resetSearchData());
+    dispatch(resetSearchInput());
     router.push("/login_page");
   };
 
@@ -67,28 +77,38 @@ function NavBar() {
     return () => {
       document.addEventListener("click", checkClickOutSide);
     };
-  }, [profileOpen]);
+  }, [open, profileOpen]);
 
-  const getAlarmList = async () => {
-    try {
-      const apiRes = axios.get("");
-
-      if (apiRes.status === 200) {
-        setAlarmData(apiRes.data);
-      } else {
-        setAlarmData([]);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const resetSearchHistory = () => {
+    dispatch(resetNoSearchResult());
+    dispatch(resetSearchData());
+    dispatch(resetSearchInput());
   };
+
+  // const getAlarmList = async () => {
+  //   try {
+  //     const apiRes = axios.get("");
+
+  //     if (apiRes.status === 200) {
+  //       setAlarmData(apiRes.data);
+  //     } else {
+  //       setAlarmData([]);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  //Link, a 태그 안에 button 태그를 사용해도 괜찮을까?
+  //a태그 안에서 onclick으로 resetState가 가능한 방법 찾아보기.
+  //pagination도 state로 저장하여 reset하기
 
   return (
     <div>
       <Nav>
         <NavLeft>
           <Link href="/" passHref>
-            <NavItem>
+            <NavItem onClick={(e) => resetSearchHistory(e)}>
               <SvgDiggging />
             </NavItem>
           </Link>
@@ -96,7 +116,13 @@ function NavBar() {
             href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
             passHref
           >
-            <NavItem target="blank">디깅소개</NavItem>
+            <MoveToAbout
+              href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <NavItem>디깅소개</NavItem>
+            </MoveToAbout>
           </Link>
           {/* <Link href="/main" passHref>
             <NavItem>메인</NavItem>
@@ -113,7 +139,7 @@ function NavBar() {
         </NavLeft>
         <NavRight>
           <Link href="/search" passHref>
-            <NavItem>
+            <NavItem onClick={(e) => resetSearchHistory(e)}>
               <NavSearch height="1.5rem" width="1.375rem" />
             </NavItem>
           </Link>
@@ -159,24 +185,23 @@ function NavBar() {
                 {profileOpen && (
                   <DropBox>
                     <DropList>
-                      <DropListItem>
-                        <Link href="/question_create">새 글 작성</Link>
-                      </DropListItem>
-                      <DropListItem>
-                        <a
-                          // href={{
-                          //   pathname: `/account_setting`,
-                          //   query: {user: JSON.stringify(user)},
-                          // }}
-                          // as={`/account_setting`}
-                          href="/account_setting"
-                        >
-                          계정설정
-                        </a>
-                      </DropListItem>
-                      <DropListItem>
+                      <li>
+                        <Link href="/question_create">
+                          <DropListItem onClick={(e) => resetSearchHistory(e)}>
+                            새 글 작성
+                          </DropListItem>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/account_setting">
+                          <DropListItem onClick={(e) => resetSearchHistory(e)}>
+                            계정설정
+                          </DropListItem>
+                        </Link>
+                      </li>
+                      <li>
                         <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
-                      </DropListItem>
+                      </li>
                     </DropList>
                   </DropBox>
                 )}
@@ -185,10 +210,10 @@ function NavBar() {
           ) : (
             <>
               <Link href="/login_page" passHref>
-                <NavItem>로그인</NavItem>
+                <NavItem onClick={(e) => resetSearchHistory(e)}>로그인</NavItem>
               </Link>
               <Link href="/signup" passHref>
-                <NavItem>회원가입</NavItem>
+                <NavItem onClick={(e) => resetSearchHistory(e)}>회원가입</NavItem>
               </Link>
             </>
           )}
