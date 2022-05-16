@@ -24,16 +24,15 @@ const NavLeft = styled.div`
 `;
 
 const NavItem = styled.a`
-  font-family: "Pretendard-SemiBold";
   display: flex;
   margin: 0.5rem 0.5rem;
-  border-radius: 0.625rem;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
   padding-right: 0.4rem;
-  color: #b6b6b6;
   align-items: center;
+
+  font-family: "Pretendard-SemiBold";
+  text-align: center;
+  text-decoration: none;
+  color: #b6b6b6;
 
   &:hover {
     color: #202020;
@@ -45,6 +44,10 @@ const NavItem = styled.a`
     fill: #202020;
     transition: all ease-in 200ms;
   }
+`;
+
+export const MoveToAbout = styled.a`
+  display: flex;
 `;
 
 const NavRight = styled.div`
@@ -98,41 +101,40 @@ const DropBox = styled.div`
 
 const DropList = styled.ul`
   list-style: none;
-  line-height: 2.375rem;
-  font-family: "Pretendard-Medium";
 `;
 
-const DropListItem = styled.li`
+const DropListItem = styled.a`
+  display: block;
+  width: 9.25rem;
+  font-family: "Pretendard-Medium";
+  font-size: 1rem;
   color: #b6b6b6;
+  line-height: 2.375rem;
+  transition: 300ms;
   cursor: pointer;
 
-  &:first-child:hover a {
+  &:first-child:hover {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
   }
 
-  &:hover a {
+  &:hover {
     color: #343434;
     font-family: "Pretendard-SemiBold";
     background: #f4f4f4;
   }
-
-  & > a {
-    transition: 300ms;
-    display: block;
-    width: 9.25rem;
-  }
 `;
 const LogoutButton = styled.button`
-  color: #b6b6b6;
   width: 9.25rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-family: "Pretendard-Medium";
-  font-size: 1rem;
   padding: 0;
   height: 2.375rem;
+  background: none;
+  border: none;
+
+  font-family: "Pretendard-Medium";
+  font-size: 1rem;
+  color: #b6b6b6;
+
   transition: 300ms;
   &:hover {
     color: #343434;

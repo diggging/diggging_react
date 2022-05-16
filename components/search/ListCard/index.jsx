@@ -7,7 +7,6 @@ import React from "react";
 // // import HeartIcon from "../../public/static/images/HeartIcon.js";
 // import { alertService } from "../../alert.service";
 import { Alert } from "../../Alert";
-import FlexColumn from "../../common/FlexColumn";
 import {
   CardBox,
   CardFooter,
@@ -23,6 +22,7 @@ import {
   ProfileBox,
   ProfileImg,
   TagWrapper,
+  TitleWrapper,
   Username,
 } from "./style";
 
@@ -59,12 +59,12 @@ function ListCard({ data }) {
     <Link href={`/questions/${data.id}`} passHref>
       <CardBox>
         <CardHead>
-          <FlexColumn>
+          <TitleWrapper>
             <PostTitle>{title}</PostTitle>
             <TagWrapper>
               {question_tags && question_tags.map((tag) => <HashTag key={tag}>{tag}</HashTag>)}
             </TagWrapper>
-          </FlexColumn>
+          </TitleWrapper>
           <ProfileBox>
             <ProfileImg
               src={`https://api-diggging.shop${user_profile_image}`}

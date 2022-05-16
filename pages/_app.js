@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Pretendard" -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; */
     line-height: 1.5;
     background-color: #FAFAFF;
+    padding: 0;
   }
   /* 태그 설정 */
   a {
@@ -32,6 +33,11 @@ const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
 
+  button {
+    background: none;
+    outline: none;
+    border: none;
+  }
   input {
     font-family: 'Pretendard-Regular', 'Arial', sans-serif;
   }

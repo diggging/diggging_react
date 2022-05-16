@@ -1,10 +1,8 @@
 // import Alarm from "../public/static/images/Alarm";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-// import img from '../public/static/images/profile_img.jpg'; //기본 프로필이미지 넣어주기
 import { useDispatch, useSelector } from "react-redux";
 
 import SvgDiggging from "../../../public/static/images/Diggging";
@@ -12,6 +10,12 @@ import NavSearch from "../../../public/static/images/Search";
 // import Directory from '../public/static/images/Directory';
 import ToggleBtn from "../../../public/static/images/ToggleBtn";
 import { load_user, logout } from "../../../redux/actions/auth";
+import {
+  resetNoSearchResult,
+  resetSearchData,
+  resetSearchInput,
+  resetSearchPage,
+} from "../../../redux/actions/search";
 // import { check_auth_status } from "../redux/actions/auth";
 // import { changePage } from "../modules/questions";
 // import AlarmContainer from "./AlarmContainer";
@@ -20,6 +24,7 @@ import {
   DropList,
   DropListItem,
   LogoutButton,
+  MoveToAbout,
   Nav,
   NavItem,
   NavLeft,
@@ -45,6 +50,9 @@ function NavBar() {
 
   const logoutHandler = async () => {
     if (dispatch && dispatch !== null && dispatch !== undefined) await dispatch(logout());
+    dispatch(resetNoSearchResult());
+    dispatch(resetSearchData());
+    dispatch(resetSearchInput());
     router.push("/login_page");
   };
 
@@ -67,21 +75,30 @@ function NavBar() {
     return () => {
       document.addEventListener("click", checkClickOutSide);
     };
-  }, [profileOpen]);
+  }, [open, profileOpen]);
 
-  const getAlarmList = async () => {
-    try {
-      const apiRes = axios.get("");
-
-      if (apiRes.status === 200) {
-        setAlarmData(apiRes.data);
-      } else {
-        setAlarmData([]);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const resetSearchHistory = () => {
+    dispatch(resetSearchInput());
+    dispatch(resetSearchData());
+    dispatch(resetNoSearchResult());
+    dispatch(resetSearchPage());
   };
+
+  // const getAlarmList = async () => {
+  //   try {
+  //     const apiRes = axios.get("");
+
+  //     if (apiRes.status === 200) {
+  //       setAlarmData(apiRes.data);
+  //     } else {
+  //       setAlarmData([]);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  //pagination도 state로 저장하여 reset하기
 
   return (
     <div>
@@ -95,25 +112,16 @@ function NavBar() {
           <Link
             href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
             passHref
+            target="_blank"
           >
-            <NavItem target="blank">디깅소개</NavItem>
+            <NavItem target="_blank" rel="noreferrer">
+              디깅소개
+            </NavItem>
           </Link>
-          {/* <Link href="/main" passHref>
-            <NavItem>메인</NavItem>
-          </Link> */}
-          {/* {isAuthenticated ? (
-            <>
-              <Link href="/questions" passHref>
-                <NavItem>질문광장</NavItem>
-              </Link>
-            </>
-          ) : (
-            <></>
-          )} */}
         </NavLeft>
         <NavRight>
           <Link href="/search" passHref>
-            <NavItem>
+            <NavItem onClick={resetSearchHistory}>
               <NavSearch height="1.5rem" width="1.375rem" />
             </NavItem>
           </Link>
@@ -159,24 +167,19 @@ function NavBar() {
                 {profileOpen && (
                   <DropBox>
                     <DropList>
-                      <DropListItem>
-                        <Link href="/question_create">새 글 작성</Link>
-                      </DropListItem>
-                      <DropListItem>
-                        <a
-                          // href={{
-                          //   pathname: `/account_setting`,
-                          //   query: {user: JSON.stringify(user)},
-                          // }}
-                          // as={`/account_setting`}
-                          href="/account_setting"
-                        >
-                          계정설정
-                        </a>
-                      </DropListItem>
-                      <DropListItem>
+                      <li>
+                        <Link href="/question_create">
+                          <DropListItem>새 글 작성</DropListItem>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/account_setting">
+                          <DropListItem>계정설정</DropListItem>
+                        </Link>
+                      </li>
+                      <li>
                         <LogoutButton onClick={logoutHandler}>로그아웃</LogoutButton>
-                      </DropListItem>
+                      </li>
                     </DropList>
                   </DropBox>
                 )}
@@ -185,10 +188,10 @@ function NavBar() {
           ) : (
             <>
               <Link href="/login_page" passHref>
-                <NavItem>로그인</NavItem>
+                <NavItem onClick={(e) => resetSearchHistory(e)}>로그인</NavItem>
               </Link>
               <Link href="/signup" passHref>
-                <NavItem>회원가입</NavItem>
+                <NavItem onClick={(e) => resetSearchHistory(e)}>회원가입</NavItem>
               </Link>
             </>
           )}
