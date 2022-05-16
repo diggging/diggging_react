@@ -46,7 +46,7 @@ function FindPassword() {
       })
       .then((res) => {
         if (res === undefined || res === null) {
-          console.log(res);
+          // console.log(res);
           throw new Error("아이디 혹은 이메일을 잘못입력했습니다.");
         }
       })

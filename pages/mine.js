@@ -35,7 +35,6 @@ function Mine() {
     getAccessToken();
     dispatch(setMine("mine", 1, "all", token));
   }, [dispatch, token]);
-  console.log(bigCriteria);
 
   return (
     <Prevent>
