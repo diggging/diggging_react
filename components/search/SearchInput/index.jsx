@@ -24,19 +24,12 @@ import { SearchInputBox, StyledSearchInput } from "./style";
 //todo(3) : searchData연결하고 다른 페이지 이동 시 reset하기.
 //todo(4) : searchKeyword (새로고침, 뒤로/앞으로가기 시) 유지되게 하기
 function SearchInput({ page, setPage }) {
-  const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
-  const searchHistory = useSelector((state) => state.search.searchKeyword);
+  const searchKeyword = useSelector((state) => state.search.searchKeyword);
   const onInputChange = (e) => {
-    setSearchInput(e.target.value);
+    dispatch(enterSearchInput(e.target.value));
   };
-  const trimmedInput = searchInput.trim();
-
-  useEffect(() => {
-    if (searchHistory) {
-      setSearchInput(searchHistory);
-    }
-  }, []);
+  const trimmedInput = searchKeyword.trim();
 
   const getSearchData = useCallback(
     async (page) => {
@@ -66,11 +59,11 @@ function SearchInput({ page, setPage }) {
         }
       }
       dispatch(dispatchSearchData(newData));
-      dispatch(enterSearchInput(searchInput)); //redux state에도 저장하기.
+      // dispatch(enterSearchInput(searchInput)); //redux state에도 저장하기.
 
       return newData;
     },
-    [dispatch, searchInput, trimmedInput],
+    [dispatch, trimmedInput],
   );
 
   //검색창 엔터 누를 시 호출되는 함수
@@ -102,7 +95,6 @@ function SearchInput({ page, setPage }) {
   );
 
   const onClickReset = () => {
-    setSearchInput("");
     dispatch(resetSearchInput());
   };
   //첫 마운트시에 데이터 받아오지 않도록 첫 마운트시 false로 두고, 이후 true일 때 데이터 받아오기
@@ -124,10 +116,10 @@ function SearchInput({ page, setPage }) {
         <StyledSearchInput
           type="text"
           placeholder="무엇을 찾고 있나요?"
-          value={searchInput}
+          value={searchKeyword}
           onChange={(e) => onInputChange(e)}
         />
-        {searchInput && <CloseIcon onClick={onClickReset} cursor="pointer" />}
+        {searchKeyword && <CloseIcon onClick={onClickReset} cursor="pointer" />}
       </SearchInputBox>
     </form>
   );
