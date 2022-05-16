@@ -14,6 +14,7 @@ import {
   resetNoSearchResult,
   resetSearchData,
   resetSearchInput,
+  resetSearchPage,
 } from "../../../redux/actions/search";
 // import { check_auth_status } from "../redux/actions/auth";
 // import { changePage } from "../modules/questions";
@@ -80,6 +81,7 @@ function NavBar() {
     dispatch(resetSearchInput());
     dispatch(resetSearchData());
     dispatch(resetNoSearchResult());
+    dispatch(resetSearchPage());
   };
 
   // const getAlarmList = async () => {

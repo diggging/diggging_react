@@ -5,8 +5,10 @@ import {
   RESET_NO_SEARCH_RESULT,
   RESET_SEARCH_DATA,
   RESET_SEARCH_INPUT,
+  RESET_SEARCH_PAGE,
   SET_SEARCH_DATA,
   SET_SEARCH_LOADING,
+  SET_SEARCH_PAGE,
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
   loading: false,
   noResultContent: false,
   searchData: [],
+  pageCount: 0,
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -60,6 +63,16 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         searchData: [],
+      };
+    case SET_SEARCH_PAGE:
+      return {
+        ...state,
+        pageCount: payload,
+      };
+    case RESET_SEARCH_PAGE:
+      return {
+        ...state,
+        pageCount: 0,
       };
     default:
       return state;

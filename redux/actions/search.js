@@ -5,8 +5,10 @@ import {
   RESET_NO_SEARCH_RESULT,
   RESET_SEARCH_DATA,
   RESET_SEARCH_INPUT,
+  RESET_SEARCH_PAGE,
   SET_SEARCH_DATA,
   SET_SEARCH_LOADING,
+  SET_SEARCH_PAGE,
 } from "./types";
 
 export const setSearchLoading = () => (dispatch) => {
@@ -56,5 +58,18 @@ export const enterSearchInput = (payload) => (dispatch) => {
 export const resetSearchInput = () => (dispatch) => {
   dispatch({
     type: RESET_SEARCH_INPUT,
+  });
+};
+
+export const setSearchPage = (payload) => (dispatch) => {
+  dispatch({
+    type: SET_SEARCH_PAGE,
+    payload,
+  });
+};
+
+export const resetSearchPage = () => (dispatch) => {
+  dispatch({
+    type: RESET_SEARCH_PAGE,
   });
 };

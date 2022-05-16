@@ -12,8 +12,10 @@ import {
   resetNoSearchResult,
   resetSearchData,
   resetSearchInput,
+  resetSearchPage,
   setNoSearchResult,
   setSearchLoading,
+  setSearchPage,
 } from "../../../redux/actions/search";
 import { SearchInputBox, StyledSearchInput } from "./style";
 
@@ -21,11 +23,10 @@ import { SearchInputBox, StyledSearchInput } from "./style";
 //todo(2) : searchKeyword redux state로 저장되게 dispatch하기
 //todo(3) : searchData연결하고 다른 페이지 이동 시 reset하기.
 //todo(4) : searchKeyword (새로고침, 뒤로/앞으로가기 시) 유지되게 하기
-function SearchInput({ page, setCount, setPage }) {
+function SearchInput({ page, setPage }) {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
   const searchHistory = useSelector((state) => state.search.searchKeyword);
-
   const onInputChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -39,7 +40,7 @@ function SearchInput({ page, setCount, setPage }) {
 
   const getSearchData = useCallback(
     async (page) => {
-      setCount(0); //pagination에 필요한 상태도 redux로 관리해야할까?
+      dispatch(resetSearchPage());
       dispatch(setSearchLoading());
       dispatch(resetSearchData());
       var apiRes;
@@ -51,7 +52,7 @@ function SearchInput({ page, setCount, setPage }) {
         dispatch(removeSearchLoading());
         if (apiRes.status == 200) {
           newData = [...apiRes.data.results];
-          setCount(apiRes.data.count);
+          dispatch(setSearchPage(apiRes.data.count));
         }
       } else {
         //keyword입력 검색시
@@ -61,7 +62,7 @@ function SearchInput({ page, setCount, setPage }) {
         dispatch(removeSearchLoading());
         if (apiRes.status == 200) {
           newData = [...apiRes.data.results];
-          setCount(apiRes.data.count);
+          dispatch(setSearchPage(apiRes.data.count));
         }
       }
       dispatch(dispatchSearchData(newData));
@@ -69,7 +70,7 @@ function SearchInput({ page, setCount, setPage }) {
 
       return newData;
     },
-    [dispatch, searchInput, setCount, trimmedInput],
+    [dispatch, searchInput, trimmedInput],
   );
 
   //검색창 엔터 누를 시 호출되는 함수

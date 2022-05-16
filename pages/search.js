@@ -18,7 +18,7 @@ function Search() {
   const handlePageChange = (page) => {
     setPage(page);
   };
-  const [count, setCount] = useState(0);
+  const pageCount = useSelector((state) => state.search.pageCount);
 
   return (
     <div>
@@ -27,7 +27,7 @@ function Search() {
         content="디깅에서 다양한 질문들을 검색해보세요"
       >
         <NavBar />
-        <SearchInput page={page} setPage={setPage} setCount={setCount} />
+        <SearchInput page={page} setPage={setPage} />
         <SearchTab />
         {loading && (
           <LoaderWrapper>
@@ -35,7 +35,7 @@ function Search() {
           </LoaderWrapper>
         )}
         {noResultContent ? <NoResultMessage /> : <CardContainer searchData={searchData} />}
-        <Paging handlePageChange={handlePageChange} page={page} count={count} />
+        <Paging handlePageChange={handlePageChange} page={page} count={pageCount} />
       </Layout>
     </div>
   );
