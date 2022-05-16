@@ -23,7 +23,7 @@ const NavLeft = styled.div`
   margin-left: 3.125rem;
 `;
 
-const NavItem = styled.button`
+const NavItem = styled.a`
   display: flex;
   margin: 0.5rem 0.5rem;
   padding-right: 0.4rem;
@@ -103,7 +103,7 @@ const DropList = styled.ul`
   list-style: none;
 `;
 
-const DropListItem = styled.button`
+const DropListItem = styled.a`
   display: block;
   width: 9.25rem;
   font-family: "Pretendard-Medium";
@@ -111,6 +111,7 @@ const DropListItem = styled.button`
   color: #b6b6b6;
   line-height: 2.375rem;
   transition: 300ms;
+  cursor: pointer;
 
   &:first-child:hover {
     border-top-left-radius: 0.25rem;

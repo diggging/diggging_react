@@ -1,10 +1,8 @@
 // import Alarm from "../public/static/images/Alarm";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-// import img from '../public/static/images/profile_img.jpg'; //기본 프로필이미지 넣어주기
 import { useDispatch, useSelector } from "react-redux";
 
 import SvgDiggging from "../../../public/static/images/Diggging";
@@ -40,7 +38,6 @@ function NavBar() {
   const router = useRouter();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  const { searchKeyword, noResultContent, searchData } = useSelector((state) => state.search);
 
   const [open, setOpen] = useState({
     alarmOpen: false,
@@ -80,9 +77,9 @@ function NavBar() {
   }, [open, profileOpen]);
 
   const resetSearchHistory = () => {
-    dispatch(resetNoSearchResult());
-    dispatch(resetSearchData());
     dispatch(resetSearchInput());
+    dispatch(resetSearchData());
+    dispatch(resetNoSearchResult());
   };
 
   // const getAlarmList = async () => {
@@ -99,8 +96,6 @@ function NavBar() {
   //   }
   // };
 
-  //Link, a 태그 안에 button 태그를 사용해도 괜찮을까?
-  //a태그 안에서 onclick으로 resetState가 가능한 방법 찾아보기.
   //pagination도 state로 저장하여 reset하기
 
   return (
@@ -108,38 +103,23 @@ function NavBar() {
       <Nav>
         <NavLeft>
           <Link href="/" passHref>
-            <NavItem onClick={(e) => resetSearchHistory(e)}>
+            <NavItem>
               <SvgDiggging />
             </NavItem>
           </Link>
           <Link
             href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
             passHref
+            target="_blank"
           >
-            <MoveToAbout
-              href="https://www.notion.so/diggingdigging/About-diggging-afdb745738b74492900ac5f9c2a431d2"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <NavItem>디깅소개</NavItem>
-            </MoveToAbout>
+            <NavItem target="_blank" rel="noreferrer">
+              디깅소개
+            </NavItem>
           </Link>
-          {/* <Link href="/main" passHref>
-            <NavItem>메인</NavItem>
-          </Link> */}
-          {/* {isAuthenticated ? (
-            <>
-              <Link href="/questions" passHref>
-                <NavItem>질문광장</NavItem>
-              </Link>
-            </>
-          ) : (
-            <></>
-          )} */}
         </NavLeft>
         <NavRight>
           <Link href="/search" passHref>
-            <NavItem onClick={(e) => resetSearchHistory(e)}>
+            <NavItem onClick={resetSearchHistory}>
               <NavSearch height="1.5rem" width="1.375rem" />
             </NavItem>
           </Link>
@@ -187,16 +167,12 @@ function NavBar() {
                     <DropList>
                       <li>
                         <Link href="/question_create">
-                          <DropListItem onClick={(e) => resetSearchHistory(e)}>
-                            새 글 작성
-                          </DropListItem>
+                          <DropListItem>새 글 작성</DropListItem>
                         </Link>
                       </li>
                       <li>
                         <Link href="/account_setting">
-                          <DropListItem onClick={(e) => resetSearchHistory(e)}>
-                            계정설정
-                          </DropListItem>
+                          <DropListItem>계정설정</DropListItem>
                         </Link>
                       </li>
                       <li>
