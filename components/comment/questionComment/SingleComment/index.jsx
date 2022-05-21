@@ -172,7 +172,16 @@ function SingleComment({
                         ) : null}
                       </NameDateContainer>
 
-                      <CommentText>{updateData}</CommentText>
+                      <CommentText>
+                        {updateData.split("\n").map((line) => {
+                          return (
+                            <>
+                              {line}
+                              <br />
+                            </>
+                          );
+                        })}
+                      </CommentText>
                     </UserInfoContainer>
                   </>
                 )}
