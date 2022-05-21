@@ -46,3 +46,5 @@ npm install --save @toast-ui/editor-plugin-code-syntax-highlight
 npm install --save prismjs
 npm install --save @toast-ui/editor-plugin-color-syntax
 
+//fouc 이슈 라이브러리
+yarn add babel-plugin-styled-components
