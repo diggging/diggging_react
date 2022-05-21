@@ -24,6 +24,7 @@ export const CommentInput = styled(TextareaAutosize)`
   font-size: 1rem;
   color: rgb(33, 37, 41);
   line-height: 1.75;
+
   &:focus {
     outline: 0;
   }

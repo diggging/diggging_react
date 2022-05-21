@@ -4,6 +4,7 @@ import "../public/static/css/Paging.css";
 import Head from "next/head";
 import React from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
 
@@ -25,6 +26,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Pretendard" -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; */
     line-height: 1.5;
     background-color: #FAFAFF;
+    padding: 0;
   }
   /* 태그 설정 */
   a {
@@ -32,6 +34,11 @@ const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
 
+  button {
+    background: none;
+    outline: none;
+    border: none;
+  }
   input {
     font-family: 'Pretendard-Regular', 'Arial', sans-serif;
   }
@@ -60,19 +67,21 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialReduxState);
+  const { store, persistor } = useStore(pageProps.initialReduxState);
 
   return (
     <>
       <Provider store={store}>
-        <Head>
-          <title>Diggging</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-        <GlobalStyles />
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <PersistGate persistor={persistor}>
+          <Head>
+            <title>Diggging</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+          </Head>
+          <GlobalStyles />
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   );

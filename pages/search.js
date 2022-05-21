@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loader from "react-loader-spinner";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import NavBar from "../components/common/NavBar";
@@ -10,15 +11,14 @@ import SearchInput from "../components/search/SearchInput";
 import SearchTab from "../components/search/SearchTab";
 import Layout from "../hocs/Layout";
 function Search() {
-  const [searchData, setSearchData] = useState([]);
-  const [noData, setNoData] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // redux state 가져오기
+  const { loading, noResultContent, searchData } = useSelector((state) => state.search);
   //페이지네이션
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
     setPage(page);
   };
-  const [count, setCount] = useState(0);
+  const pageCount = useSelector((state) => state.search.pageCount);
 
   return (
     <div>
@@ -27,23 +27,15 @@ function Search() {
         content="디깅에서 다양한 질문들을 검색해보세요"
       >
         <NavBar />
-        <SearchInput
-          setLoading={setLoading}
-          setSearchData={setSearchData}
-          setNoData={setNoData}
-          searchData={searchData}
-          page={page}
-          setPage={setPage}
-          setCount={setCount}
-        />
+        <SearchInput page={page} setPage={setPage} />
         <SearchTab />
         {loading && (
           <LoaderWrapper>
             <Loader type="Puff" color="#FFE59C" width={100} height={100} />
           </LoaderWrapper>
         )}
-        {noData ? <NoResultMessage /> : <CardContainer searchData={searchData} />}
-        <Paging handlePageChange={handlePageChange} page={page} count={count} />
+        {noResultContent ? <NoResultMessage /> : <CardContainer searchData={searchData} />}
+        <Paging handlePageChange={handlePageChange} page={page} count={pageCount} />
       </Layout>
     </div>
   );

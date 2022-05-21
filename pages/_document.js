@@ -1,42 +1,40 @@
-// import Document from "next/document";
-// import { ServerStyleSheet } from "styled-components";
-
-// export default class MyDocument extends Document {
-//   static async getInitialProps(ctx) {
-//     const sheet = new ServerStyleSheet();
-//     const originalRenderPage = ctx.renderPage;
-
-//     try {
-//       ctx.renderPage = () =>
-//         originalRenderPage({
-//           enhanceApp: (App) => (props) =>
-//             sheet.collectStyles(<App {...props} />),
-//         });
-
-//       const initialProps = await Document.getInitialProps(ctx);
-//       return {
-//         ...initialProps,
-//         styles: (
-//           <>
-//             {initialProps.styles}
-//             {sheet.getStyleElement()}
-//           </>
-//         ),
-//       };
-//     } finally {
-//       sheet.seal();
-//     }
-//   }
-// }
-
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
-class MyDocument extends Document {
+import { ServerStyleSheet } from "styled-components";
+export default class MyDocument extends Document {
+  static async getInitialProps(context) {
+    const sheet = new ServerStyleSheet(); // Create an instance of ServerStyleSheet
+    const originalRenderPage = context.renderPage;
+
+    try {
+      context.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(context);
+
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
+    }
+  }
+
   render() {
     return (
-      <Html lang="ko">
-        <Head />
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+      <Html>
+        <Head>
+          {/* Output the styles in the head  */}
+          {this.props.styleTags}
+        </Head>
         <body>
           <Main />
           <NextScript />
@@ -45,5 +43,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;

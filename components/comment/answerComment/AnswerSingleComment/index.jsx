@@ -86,7 +86,6 @@ function AnswerSingleComment({
         })
         .then((response) => {
           setIsUpdated(false);
-          console.log(response);
           comment.map((item) => {
             if (item.id === data.id) {
               setUpdateData(text);
@@ -184,7 +183,16 @@ function AnswerSingleComment({
                         ) : null}
                       </NameDateContainer>
 
-                      <CommentText>{updateData}</CommentText>
+                      <CommentText>
+                        {updateData.split("\n").map((line) => {
+                          return (
+                            <>
+                              {line}
+                              <br />
+                            </>
+                          );
+                        })}
+                      </CommentText>
                     </UserInfoContainer>
                   </>
                 )}
