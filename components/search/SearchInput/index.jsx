@@ -59,7 +59,6 @@ function SearchInput({ page, setPage }) {
         }
       }
       dispatch(dispatchSearchData(newData));
-      // dispatch(enterSearchInput(searchInput)); //redux state에도 저장하기.
 
       return newData;
     },
