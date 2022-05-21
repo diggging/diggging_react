@@ -1,14 +1,30 @@
 import { useMemo } from "react";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import thunkMiddleware from "redux-thunk";
 
 import reducers from "./reducers";
 
+//localStorage에 저장
+const persistConfig = {
+  key: "reducer",
+  storage,
+  whitelist: ["search"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
 let store;
 
 function initStore(initialState) {
-  return createStore(reducers, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+  return createStore(
+    persistedReducer,
+    initialState,
+    //middleware안에 여러가지 라이브러리 넣는다.
+    composeWithDevTools(applyMiddleware(thunkMiddleware)),
+  );
 }
 
 export const initializeStore = (preloadedState) => {
@@ -35,6 +51,7 @@ export const initializeStore = (preloadedState) => {
 
 export function useStore(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
+  const persistor = persistStore(store);
 
-  return store;
+  return { store, persistor };
 }

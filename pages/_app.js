@@ -4,6 +4,7 @@ import "../public/static/css/Paging.css";
 import Head from "next/head";
 import React from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
 
@@ -66,19 +67,21 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialReduxState);
+  const { store, persistor } = useStore(pageProps.initialReduxState);
 
   return (
     <>
       <Provider store={store}>
-        <Head>
-          <title>Diggging</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-        <GlobalStyles />
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <PersistGate persistor={persistor}>
+          <Head>
+            <title>Diggging</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+          </Head>
+          <GlobalStyles />
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   );
