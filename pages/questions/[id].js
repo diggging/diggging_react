@@ -100,7 +100,8 @@ const Question = ({ item }) => {
   //id값을 넣어줘야 데이터가 안사라짐
   useEffect(() => {
     if (id && id > 0) {
-      // handleData();
+      console.log(item);
+      setUpdateComment(item.question_comments);
       getAccessToken();
     }
   }, [id]);
