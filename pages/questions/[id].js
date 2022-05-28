@@ -8,6 +8,7 @@ import { darken, lighten } from "polished";
 import React, { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
+import { async } from "rxjs";
 import styled from "styled-components";
 
 import { Alert } from "../../components/Alert";
@@ -21,10 +22,10 @@ import { API_URL } from "../../config";
 import Layout from "../../hocs/Layout";
 import { check_auth_status, load_user } from "../../redux/actions/auth";
 
-const Question = () => {
+const Question = ({ item }) => {
   const ref = useRef();
 
-  const [item, setItem] = useState([]);
+  // const [item, setItem] = useState([]);
   const [token, setToken] = useState("");
   const [commentIsOpen, setCommentIsOpen] = useState(true);
   const [loaderHeight, setLoaderHeight] = useState(0);
@@ -47,20 +48,20 @@ const Question = () => {
   const createdHour = createdAtDate.getHours();
   const createdMinutes = createdAtDate.getMinutes();
 
-  const handleCommentOpen = () => {
+  const handleCommentOpen = ({ item }) => {
     setCommentIsOpen(!commentIsOpen);
   };
 
-  const handleData = async () => {
-    try {
-      await axios.get(`${API_URL}/questions/${id}/detail/`).then((res) => {
-        setItem(res.data);
-        setUpdateComment(res.data.question_comments);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const handleData = async () => {
+  //   try {
+  //     await axios.get(`${API_URL}/questions/${id}/detail/`).then((res) => {
+  //       setItem(res.data);
+  //       setUpdateComment(res.data.question_comments);
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   //삭제하기
   const deleteData = async (id) => {
@@ -99,7 +100,7 @@ const Question = () => {
   //id값을 넣어줘야 데이터가 안사라짐
   useEffect(() => {
     if (id && id > 0) {
-      handleData();
+      // handleData();
       getAccessToken();
     }
   }, [id]);
@@ -242,6 +243,19 @@ const Question = () => {
 };
 
 export default React.memo(Question);
+
+export async function getServerSideProps(context) {
+  const id = context.params.id;
+  const apiUrl = `${API_URL}/questions/${id}/detail/`;
+  const res = await axios.get(apiUrl);
+  const data = res.data;
+
+  return {
+    props: {
+      item: data,
+    },
+  };
+}
 
 const MainContainer = styled.div`
   margin-top: 12.5rem;
