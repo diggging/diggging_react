@@ -20,12 +20,11 @@ import WhiteButton from "../../components/common/WhiteButton";
 import DetailLike from "../../components/questions/DetailLike";
 import { API_URL } from "../../config";
 import Layout from "../../hocs/Layout";
-import { check_auth_status, load_user } from "../../redux/actions/auth";
+import { check_auth_status } from "../../redux/actions/auth";
 
 const Question = ({ item }) => {
   const ref = useRef();
 
-  // const [item, setItem] = useState([]);
   const [token, setToken] = useState("");
   const [commentIsOpen, setCommentIsOpen] = useState(true);
   const [loaderHeight, setLoaderHeight] = useState(0);
@@ -48,20 +47,9 @@ const Question = ({ item }) => {
   const createdHour = createdAtDate.getHours();
   const createdMinutes = createdAtDate.getMinutes();
 
-  const handleCommentOpen = ({ item }) => {
+  const handleCommentOpen = () => {
     setCommentIsOpen(!commentIsOpen);
   };
-
-  // const handleData = async () => {
-  //   try {
-  //     await axios.get(`${API_URL}/questions/${id}/detail/`).then((res) => {
-  //       setItem(res.data);
-  //       setUpdateComment(res.data.question_comments);
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   //삭제하기
   const deleteData = async (id) => {
@@ -100,7 +88,7 @@ const Question = ({ item }) => {
   //id값을 넣어줘야 데이터가 안사라짐
   useEffect(() => {
     if (id && id > 0) {
-      console.log(item);
+      //댓글 업데이트
       setUpdateComment(item.question_comments);
       getAccessToken();
     }
@@ -245,6 +233,7 @@ const Question = ({ item }) => {
 
 export default React.memo(Question);
 
+//ssr
 export async function getServerSideProps(context) {
   const id = context.params.id;
   const apiUrl = `${API_URL}/questions/${id}/detail/`;
