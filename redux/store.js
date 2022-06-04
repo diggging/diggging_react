@@ -12,6 +12,16 @@ const persistConfig = {
   key: "reducer",
   storage,
   whitelist: ["search"],
+  blacklist: [
+    "auth",
+    "content",
+    "questions",
+    "setPage",
+    "setMinePage",
+    "setQuestion",
+    "setMine",
+    "clearBigCriteria",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
