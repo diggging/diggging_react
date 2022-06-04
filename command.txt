@@ -48,3 +48,6 @@ npm install --save @toast-ui/editor-plugin-color-syntax
 
 //fouc 이슈 라이브러리
 yarn add babel-plugin-styled-components
+
+//redux-persist
+yarn add redux-persist
