@@ -95,6 +95,13 @@ const Question = ({ item }) => {
   }, [id]);
 
   useEffect(() => {
+    //race condition때문에 비동기로 처리해야함.
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  }, []);
+
+  useEffect(() => {
     setUpdateCount(item.comment_count);
   }, [item]);
 

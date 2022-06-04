@@ -10,6 +10,7 @@ import reset from "styled-reset";
 
 import theme from "../components/common/theme";
 import { useStore } from "../redux/store.js";
+import useScrollRestoration from "../utills/useScrollRestoration";
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -66,8 +67,10 @@ const GlobalStyles = createGlobalStyle`
   
 `;
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   const { store, persistor } = useStore(pageProps.initialReduxState);
+
+  useScrollRestoration(router);
 
   return (
     <>
