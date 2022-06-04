@@ -95,6 +95,12 @@ const Question = ({ item }) => {
   }, [id]);
 
   useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  }, []);
+
+  useEffect(() => {
     setUpdateCount(item.comment_count);
   }, [item]);
 
