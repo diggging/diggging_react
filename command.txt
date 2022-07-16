@@ -51,3 +51,6 @@ yarn add babel-plugin-styled-components
 
 //redux-persist
 yarn add redux-persist
+
+//react-responsive
+yarn add react-responsive

@@ -1,5 +1,6 @@
 import "../public/static/fonts/font.css";
 import "../public/static/css/Paging.css";
+import "../public/static/css/color.css";
 
 import Head from "next/head";
 import React from "react";
@@ -64,7 +65,6 @@ const GlobalStyles = createGlobalStyle`
   .toastui-editor-defaultUI-toolbar {
     width: 940px;
   }
-  
 `;
 
 function MyApp({ Component, pageProps, router }) {

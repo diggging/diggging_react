@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import NavBar from "../components/common/NavBar";
+import Footer from "../components/Footer";
 import QuestionList from "../components/questions/QuestionList";
 import Layout from "../hocs/Layout";
 import { setQuestion } from "../modules/questions";
 import DigggingLogoReszie from "../public/static/images/DigggingLogoResize";
 import SvgToggleBtn from "../public/static/images/ToggleBtn";
-import Footer from "../components/Footer";
 
 function Main() {
   const [open, setOpen] = useState(false);
