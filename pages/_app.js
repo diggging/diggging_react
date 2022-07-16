@@ -1,6 +1,5 @@
 import "../public/static/fonts/font.css";
 import "../public/static/css/Paging.css";
-import "../public/static/css/color.css";
 
 import Head from "next/head";
 import React from "react";
