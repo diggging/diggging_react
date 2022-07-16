@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Script from 'next/script';
 import FooterDigggingLogo from '../public/static/images/FooterDigggingLogo';
+import Link from "next/link";
 
 function Footer() {
     return (
@@ -14,12 +14,17 @@ function Footer() {
             </FooterContentWrapper>
 
             <Content>
-              <FooterContentBox>
+              <FooterServiceContentBox>
                 <FooterFirstSpan>Diggging</FooterFirstSpan>
                 <FooterSpan>서비스 소개</FooterSpan>
                 <FooterSpan>홈 피드</FooterSpan>
-                <FooterSpan>회원가입</FooterSpan>
-              </FooterContentBox>
+                <FooterSpan>
+                  <Link href="/signup" passHref>
+                    회원가입
+                  </Link>
+                </FooterSpan>
+              </FooterServiceContentBox>
+              
               <FooterContentBox>
                 <FooterFirstSpan>Contact</FooterFirstSpan>
                 <FooterSpan>서비스 피드백</FooterSpan>
@@ -29,7 +34,7 @@ function Footer() {
 
           </FooterContentContainer>
           <FooterBottom>
-            <FooterThirdSpan>ⓒ Diggging All rights reserved.</FooterThirdSpan>
+            {/* <FooterThirdSpan>ⓒ Diggging All rights reserved.</FooterThirdSpan> */}
             <FooterThirdSpan>ⓒ Diggging All rights reserved.</FooterThirdSpan>
           </FooterBottom>
         </FooterContainer>
@@ -58,12 +63,18 @@ const FooterContentWrapper = styled.div`
 
 const Content = styled.div`
   display: flex;
+  padding-right: 1rem;
+`;
+
+const FooterServiceContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 54px;
 `;
 
 const FooterContentBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 2rem;
 `;
 
 const FooterFirstSpan = styled.span`
@@ -105,7 +116,9 @@ const FooterSpan = styled.span`
 
 const FooterBottom = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: end;
 `;
+
 
 
