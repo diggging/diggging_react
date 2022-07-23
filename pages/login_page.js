@@ -9,6 +9,7 @@ import { Alert } from "../components/Alert";
 import { alertService } from "../components/alert.service";
 import Layout from "../hocs/Layout";
 import { login, reset_bad_request, reset_register_success } from "../redux/actions/auth";
+import { Mobile } from "../styles/Responsive";
 import {
   BackgroundColor,
   FormBtn,

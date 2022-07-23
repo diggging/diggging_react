@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 // import { setDesc } from "../modules/editor";
 import { check_auth_status } from "../redux/actions/auth";
+import { Mobile } from "../styles/Responsive";
 
 const Layout = ({ title, content, children }) => {
   const dispatch = useDispatch();
