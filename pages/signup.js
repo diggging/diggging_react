@@ -86,7 +86,7 @@ function Signup() {
         }
         break;
       case "password2":
-        if (e.target.value == password1) {
+        if (e.target.value === password1) {
           setPasswordConfirmMessage("비밀번호가 일치합니다. 😊");
         } else {
           setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
@@ -158,11 +158,21 @@ function Signup() {
                 </svg>
               </Logo>
             </Link>
-            <GuideMessage>
-              실력있는 개발자들에게 질문하고
-              <br />
-              매일매일 성장하세요
-            </GuideMessage>
+            {Mobile ? (
+              <MobileGuideMessageWrapper>
+                <GuideMessage>
+                  실력있는 개발자들에게 질문하고
+                  <br />
+                  매일매일 성장하세요
+                </GuideMessage>
+              </MobileGuideMessageWrapper>
+            ) : (
+              <GuideMessage>
+                실력있는 개발자들에게 질문하고
+                <br />
+                매일매일 성장하세요
+              </GuideMessage>
+            )}
             <form onSubmit={(e) => onSubmitSignup(e)}>
               <UserInput
                 type="text"
@@ -265,6 +275,7 @@ const BackgroundColor = styled.div`
     background-color: white;
     width: 100%;
     min-height: 0;
+    overflow: hidden;
   }
   width: 100%;
   min-height: 43rem;
@@ -280,6 +291,13 @@ const BackgroundColor = styled.div`
 `;
 
 const SignupBox = styled.div`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: none;
+    padding: 40px 40px;
+  }
   position: relative;
   background-color: white;
   box-shadow: 0.625rem 0.625rem 2.1875rem 0 rgb(1 1 1 / 10%);
@@ -299,6 +317,10 @@ const Logo = styled.a`
   background-color: none;
   text-align: center;
   display: inherit;
+`;
+
+const MobileGuideMessageWrapper = styled.div`
+  margin-bottom: 18px;
 `;
 
 const GuideMessage = styled.p`
@@ -384,4 +406,8 @@ const LinkBtn = styled.a`
 const LinkBox = styled.div`
   color: #c4c4c4;
   text-align: right;
+`;
+
+const MobilePasswordWarpper = styled.div`
+  display: flex;
 `;
