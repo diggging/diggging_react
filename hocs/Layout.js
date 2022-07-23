@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 // import { setDesc } from "../modules/editor";
 import { check_auth_status } from "../redux/actions/auth";
-import { Mobile } from "../styles/Responsive";
+import { applyMediaQuery } from "../styles/MediaQuery";
+import { DEVICE_QUERY } from "../styles/Responsive";
 
 const Layout = ({ title, content, children }) => {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ Layout.defaultProps = {
 
 export default Layout;
 const BackgroundColor = styled.div`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+  }
   background-color: #fafaff;
   width: 100%;
   height: 100%;

@@ -10,6 +10,8 @@ import { Alert } from "../components/Alert";
 import { alertService } from "../components/alert.service";
 import Layout from "../hocs/Layout";
 import { register } from "../redux/actions/auth";
+import { applyMediaQuery } from "../styles/MediaQuery";
+import { DEVICE_QUERY, Mobile } from "../styles/Responsive";
 
 function Signup() {
   const dispatch = useDispatch();
@@ -259,6 +261,11 @@ const LoaderBox = styled.div`
 `;
 
 const BackgroundColor = styled.div`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    width: 100%;
+    min-height: 0;
+  }
   width: 100%;
   min-height: 43rem;
   height: 100%;
@@ -284,6 +291,9 @@ const SignupBox = styled.div`
 `;
 
 const Logo = styled.a`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    padding-bottom: 14px;
+  }
   border: none;
   outline: none;
   background-color: none;
@@ -292,6 +302,13 @@ const Logo = styled.a`
 `;
 
 const GuideMessage = styled.p`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    width: 100%;
+    min-height: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
   color: #848484;
   font-size: 0.75rem;
   font-family: "Pretendard-Regular";
@@ -310,6 +327,9 @@ const VerifyMessage = styled.p`
 `;
 
 const UserInput = styled.input`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    width: 100%;
+  }
   background-color: #f7f7f7;
   padding: 1rem 0.875rem;
   width: 23.75rem;
@@ -321,6 +341,11 @@ const UserInput = styled.input`
 `;
 
 const FormBtn = styled.button`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    width: 100%;
+    margin-bottom: 18px;
+    margin-top: 18px;
+  }
   background-color: #ffd358;
   border-radius: 0.5rem;
   color: white;

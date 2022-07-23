@@ -1,3 +1,3 @@
 import { DEVICE_QUERY } from "./Responsive";
 
-export const applyMediaQuery = (device) => `@media screen and ${DEVICE_QUERY.device}`;
+export const applyMediaQuery = (device) => `@media screen and ${device}`;

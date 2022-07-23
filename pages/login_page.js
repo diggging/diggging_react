@@ -9,7 +9,8 @@ import { Alert } from "../components/Alert";
 import { alertService } from "../components/alert.service";
 import Layout from "../hocs/Layout";
 import { login, reset_bad_request, reset_register_success } from "../redux/actions/auth";
-import { Mobile } from "../styles/Responsive";
+import { applyMediaQuery } from "../styles/MediaQuery";
+import { DEVICE_QUERY, Mobile, Pc } from "../styles/Responsive";
 import {
   BackgroundColor,
   FormBtn,
@@ -145,7 +146,14 @@ function LoginPage() {
               </svg>
             </Logo>
           </Link>
-          <GuideMessage>실력있는 개발자들에게 질문하고 매일매일 성장하세요</GuideMessage>
+          {Mobile ? (
+            <LoginGuideWarpper>
+              <GuideMessage>실력있는 개발자들에게 질문하고</GuideMessage>
+              <GuideMessage>매일매일 성장하세요</GuideMessage>
+            </LoginGuideWarpper>
+          ) : (
+            <GuideMessage>실력있는 개발자들에게 질문하고 매일매일 성장하세요</GuideMessage>
+          )}
           <form onSubmit={(e) => onSubmitLogin(e)}>
             <UserInput
               type="text"
@@ -191,6 +199,12 @@ function LoginPage() {
 export default LoginPage;
 
 const LoginBox = styled.div`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    box-shadow: none;
+    overflow: hidden;
+    padding: 54px 40px 145px 40px;
+  }
   background-color: white;
   box-shadow: 10px 10px 35px 0 rgb(1 1 1 / 10%);
   border-radius: 20px;
@@ -198,11 +212,7 @@ const LoginBox = styled.div`
   height: auto;
   padding: 40px 50px;
 `;
-// const Button = styled.button`
-//   padding: 12px 20px;
-//   border-radius: 20px;
-//   color: #5f5f5f;
 
-//   box-shadow: 0, 4, 12, rgba(1, 1, 1, 10%);
-//   border: none;
-// `;
+const LoginGuideWarpper = styled.div`
+  margin-bottom: 55px;
+`;
