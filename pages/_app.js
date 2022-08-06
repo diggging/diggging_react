@@ -64,7 +64,6 @@ const GlobalStyles = createGlobalStyle`
   .toastui-editor-defaultUI-toolbar {
     width: 940px;
   }
-  
 `;
 
 function MyApp({ Component, pageProps, router }) {

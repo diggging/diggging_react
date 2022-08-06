@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import NavBar from "../components/common/NavBar";
+import Footer from "../components/Footer";
 import QuestionList from "../components/questions/QuestionList";
 import Layout from "../hocs/Layout";
 import { setQuestion } from "../modules/questions";
@@ -123,6 +124,7 @@ function Main() {
           <QuestionList data={data} count={count} />
         </QuestionsContainer>
       </Container>
+      <Footer />
     </Layout>
   );
 }
@@ -180,7 +182,7 @@ const ServiceIntro = styled.p`
 
 const Container = styled.div`
   width: 1068px;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0 auto;
 `;
 

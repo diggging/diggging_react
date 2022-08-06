@@ -41,6 +41,7 @@
     "react-no-ssr": "^1.1.0",
     "react-persist": "^1.0.2",
     "react-redux": "^7.2.6",
+    "react-responsive": "^9.0.0-beta.10",
     "react-summernote": "^2.0.2",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
@@ -48,6 +49,7 @@
     "redux-thunk": "^2.4.1",
     "rxjs": "^7.4.0",
     "styled-components": "^5.3.1",
+    "styled-jsx": "^5.0.2",
     "styled-reset": "^4.3.4",
     "yarn": "^1.22.17"
   },

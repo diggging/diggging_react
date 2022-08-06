@@ -10,6 +10,8 @@ import { Alert } from "../components/Alert";
 import { alertService } from "../components/alert.service";
 import Layout from "../hocs/Layout";
 import { register } from "../redux/actions/auth";
+import { applyMediaQuery } from "../styles/MediaQuery";
+import { DEVICE_QUERY, Mobile } from "../styles/Responsive";
 
 function Signup() {
   const dispatch = useDispatch();
@@ -84,7 +86,7 @@ function Signup() {
         }
         break;
       case "password2":
-        if (e.target.value == password1) {
+        if (e.target.value === password1) {
           setPasswordConfirmMessage("비밀번호가 일치합니다. 😊");
         } else {
           setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
@@ -156,11 +158,21 @@ function Signup() {
                 </svg>
               </Logo>
             </Link>
-            <GuideMessage>
-              실력있는 개발자들에게 질문하고
-              <br />
-              매일매일 성장하세요
-            </GuideMessage>
+            {Mobile ? (
+              <MobileGuideMessageWrapper>
+                <GuideMessage>
+                  실력있는 개발자들에게 질문하고
+                  <br />
+                  매일매일 성장하세요
+                </GuideMessage>
+              </MobileGuideMessageWrapper>
+            ) : (
+              <GuideMessage>
+                실력있는 개발자들에게 질문하고
+                <br />
+                매일매일 성장하세요
+              </GuideMessage>
+            )}
             <form onSubmit={(e) => onSubmitSignup(e)}>
               <UserInput
                 type="text"
@@ -259,6 +271,12 @@ const LoaderBox = styled.div`
 `;
 
 const BackgroundColor = styled.div`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
   width: 100%;
   min-height: 43rem;
   height: 100%;
@@ -273,6 +291,13 @@ const BackgroundColor = styled.div`
 `;
 
 const SignupBox = styled.div`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: none;
+    padding: 40px 40px;
+  }
   position: relative;
   background-color: white;
   box-shadow: 0.625rem 0.625rem 2.1875rem 0 rgb(1 1 1 / 10%);
@@ -284,6 +309,9 @@ const SignupBox = styled.div`
 `;
 
 const Logo = styled.a`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    padding-bottom: 14px;
+  }
   border: none;
   outline: none;
   background-color: none;
@@ -291,7 +319,18 @@ const Logo = styled.a`
   display: inherit;
 `;
 
+const MobileGuideMessageWrapper = styled.div`
+  margin-bottom: 18px;
+`;
+
 const GuideMessage = styled.p`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    background-color: white;
+    width: 100%;
+    min-height: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
   color: #848484;
   font-size: 0.75rem;
   font-family: "Pretendard-Regular";
@@ -310,6 +349,9 @@ const VerifyMessage = styled.p`
 `;
 
 const UserInput = styled.input`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    width: 100%;
+  }
   background-color: #f7f7f7;
   padding: 1rem 0.875rem;
   width: 23.75rem;
@@ -321,6 +363,11 @@ const UserInput = styled.input`
 `;
 
 const FormBtn = styled.button`
+  ${applyMediaQuery(DEVICE_QUERY.mobile)} {
+    width: 100%;
+    margin-bottom: 18px;
+    margin-top: 18px;
+  }
   background-color: #ffd358;
   border-radius: 0.5rem;
   color: white;
@@ -359,4 +406,8 @@ const LinkBtn = styled.a`
 const LinkBox = styled.div`
   color: #c4c4c4;
   text-align: right;
+`;
+
+const MobilePasswordWarpper = styled.div`
+  display: flex;
 `;
