@@ -18,16 +18,8 @@ import { check_auth_status, logout } from "../redux/actions/auth";
 import { PageTitle } from "./find_password";
 
 function AccountSetting() {
-  //1. profileImg변경하기 O
-  //2. profileBio변경하기
-  //3. email주소 보여주기
-  //4. 닉네임 변경하기
-  //5. 비밀번호 변경하기
-  //5-1.기존 비밀번호 맞는지 확인하기
-  //5-2 맞으면 입력된 값으로 수정하기
   const router = useRouter();
   const dispatch = useDispatch();
-  //0. user정보 받아오기
   const user = useSelector((state) => state.auth.user);
   const [token, setToken] = useState("");
 
