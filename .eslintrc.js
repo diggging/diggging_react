@@ -1,5 +1,13 @@
 module.exports = {
-  plugins: ["react", "react-hooks", "import", "simple-import-sort", "prettier", "jsx-a11y"],
+  plugins: [
+    "react",
+    "react-hooks",
+    "import",
+    "simple-import-sort",
+    "prettier",
+    "jsx-a11y",
+    "jsdoc",
+  ],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -7,6 +15,7 @@ module.exports = {
     // "react-app",
     "prettier/prettier",
     "plugin:import/recommended",
+    "plugin:jsdoc/recommended",
   ],
   rules: {
     "react-hooks/rules-of-hooks": "error",
@@ -40,6 +49,7 @@ module.exports = {
     "import/no-unresolved": "off",
     "import/no-named-as-default": 0,
     "no-useless-escape": "warn",
+    "jsdoc/require-jsdoc": 0,
   },
   env: {
     node: true,
